@@ -390,7 +390,7 @@ html, body {
     }
 
     .btn-sm-mobile {
-        padding: 8px 15px !important; /* Gör knappen mindre */
+        padding: 20px 15px !important; /* Gör knappen mindre */
         font-size: 0.7rem !important;
     }
 
