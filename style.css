@@ -156,6 +156,7 @@ html, body {
     z-index: 10; /* Över bilden men under naven/lampan */
     color: white !important;
     text-align: center;
+    top:40px
 }
 
 /* --- SPECIFIKT AVSTÅND ENDAST FÖR HERO-BOXEN --- */
@@ -249,7 +250,7 @@ html, body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 70%; /* Tar upp nästan hela bredden på mobil */
+    width: 75%; /* Tar upp nästan hela bredden på mobil */
     text-align: center;
     pointer-events: none; /* Gör att man kan klicka "igenom" texten på knappar bakom */
     z-index: 500;
