@@ -3,75 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Min Retro Sida</title>
+    <title>Min Sida</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,soft,wght@9..144,100,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,soft,wght@9..144,100,900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid d-flex align-items-center">
-            
+   <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        
+        <div class="nav-left-side order-1">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        </div>
 
-            <a class="navbar-brand mx-auto" href="#">MIN LOGGA</a>
+        <a class="navbar-brand mx-auto order-2" href="#">MIN LOGGA</a>
 
-            <div style="width: 40px;"></div> 
-
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Meny</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="#">Hem</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Om</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Tjänster</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kontakt</a></li>
-                    </ul>
-                </div>
+        <div class="lamp-wrapper order-3 position-relative">
+            <div id="lamp-hint" class="lamp-hint">Släck!</div>
+            <div class="lamp-container">
+                <svg class="toggle-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 197.451 481.081">
+                    <defs>
+                        <marker id="a" orient="auto" overflow="visible" refx="0" refy="0">
+                            <path d="M.98 0a1 1 0 11-2 0 1 1 0 012 0z" fill="white" />
+                        </marker>
+                    </defs>
+                    <g class="toggle-scene__cords">
+                        <path fill="none" stroke="white" stroke-width="6" d="M123.228-28.56v150.493" transform="translate(-24.503 100)" />
+                        <g class="line toggle-scene__dummy-cord">
+                            <line marker-end="url(#a)" x1="98.7255" x2="98.7255" y1="240.5405" y2="380.5405" stroke="white" stroke-width="6" />
+                        </g>
+                        <circle class="toggle-scene__hit-spot" cx="98.7255" cy="380.5405" r="60" fill="transparent" style="cursor: pointer;" />
+                    </g>
+                    <g class="toggle-scene__bulb bulb" transform="translate(844.069 -645.213)">
+                        <path class="bulb__cap" d="M-774.546 827.629s12.917-13.473 29.203-13.412c16.53.062 29.203 13.412 29.203 13.412v53.6s-8.825 16-29.203 16c-21.674 0-29.203-16-29.203-16z" fill="#555" />
+                        <path class="bulb__bulb" stroke="white" stroke-width="5" d="M-783.192 803.855c5.251 8.815 5.295 21.32 13.272 27.774 12.299 8.045 36.46 8.115 49.127 0 7.976-6.454 8.022-18.96 13.273-27.774 3.992-6.7 14.408-19.811 14.408-19.811 8.276-11.539 12.769-24.594 12.769-38.699 0-35.898-29.102-65-65-65-35.899 0-65 29.102-65 65 0 13.667 4.217 26.348 12.405 38.2 0 0 10.754 13.61 14.746 20.31z" fill="yellow" />
+                    </g>
+                </svg>
             </div>
         </div>
-    </nav>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Meny</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Hem</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Om</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tjänster</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
 
     <main class="hero-section">
-        <img id="hero-image" src="" alt="Dagens bild" class="hero-image-bg">
-        <div class="hero-content text-center container">
-            <h1 id="hero-title" class="display-3 fw-bold mb-3">...</h1>
-            <div class="personal-greeting-container">
-                <span id="greeting-text">Laddar hälsning...</span>
-            </div>
-            <button class="btn-custom">Börja dagen med meditation</button>
-        </div>
-    </main>
+    <img id="hero-image" src="" alt="Dagens bild" class="hero-image-bg">
 
-    <div class="lamp-wrapper">
-        <div id="lamp-hint" class="lamp-hint">Släck!</div>
-        <div class="lamp-container">
-            <svg class="toggle-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 197.451 481.081">
-                <defs>
-                    <marker id="a" orient="auto" overflow="visible" refx="0" refy="0">
-                        <path d="M.98 0a1 1 0 11-2 0 1 1 0 012 0z" fill="white" />
-                    </marker>
-                </defs>
-                <g class="toggle-scene__cords">
-                    <path fill="none" stroke="white" stroke-width="6" d="M123.228-28.56v150.493" transform="translate(-24.503 100)" />
-                    <g class="line toggle-scene__dummy-cord">
-                        <line marker-end="url(#a)" x1="98.7255" x2="98.7255" y1="240.5405" y2="380.5405" stroke="white" stroke-width="6" />
-                    </g>
-                    <circle class="toggle-scene__hit-spot" cx="98.7255" cy="380.5405" r="60" fill="transparent" style="cursor: pointer;" />
-                </g>
-                <g class="toggle-scene__bulb bulb" transform="translate(844.069 -645.213)">
-                    <path class="bulb__cap" d="M-774.546 827.629s12.917-13.473 29.203-13.412c16.53.062 29.203 13.412 29.203 13.412v53.6s-8.825 16-29.203 16c-21.674 0-29.203-16-29.203-16z" fill="#555" />
-                    <path class="bulb__bulb" stroke="white" stroke-width="5" d="M-783.192 803.855c5.251 8.815 5.295 21.32 13.272 27.774 12.299 8.045 36.46 8.115 49.127 0 7.976-6.454 8.022-18.96 13.273-27.774 3.992-6.7 14.408-19.811 14.408-19.811 8.276-11.539 12.769-24.594 12.769-38.699 0-35.898-29.102-65-65-65-35.899 0-65 29.102-65 65 0 13.667 4.217 26.348 12.405 38.2 0 0 10.754 13.61 14.746 20.31z" fill="yellow" />
-                </g>
-            </svg>
-        </div>
+    <div class="hero-content text-center container">
+        <h1 id="hero-title" class="display-3 fw-bold mb-3">...</h1>
+        
+        
+        <div class="personal-greeting-container">
+    <span id="greeting-text">Laddar hälsning...</span>
+        
+</div>
+<button class="btn-custom">Börja dagen med meditation</button>
+       
     </div>
+</main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
