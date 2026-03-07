@@ -295,7 +295,7 @@ html, body {
 /* Anpassning för små mobiler */
 @media (max-width: 480px) {
     #greeting-text {
-        font-size: 0.9rem; /* Ännu mindre på riktigt små skärmar */
+        font-size: 1rem; /* Ännu mindre på riktigt små skärmar */
     }
 }
 
