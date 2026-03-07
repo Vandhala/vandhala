@@ -156,8 +156,9 @@ html, body {
     z-index: 10; /* Över bilden men under naven/lampan */
     color: white !important;
     text-align: center;
-    top:40px
+    top:20px
 }
+
 
 /* --- SPECIFIKT AVSTÅND ENDAST FÖR HERO-BOXEN --- */
 
@@ -182,7 +183,7 @@ html, body {
 .hero-content .btn-custom {
     display: inline-block;
     /* Här kan du lägga till margin-top om du vill ha ännu mer luft */
-    margin-top: 110px; 
+    margin-top: 180px; 
 }
 
 /* --- 5. KNAPPEN --- */
