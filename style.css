@@ -146,3 +146,30 @@ h1, h2, h3, .navbar-brand {
     border-radius: 10px;
     font-size: 0.7rem;
 }
+
+/* --- TVINGA SMALARE MENY PÅ MOBIL --- */
+@media (max-width: 768px) {
+    /* Vi använder !important för att vinna över Bootstraps standard */
+    .offcanvas-start, .offcanvas {
+        width: 70% !important; 
+        border-right: 2px solid var(--accent-brown);
+    }
+
+    /* Justera rubriken och krysset inuti menyn så de inte trycks ihop */
+    .offcanvas-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .offcanvas-header .btn-close {
+        margin-right: 0; /* Ser till att krysset håller sig på sin plats */
+    }
+}
+
+/* --- EXTRA SÄKERHET FÖR LAMPAN --- */
+.lamp-wrapper {
+    position: fixed;
+    top: -20px;
+    right: 10px; /* Flyttad lite mer åt höger för att ge menyn mer plats */
+    width: 90px;
+    z-index: 99999 !important;
+}
