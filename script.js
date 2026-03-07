@@ -52,7 +52,7 @@ async function updateDynamicGreeting() {
 
     // 1. Bestäm hälsning och bild baserat på tid
     let greeting = "Hej";
-    let imageUrl = "images/dag.jpg"; // Standardbild
+    let imageUrl = "images/dag.jpg"; 
 
     if (hours >= 5 && hours < 10) {
         greeting = "God morgon";
@@ -68,12 +68,10 @@ async function updateDynamicGreeting() {
         imageUrl = "images/kvall.jpg";
     }
 
-    // Uppdatera bilden direkt
     if (heroImage) {
         heroImage.src = imageUrl;
     }
 
-    // 2. Hämta väder från OpenWeather
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=sv&appid=${apiKey}`);
         
@@ -83,14 +81,12 @@ async function updateDynamicGreeting() {
         const temp = Math.round(data.main.temp);
         const condition = data.weather[0].description; 
 
-        // 3. Bygg hela meningen
         const fullSentence = `Kul att du är här, Idag är en härlig ${dayName} att njuta av ${temp} grader och ${condition}!`;
         
         if (greetingElement) greetingElement.innerText = fullSentence;
         if (heroTitle) heroTitle.innerText = greeting + "!";
 
     } catch (error) {
-        // Fallback om vädret misslyckas
         const fallback = `${greeting}, kul att du är här! Ha en fin ${dayName}!`;
         if (greetingElement) greetingElement.innerText = fallback;
         if (heroTitle) heroTitle.innerText = greeting + "!";
@@ -100,6 +96,29 @@ async function updateDynamicGreeting() {
 
 // Starta direkt vid laddning
 updateDynamicGreeting();
-
-// Uppdatera var 30:e minut
 setInterval(updateDynamicGreeting, 1800000);
+
+// --- 3. FIX FÖR MOBILMENY & LAMPA ---
+
+// Vi letar efter Bootstrap-standard för menyknappar
+const menuBtn = document.querySelector('.navbar-toggler'); 
+const lampWrapper = document.querySelector('.toggle-scene'); // Huvudcontainern för lampan
+
+if (menuBtn && lampWrapper) {
+    menuBtn.addEventListener('click', () => {
+        // Vi kollar om menyn håller på att öppnas (Bootstrap sätter ofta aria-expanded till true)
+        const isOpening = menuBtn.getAttribute('aria-expanded') === 'false';
+        
+        if (isOpening) {
+            // Göm lampan direkt så den inte stör krysset
+            lampWrapper.style.opacity = '0';
+            lampWrapper.style.pointerEvents = 'none';
+        } else {
+            // Visa lampan igen när menyn stängs
+            setTimeout(() => {
+                lampWrapper.style.opacity = '1';
+                lampWrapper.style.pointerEvents = 'all';
+            }, 300); // 300ms matchar oftast menyns animationstemp
+        }
+    });
+}

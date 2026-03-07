@@ -57,15 +57,6 @@ html, body {
     position: relative;
 }
 
-/* Göm lampan när mobilmenyn är utfälld */
-.navbar-collapse.show ~ .theme-switch-wrapper,
-.navbar-collapse.collapsing ~ .theme-switch-wrapper {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-}
-
 [data-theme="dark"] .navbar {
     background-color: var(--nav-dark) !important;
 }
