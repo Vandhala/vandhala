@@ -298,3 +298,22 @@ html, body {
         font-size: 0.7rem; /* Ännu mindre på riktigt små skärmar */
     }
 }
+
+/* --- PLAN B: MOBIL-FIX --- */
+@media (max-width: 768px) {
+    /* 1. Gör menyn smalare så den slutar innan lampan börjar */
+    .offcanvas {
+        width: 75% !important; 
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+
+    /* 2. Se till att det mörka lagret (backdrop) inte blockerar lampan */
+    .offcanvas-backdrop {
+        width: 75% !important;
+    }
+
+    /* 3. Flytta krysset (X) lite till vänster så det blir lättare att klicka */
+    .offcanvas-header .btn-close {
+        margin-right: 10px !important;
+    }
+}
