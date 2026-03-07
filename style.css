@@ -163,7 +163,7 @@ html, body {
 /* Rubriken i hjälten */
 .hero-content h1 {
     margin-bottom: 50px !important; /* Ökar avståndet till texten under */
-    font-size: clamp(2rem, 5vw, 4rem); /* Gör storleken följsam */
+    font-size: clamp(3rem, 5vw, 4rem); /* Gör storleken följsam */
     line-height: 1.2;
 }
 
