@@ -299,21 +299,26 @@ html, body {
     }
 }
 
-/* --- PLAN B: MOBIL-FIX --- */
+/* --- PLAN B: MOBIL-FIX (UPPDATERAD) --- */
 @media (max-width: 768px) {
-    /* 1. Gör menyn smalare så den slutar innan lampan börjar */
+    /* Vi tvingar både width och max-width för att vinna över Bootstrap */
+    .offcanvas-start, 
     .offcanvas {
-        width: 75% !important; 
+        width: 70% !important; 
+        max-width: 70% !important;
         box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        /* Om menyn glider in från vänster, ser vi till att den håller sig där */
+        visibility: visible !important;
     }
 
-    /* 2. Se till att det mörka lagret (backdrop) inte blockerar lampan */
-    .offcanvas-backdrop {
-        width: 75% !important;
+    /* Gör det mörka lagret (bakgrunden) smalare så lampan till höger går att klicka på */
+    .offcanvas-backdrop.show {
+        width: 70% !important;
     }
 
-    /* 3. Flytta krysset (X) lite till vänster så det blir lättare att klicka */
+    /* Flytta krysset (X) så det inte krockar med lampans snöre */
     .offcanvas-header .btn-close {
-        margin-right: 10px !important;
+        margin-right: 15px !important;
+        opacity: 1;
     }
 }
