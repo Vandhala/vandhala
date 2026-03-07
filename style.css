@@ -299,26 +299,31 @@ html, body {
     }
 }
 
-/* --- PLAN B: MOBIL-FIX (UPPDATERAD) --- */
+/* --- PLAN B: DEN AGGRESSIVA MOBIL-FIXEN --- */
 @media (max-width: 768px) {
-    /* Vi tvingar både width och max-width för att vinna över Bootstrap */
-    .offcanvas-start, 
-    .offcanvas {
-        width: 70% !important; 
-        max-width: 70% !important;
+    /* Vi tvingar alla breddegenskaper samtidigt */
+    .offcanvas, 
+    .offcanvas-start,
+    .offcanvas.show {
+        width: 70vw !important; 
+        max-width: 70vw !important;
+        min-width: 70vw !important;
+        
+        /* Denna rad tar bort Bootstraps standard-transform som kan spöka */
+        transform: none !important; 
+        left: 0 !important;
+        right: auto !important;
+        
         box-shadow: 5px 0 15px rgba(0,0,0,0.3);
-        /* Om menyn glider in från vänster, ser vi till att den håller sig där */
-        visibility: visible !important;
     }
 
-    /* Gör det mörka lagret (bakgrunden) smalare så lampan till höger går att klicka på */
+    /* Vi gör bakgrundsskuggan (backdroppen) smalare så du kan klicka på lampan */
     .offcanvas-backdrop.show {
-        width: 70% !important;
+        width: 70vw !important;
     }
 
-    /* Flytta krysset (X) så det inte krockar med lampans snöre */
+    /* Flytta krysset ordentligt så det inte krockar med snöret */
     .offcanvas-header .btn-close {
-        margin-right: 15px !important;
-        opacity: 1;
+        margin-right: 25px !important;
     }
 }
