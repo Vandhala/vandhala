@@ -480,3 +480,47 @@ html, body {
         gap: 10px;
     }
 }
+
+/* --- RESA-SEKTION --- */
+.journey-section {
+    background-color: transparent !important;
+    padding: 100px 0;
+}
+
+.skewed-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    /* Ingen overflow hidden här för att låta spetsarna synas fritt */
+}
+
+.skewed-image {
+    width: 100%;
+    height: auto;
+    /* Skapar den sneda effekten */
+    transform: rotate(-8deg); 
+    /* Ger spetsiga kanter (ingen border-radius) */
+    border-radius: 0 !important; 
+    /* Säkerställer att ingen skugga finns */
+    box-shadow: none !important;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* En subtil effekt vid hover om du vill, annars ta bort denna del */
+.skewed-image:hover {
+    transform: rotate(-5deg) scale(1.02);
+}
+
+/* Justering för att texten ska ligga bra bredvid den sneda bilden */
+@media (min-width: 992px) {
+    .journey-section .row {
+        gap: 20px;
+    }
+}
+
+/* Ser till att texten poppar i mörkerläge */
+[data-theme="dark"] .journey-section p {
+    color: #ffffff !important;
+}
