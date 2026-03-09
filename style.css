@@ -34,7 +34,7 @@ h1, h2, h3, .navbar-brand {
 html, body {
     background-color: var(--bg-light);
     margin: 0 !important;
-    padding: 0 !important;
+    /*padding: 0 !important;*/
     /* Padding-top gör plats för den fixerade navbaren */
     padding-top: -1px !important; 
     width: 100%;
