@@ -161,7 +161,7 @@ html, body {
     z-index: 10; 
     color: white !important;
     text-align: center;
-    top: 0; /* Centrerad nu när vi inte har margin-top-trix */
+    top: -40px; /* Centrerad nu när vi inte har margin-top-trix */
 }
 
 .hero-content h1 {
@@ -240,7 +240,7 @@ html, body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%; 
+    width: 80%; 
     text-align: center;
     pointer-events: none; 
     z-index: 500;
