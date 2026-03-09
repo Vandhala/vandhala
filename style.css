@@ -345,3 +345,58 @@ html, body {
         font-size: 0.75rem !important;
     }
 }
+
+
+/* --- ANDNINGS övning-SEKTION --- */
+.breathing-section {
+    background-color: transparent !important;
+    padding: 80px 0;
+}
+
+.blob-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.4s ease;
+}
+
+.breathing-blob-svg {
+    max-width: 400px; /* Anpassa storleken här */
+    width: 100%;
+    height: auto;
+    overflow: visible !important;
+}
+
+.blob-text-content {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 8px; /* Eftersom SVG-viewboxen är 200px */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    fill: #473423; /* Mörkbrun i ljust läge */
+    transition: fill 0.4s ease;
+}
+
+/* Hover-effekt */
+.blob-link:hover {
+    transform: scale(1.05);
+}
+
+.blob-link:hover .blob-text-content {
+    fill: var(--accent-brown);
+}
+
+/* --- MÖRKERLÄGE ANPASSNING --- */
+[data-theme="dark"] .blob-text-content {
+    fill: #ffffff !important; /* Vit text i mörker */
+}
+
+[data-theme="dark"] .breathing-blob-svg image {
+    filter: brightness(0.7); /* Lite mörkare bild i mörkerläge */
+}
+
+/* Mobil-anpassning */
+@media (max-width: 768px) {
+    .breathing-blob-svg {
+        max-width: 80vw;
+    }
+}
