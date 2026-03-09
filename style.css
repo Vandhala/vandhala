@@ -511,69 +511,41 @@ html, body {
 
 
 /** bil och pratbubbla  ***/
-/* --- RETRO BUBBLA MED CSS-ONLY TYPING --- */
 .retro-bubble-wrapper {
     position: relative;
-    margin-bottom: -30px;
+    margin-bottom: -20px;
     z-index: 10;
-    width: 95%;
+    width: 95%; /* Lite smalare på mobil för att få plats med skuggan */
     max-width: 500px;
 }
 
 .retro-bubble {
     background: white;
     border: 3px solid black;
-    padding: 25px;
-    box-shadow: 8px 8px 0px black;
-    min-height: 160px;
+    padding: 20px;
+    box-shadow: 6px 6px 0px black; /* Något mindre skugga på mobil */
+    min-height: 140px; /* Ger plats åt 3-4 rader text utan att hoppa */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Viktigt för skriv-effekten */
+    text-align: center;
 }
 
-.css-typing-text {
+@media (min-width: 768px) {
+    .retro-bubble {
+        padding: 30px;
+        box-shadow: 8px 8px 0px black;
+        min-height: 160px;
+    }
+    .retro-bubble-wrapper {
+        margin-bottom: -40px;
+    }
+}
+
+#typing-text {
     font-family: 'Fraunces', serif;
     font-weight: 900;
-    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
     color: black;
-    text-align: center;
-    display: inline-block;
-    
-    /* Animationen: 
-       10s totalt, 
-       steps(40) gör att det hackar fram som bokstäver, 
-       infinite gör att den loopar */
-    animation: typing-mask 8s steps(80) infinite;
-    white-space: normal; 
-    overflow: hidden;
-    border-right: 3px solid var(--accent-brown); /* Markören */
-}
-
-/* Animationen som "avslöjar" texten genom att ändra opacitet eller mask */
-@keyframes typing-mask {
-    0%, 10% { width: 0; opacity: 0; }
-    15% { opacity: 1; }
-    70% { width: 100%; opacity: 1; } /* Texten är färdigskriven här */
-    90% { width: 100%; opacity: 1; } /* Paus så man hinner läsa */
-    95%, 100% { width: 0; opacity: 0; } /* Snabb radering/fade */
-}
-
-/* Samma tail som förut */
-.bubble-tail {
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    background: white;
-    border-right: 3px solid black;
-    border-bottom: 3px solid black;
-    transform: rotate(45deg);
-    z-index: -1;
-}
-
-.car-image-container {
-    width: 100%;
-    max-width: 550px;
+    line-height: 1.3;
 }
