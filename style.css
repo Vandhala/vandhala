@@ -484,43 +484,52 @@ html, body {
 /* --- RESA-SEKTION --- */
 .journey-section {
     background-color: transparent !important;
-    padding: 100px 0;
+    padding: 80px 0;
+    overflow: hidden; /* Förhindrar att den sneda bilden sticker ut utanför skärmen */
+}
+
+/* Behållaren för bilden på datorn */
+.journey-image-wrapper {
+    flex: 0 0 45%; /* Tar upp 45% av bredden på datorn */
+    display: flex;
+    justify-content: center;
+}
+
+/* Behållaren för texten på datorn */
+.journey-text-wrapper {
+    flex: 0 0 50%; /* Tar upp 50% av bredden på datorn */
+    text-align: left;
 }
 
 .skewed-image-container {
-    position: relative;
     width: 100%;
-    max-width: 450px;
-    margin: 0 auto;
-    /* Ingen overflow hidden här för att låta spetsarna synas fritt */
+    max-width: 400px;
+    padding: 20px; /* Ger luft så att spetsarna inte klipps */
 }
 
 .skewed-image {
     width: 100%;
     height: auto;
-    /* Skapar den sneda effekten */
     transform: rotate(-8deg); 
-    /* Ger spetsiga kanter (ingen border-radius) */
     border-radius: 0 !important; 
-    /* Säkerställer att ingen skugga finns */
     box-shadow: none !important;
     display: block;
-    transition: transform 0.3s ease;
 }
 
-/* En subtil effekt vid hover om du vill, annars ta bort denna del */
-.skewed-image:hover {
-    transform: rotate(-5deg) scale(1.02);
-}
-
-/* Justering för att texten ska ligga bra bredvid den sneda bilden */
-@media (min-width: 992px) {
-    .journey-section .row {
-        gap: 20px;
+/* Mobil-fix: Centrera text och gör bilden mindre dominant */
+@media (max-width: 767px) {
+    .journey-image-wrapper, 
+    .journey-text-wrapper {
+        flex: 0 0 100%; /* Tar upp hela bredden på mobil */
+        text-align: center;
     }
-}
+    
+    .skewed-image-container {
+        max-width: 280px; /* Gör bilden lite mindre på mobil så den inte tar över hela skärmen */
+        margin-bottom: 20px;
+    }
 
-/* Ser till att texten poppar i mörkerläge */
-[data-theme="dark"] .journey-section p {
-    color: #ffffff !important;
+    .journey-text-wrapper {
+        margin-top: 40px !important;
+    }
 }
