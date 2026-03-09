@@ -122,3 +122,20 @@ updateDynamicGreeting();
 
 // Uppdatera var 30:e minut
 setInterval(updateDynamicGreeting, 1800000);
+
+// bil och pratbubbla
+
+const textTarget = document.getElementById("typing-text");
+const message = "nu startar din inre resa, vill du veta vem som sitter bredvid dig i passagerarsätet? läs mer om vandhala!";
+let i = 0;
+
+function typeWriter() {
+    if (i < message.length) {
+        textTarget.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50); // Justera hastighet här
+    }
+}
+
+// Starta animationen
+document.addEventListener("DOMContentLoaded", typeWriter);

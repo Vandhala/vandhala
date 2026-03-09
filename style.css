@@ -508,3 +508,79 @@ html, body {
         margin-top: 20px;
     }
 }
+
+
+/** bil och pratbubbla  ***/
+
+/* --- RETRO PRATBUBBLA SEKTION --- */
+.welcome-car-section {
+    background-color: transparent;
+    padding: 100px 0;
+}
+
+.retro-bubble-wrapper {
+    position: relative;
+    margin-bottom: -30px; /* Gör att bubblan överlappar bilden */
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+}
+
+.retro-bubble {
+    background: white;
+    border: 3px solid black;
+    padding: 30px;
+    box-shadow: 8px 8px 0px black; /* Den hårda svarta skuggan från bilden */
+    position: relative;
+    min-height: 150px;
+}
+
+/* Den kantiga pilen under bubblan */
+.bubble-tail {
+    position: absolute;
+    bottom: -25px;
+    left: 60%;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+    transform: rotate(45deg);
+    box-shadow: 5px 2px 0px black;
+    z-index: -1;
+}
+
+#typing-text {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: black;
+    line-height: 1.3;
+    text-transform: lowercase; /* För att matcha "välkommen till vandhala" stilen */
+}
+
+/* Bilden */
+.car-image-container {
+    max-width: 600px;
+    width: 100%;
+}
+
+.car-photo {
+    width: 100%;
+    border-radius: 0; /* Helt skarpa kanter enligt bild */
+}
+
+/* Markör animation */
+.cursor {
+    font-weight: 900;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Mörkerläge anpassning */
+[data-theme="dark"] .retro-bubble {
+    background: #f0ebdf; /* Behåll den ljusa bubblan för kontrast, eller byt till mörkgrå */
+}
