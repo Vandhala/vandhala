@@ -11,20 +11,17 @@
 /* --- RETRO TYPOGRAFI (UTAN NEDLADDNING) --- */
 
 h1, h2, h3, .navbar-brand {
-    /* Vi använder Fraunces och tvingar den att vara så mjuk som möjligt */
     font-family: 'Fraunces', serif !important;
-    font-variation-settings: "soft" 100, "wonk" 1; /* Detta ger den runda retro-känslan */
+    font-variation-settings: "soft" 100, "wonk" 1; 
     font-weight: 900;
     letter-spacing: -0.03em;
 }
 
 .hero-content h1 {
     font-size: clamp(3rem, 10vw, 5.5rem);
-    color: var(--accent-brown); /* Din bruna accentfärg */
+    color: var(--accent-brown); 
     line-height: 0.9;
     margin-bottom: 30px !important;
-    
-    /* En subtil 70-tals skugga */
     text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
 }
 
@@ -33,7 +30,7 @@ h1, h2, h3, .navbar-brand {
     text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
 }
 
-/* --- 1. GRUNDEN --- */
+/* --- 1. GRUNDEN (ÄNDRAD FÖR HELA BAKGRUNDEN) --- */
 html, body {
     background-color: var(--bg-light);
     margin: 0 !important;
@@ -43,8 +40,9 @@ html, body {
     transition: background-color 0.4s ease;
 }
 
+/* Tvingar bodyn att bli helt svart istället för mörklila */
 [data-theme="dark"] body {
-    background-color: var(--bg-dark) !important;
+    background-color: #000000 !important;
 }
 
 /* --- 2. NAVIGERING --- */
@@ -53,7 +51,7 @@ html, body {
     width: 100% !important;
     min-height: 80px;
     margin: 0 !important;
-    z-index: 1000 !important; /* Lägre än lampan */
+    z-index: 1000 !important; 
     position: relative;
 }
 
@@ -71,12 +69,11 @@ html, body {
     color: #ffffff !important;
 }
 
-/* --- 3. LAMPAN (ISOLERAD FIX) --- */
+/* --- 3. LAMPAN --- */
 .lamp-wrapper {
     width: 80px;
     height: 60px;
     position: relative;
-    /* Tvingar lampan att ligga överst av ALLT på hela sidan */
     z-index: 99999 !important; 
     display: flex !important;
     justify-content: center;
@@ -98,7 +95,6 @@ html, body {
     width: 100%;
 }
 
-/* FIXAR FÄRGEN PÅ GLÖDLAMPAN */
 .bulb__bulb {
     fill: #ffff00 !important; 
     filter: drop-shadow(0 0 15px yellow);
@@ -106,7 +102,7 @@ html, body {
 }
 
 [data-theme="dark"] .bulb__bulb {
-    fill: #444444 !important; /* Mörkgrå när släckt */
+    fill: #444444 !important; 
     filter: none !important;
 }
 
@@ -125,7 +121,7 @@ html, body {
     animation: bounce 2s infinite;
 }
 
-/* --- 4. HERO-SEKTION (Lager-fix) --- */
+/* --- 4. HERO-SEKTION --- */
 .hero-section {
     position: relative;
     width: 100%;
@@ -133,8 +129,9 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -80px; /* Drar upp bilden bakom naven */
-    z-index: 1; /* Håller hjälten under naven och lampan */
+    margin-top: -80px; 
+    z-index: 1; 
+    background-color: transparent !important; /* Gör den genomskinlig */
 }
 
 .hero-image-bg {
@@ -144,7 +141,7 @@ html, body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1; /* Längst bak inuti hero-section */
+    z-index: -1; 
 }
 
 [data-theme="dark"] .hero-image-bg {
@@ -153,25 +150,20 @@ html, body {
 
 .hero-content {
     position: relative;
-    z-index: 10; /* Över bilden men under naven/lampan */
+    z-index: 10; 
     color: white !important;
     text-align: center;
     top:-40px
 }
 
-
-/* --- SPECIFIKT AVSTÅND ENDAST FÖR HERO-BOXEN --- */
-
-/* Rubriken i hjälten */
 .hero-content h1 {
-    margin-bottom: 30px !important; /* Ökar avståndet till texten under */
-    font-size: clamp(3rem, 5vw, 4rem); /* Gör storleken följsam */
+    margin-bottom: 30px !important; 
+    font-size: clamp(3rem, 5vw, 4rem); 
     line-height: 1.2;
 }
 
-/* Brödtexten (meningen med vädret/dagen) i hjälten */
 .hero-content p {
-    margin-bottom: 550px !important; /* Rejält med luft ner till knappen */
+    margin-bottom: 550px !important; 
     font-size: clamp(1rem, 2vw, 1.25rem);
     max-width: 700px;
     margin-left: auto;
@@ -179,10 +171,8 @@ html, body {
     line-height: 1.6;
 }
 
-/* Knappen i hjälten */
 .hero-content .btn-custom {
     display: inline-block;
-    /* Här kan du lägga till margin-top om du vill ha ännu mer luft */
     margin-top: 100px; 
 }
 
@@ -208,7 +198,7 @@ html, body {
 /* --- 6. SIDOMENY --- */
 .offcanvas {
     background-color: var(--nav-color) !important;
-    z-index: 10000 !important; /* Över naven men under lampan */
+    z-index: 10000 !important; 
 }
 
 [data-theme="dark"] .offcanvas {
@@ -225,121 +215,86 @@ html, body {
     filter: invert(1) grayscale(100%) brightness(200%) !important;
 }
 
-/* --- FIX FÖR HAMBURGERMENY-IKONEN --- */
-
-/* I ljust läge (Grön bakgrund) */
 .navbar-toggler {
-    border: none !important; /* Tar bort ramen runt ikonen om du vill ha det stilrent */
+    border: none !important; 
     outline: none !important;
 }
 
 .navbar-toggler-icon {
-    /* Gör ikonen mörkgrå/svart för att poppa mot det gröna */
     filter: brightness(0) saturate(100%) invert(16%) sepia(13%) saturate(1065%) hue-rotate(224deg) brightness(93%) contrast(92%);
 }
 
-/* I mörkt läge (Mörk bakgrund) */
 [data-theme="dark"] .navbar-toggler-icon {
-    /* Gör ikonen helt vit */
     filter: invert(1) brightness(2) !important;
 }
 
-/* personlig hälsning*/
-
-/* Behållaren för hälsningen */
 .personal-greeting-container {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%; /* Tar upp nästan hela bredden på mobil */
+    width: 75%; 
     text-align: center;
-    pointer-events: none; /* Gör att man kan klicka "igenom" texten på knappar bakom */
+    pointer-events: none; 
     z-index: 500;
 }
 
-/* -- text med vädret --*/
-/* --- FIX FÖR DEN LILLA VÄDERTEXTEN --- */
-
 #greeting-text, .hero-content p {
-    font-size: clamp(1rem, 2vw, 1.1rem); /* Gör den lite tydligare */
-    font-weight: 450; /* Gör den fetare */
+    font-size: clamp(1rem, 2vw, 1.1rem); 
+    font-weight: 450; 
     line-height: 1.6;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 40px !important;
     text-align: center;
-    
-    /* EN MÖRKARE GRUNDFÄRG (Mörkbrun) */
     color: #ffffff; 
-    
-    /* EN SKARP, MÖRK SKUGGA (Drop Shadow utan sudd) */
-    /* Detta ger en retro-känsla och krispig läsbarhet */
     text-shadow: 2px 2px 0px rgba(71, 52, 35, 0.4); 
-    
     transition: all 0.3s ease;
 }
 
-/* Fallback för mörkt läge (när lampan är släckt) */
 [data-theme="dark"] #greeting-text, [data-theme="dark"] .hero-content p {
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Mjuk skugga i mörker */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
 }
 
-/* Anpassning för dator (större skärmar) */
 @media (min-width: 992px) {
     #greeting-text {
-        font-size: 1rem; /* Normal storlek på dator */
-        white-space: nowrap; /* Ingen radbrytning på dator */
+        font-size: 1rem; 
+        white-space: nowrap; 
     }
 }
 
-/* Anpassning för små mobiler */
 @media (max-width: 480px) {
     #greeting-text {
-        font-size: 1rem; /* Ännu mindre på riktigt små skärmar */
+        font-size: 1rem; 
     }
 }
 
-/* --- PLAN B: DEN AGGRESSIVA MOBIL-FIXEN --- */
 @media (max-width: 768px) {
-    /* Vi tvingar alla breddegenskaper samtidigt */
-    .offcanvas, 
-    .offcanvas-start,
-    .offcanvas.show {
+    .offcanvas, .offcanvas-start, .offcanvas.show {
         width: 70vw !important; 
         max-width: 70vw !important;
         min-width: 70vw !important;
-        
-        /* Denna rad tar bort Bootstraps standard-transform som kan spöka */
         transform: none !important; 
         left: 0 !important;
         right: auto !important;
-        
         box-shadow: 5px 0 15px rgba(0,0,0,0.3);
     }
-
-    /* Vi gör bakgrundsskuggan (backdroppen) smalare så du kan klicka på lampan */
     .offcanvas-backdrop.show {
         width: 70vw !important;
     }
-
-    /* Flytta krysset ordentligt så det inte krockar med snöret */
     .offcanvas-header .btn-close {
         margin-right: 25px !important;
     }
 }
 
-/* sektion 2 Nästa sektion med dag, kväll och morgon meditationsförslag */
-
-/* --- MEDITATION SEKTION --- */
+/* --- MEDITATION SEKTION (UPPDATERAD FÖR GENOMSKINLIGHET) --- */
 .meditation-section {
-    background-color: var(--bg-light);
+    background-color: transparent !important; /* Låter bodyns färg styra */
     transition: background-color 0.4s ease;
     padding: 40px 15px;
 }
 
-/* Rubriken - Brun i ljust läge */
 .meditation-main-title {
     font-family: 'Fraunces', serif !important;
     color: var(--accent-brown); 
@@ -351,32 +306,30 @@ html, body {
 
 .meditation-text-style {
     font-size: clamp(0.85rem, 2vw, 1.2rem);
-    color: #473423; /* Mörkbrun text */
+    color: #473423; 
     line-height: 1.4;
     margin-bottom: 1.2rem;
     transition: color 0.4s ease;
 }
 
-/* --- MÖRKERLÄGE (När lampan är släckt) --- */
+/* --- MÖRKERLÄGE SPECIFIKT --- */
 [data-theme="dark"] .meditation-section {
-    background-color: #000000 !important; /* Svart bakgrund */
+    background-color: transparent !important; 
 }
 
 [data-theme="dark"] .meditation-main-title {
-    color: #ffffff !important; /* Vit rubrik */
+    color: #ffffff !important; 
 }
 
 [data-theme="dark"] .meditation-text-style {
-    color: #ffffff !important; /* Vit text */
+    color: #ffffff !important; 
 }
 
-/* Bild-anpassning i mörker */
 [data-theme="dark"] .meditation-image-wrapper img {
     filter: brightness(0.8);
     border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* --- MOBILSPECIFIKT --- */
 @media (max-width: 767px) {
     .meditation-section {
         padding: 20px 10px;
