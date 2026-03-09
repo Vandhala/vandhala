@@ -511,6 +511,7 @@ html, body {
 
 
 /** bil och pratbubbla  ***/
+/* --- RETRO BUBBLA MED CSS-ONLY TYPING --- */
 .retro-bubble-wrapper {
     position: relative;
     margin-bottom: -30px;
@@ -520,21 +521,15 @@ html, body {
 }
 
 .retro-bubble {
-    position: relative; /* Viktigt för att pilen ska sitta fast här */
     background: white;
     border: 3px solid black;
+    padding: 25px;
     box-shadow: 8px 8px 0px black;
     min-height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Denna box klipper texten under animationen */
-.bubble-content {
-    overflow: hidden; 
-    padding: 20px;
-    width: 100%;
+    overflow: hidden; /* Viktigt för skriv-effekten */
 }
 
 .css-typing-text {
@@ -543,31 +538,42 @@ html, body {
     font-size: clamp(1rem, 3.5vw, 1.3rem);
     color: black;
     text-align: center;
-    display: block;
-    animation: typing-fade 8s ease-in-out infinite;
+    display: inline-block;
+    
+    /* Animationen: 
+       10s totalt, 
+       steps(40) gör att det hackar fram som bokstäver, 
+       infinite gör att den loopar */
+    animation: typing-mask 8s steps(80) infinite;
+    white-space: normal; 
+    overflow: hidden;
+    border-right: 3px solid var(--accent-brown); /* Markören */
 }
 
-/* Pilen - nu med högre z-index och utanför overflow */
+/* Animationen som "avslöjar" texten genom att ändra opacitet eller mask */
+@keyframes typing-mask {
+    0%, 10% { width: 0; opacity: 0; }
+    15% { opacity: 1; }
+    70% { width: 100%; opacity: 1; } /* Texten är färdigskriven här */
+    90% { width: 100%; opacity: 1; } /* Paus så man hinner läsa */
+    95%, 100% { width: 0; opacity: 0; } /* Snabb radering/fade */
+}
+
+/* Samma tail som förut */
 .bubble-tail {
     position: absolute;
-    bottom: -18px; /* Justera så den möter ramen perfekt */
+    bottom: -15px;
     left: 50%;
     width: 30px;
     height: 30px;
     background: white;
     border-right: 3px solid black;
     border-bottom: 3px solid black;
-    transform: translateX(-50%) rotate(45deg);
-    z-index: 2; /* Hamnar ovanpå eventuella klipp-zoner */
+    transform: rotate(45deg);
+    z-index: -1;
 }
 
-@keyframes typing-fade {
-    0%, 5% { opacity: 0; transform: translateY(5px); }
-    15%, 85% { opacity: 1; transform: translateY(0); }
-    95%, 100% { opacity: 0; transform: translateY(-5px); }
-}
-
-[data-theme="dark"] .retro-bubble, 
-[data-theme="dark"] .bubble-tail {
-    background: #f0ebdf !important; /* Behåll krämvit för retro-look eller ändra till mörk */
+.car-image-container {
+    width: 100%;
+    max-width: 550px;
 }
