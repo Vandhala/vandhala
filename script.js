@@ -50,8 +50,8 @@ async function updateDynamicGreeting() {
     const heroImage = document.getElementById('hero-image');
     const heroTitle = document.getElementById('hero-title');
 
-    // Element-referenser (Meditation-sektion)
-    const medTitle = document.getElementById('meditation-title');
+    // Element-referenser (Meditation-sektion) - UPPDATERAT ID HÄR FÖR ATT MATCHA NYA LAYOUTEN
+    const medTitle = document.getElementById('meditation-title-top');
     const medText = document.getElementById('meditation-text');
     const medLink = document.getElementById('meditation-link');
 
@@ -66,7 +66,7 @@ async function updateDynamicGreeting() {
         
         if(medTitle) medTitle.innerText = "Morgonmeditation";
         if(medText) medText.innerText = "Ge dig själv en bra start på dagen, det förtjänar du.";
-        if(medLink) medLink.href = "morgon-meditation.html"; // Byt till din länk
+        if(medLink) medLink.href = "morgon-meditation.html";
 
     } else if (hours >= 10 && hours < 18) {
         // DAG
@@ -75,7 +75,7 @@ async function updateDynamicGreeting() {
 
         if(medTitle) medTitle.innerText = "Meditation";
         if(medText) medText.innerText = "Ta en paus under dagen och meditera, det förtjänar du.";
-        if(medLink) medLink.href = "dag-meditation.html"; // Byt till din länk
+        if(medLink) medLink.href = "dag-meditation.html";
 
     } else {
         // KVÄLL/NATT
@@ -84,7 +84,7 @@ async function updateDynamicGreeting() {
 
         if(medTitle) medTitle.innerText = "Kvällsmeditation";
         if(medText) medText.innerText = "Landa i dig själv och ge dig själv ett bra avslut på dagen, det förtjänar du.";
-        if(medLink) medLink.href = "kvall-meditation.html"; // Byt till din länk
+        if(medLink) medLink.href = "kvall-meditation.html";
     }
 
     // Uppdatera Hero-bilden

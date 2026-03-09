@@ -332,62 +332,57 @@ html, body {
 
 /* sektion 2 Nästa sektion med dag, kväll och morgon meditationsförslag */
 
-/* --- MEDITATION SEKTION (ANPASSAD FÖR LJUS & MÖRKER) --- */
-/* --- GEMENSAM STIL --- */
+/* --- MEDITATION SEKTION --- */
 .meditation-section {
     background-color: var(--bg-light);
+    transition: background-color 0.4s ease;
+    padding: 40px 15px;
+}
+
+/* Rubriken - Brun i ljust läge */
+.meditation-main-title {
+    font-family: 'Fraunces', serif !important;
+    color: var(--accent-brown); 
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    margin-bottom: 2rem;
+    font-weight: 900;
+    transition: color 0.4s ease;
 }
 
 .meditation-text-style {
     font-size: clamp(0.85rem, 2vw, 1.2rem);
+    color: #473423; /* Mörkbrun text */
     line-height: 1.4;
-    margin-bottom: 1.5rem;
-    color: #473423;
+    margin-bottom: 1.2rem;
+    transition: color 0.4s ease;
 }
 
-/* --- MOBIL-SPECIFIKT (max 767px) --- */
+/* --- MÖRKERLÄGE (När lampan är släckt) --- */
+[data-theme="dark"] .meditation-section {
+    background-color: #000000 !important; /* Svart bakgrund */
+}
+
+[data-theme="dark"] .meditation-main-title {
+    color: #ffffff !important; /* Vit rubrik */
+}
+
+[data-theme="dark"] .meditation-text-style {
+    color: #ffffff !important; /* Vit text */
+}
+
+/* Bild-anpassning i mörker */
+[data-theme="dark"] .meditation-image-wrapper img {
+    filter: brightness(0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* --- MOBILSPECIFIKT --- */
 @media (max-width: 767px) {
-    .meditation-mobile-only-title {
-        font-size: 1.8rem !important;
-        margin-bottom: 1.5rem !important;
-        padding-left: 5px; /* Lite luft från vänster */
+    .meditation-section {
+        padding: 20px 10px;
     }
-
-    /* Texten så långt till vänster som möjligt */
-    .meditation-section .col-6:first-child {
-        padding-left: 5px !important;
-        padding-right: 10px !important;
-    }
-
-    /* Bilden så stor som möjligt till höger */
-    .meditation-section .col-6:last-child {
-        padding-right: 0 !important;
-    }
-
-    .meditation-image-wrapper img {
-        width: 100%;
-        max-width: none; /* Låter bilden fylla hela sin kolumn */
-    }
-
     .btn-meditation {
-        padding: 10px 20px !important;
-        font-size: 0.8rem !important;
-        white-space: nowrap;
-    }
-}
-
-/* --- DATOR-SPECIFIKT (min 768px) --- */
-@media (min-width: 768px) {
-    .meditation-desktop-title {
-        font-size: 3.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .meditation-section .row {
-        padding: 40px 0;
-    }
-
-    .meditation-image-wrapper img {
-        max-width: 450px; /* Håller bilden balanserad på stora skärmar */
+        padding: 8px 15px !important;
+        font-size: 0.75rem !important;
     }
 }
