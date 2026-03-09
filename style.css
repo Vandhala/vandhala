@@ -36,7 +36,7 @@ html, body {
     margin: 0 !important;
     padding: 0 !important;
     /* Padding-top gör plats för den fixerade navbaren */
-    padding-top: 1px !important; 
+    padding-top: -1px !important; 
     width: 100%;
     overflow-x: hidden;
     transition: background-color 0.4s ease;
