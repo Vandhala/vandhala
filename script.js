@@ -126,7 +126,7 @@ setInterval(updateDynamicGreeting, 1800000);
 // bil och pratbubbla
 
 const textTarget = document.getElementById("typing-text");
-const fullText = "nu startar din inre resa, vill du veta vem som sitter bredvid dig i passagerarsätet? läs mer om vandhala!";
+const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? Läs mer om vandhala!";
 
 let isDeleting = false;
 let currentText = "";
