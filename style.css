@@ -482,54 +482,29 @@ html, body {
 }
 
 /* --- RESA-SEKTION --- */
+/* --- RESA-SEKTION (FÖRENKLAD) --- */
 .journey-section {
     background-color: transparent !important;
-    padding: 80px 0;
-    overflow: hidden; /* Förhindrar att den sneda bilden sticker ut utanför skärmen */
+    padding: 60px 0;
 }
 
-/* Behållaren för bilden på datorn */
-.journey-image-wrapper {
-    flex: 0 0 45%; /* Tar upp 45% av bredden på datorn */
-    display: flex;
-    justify-content: center;
-}
-
-/* Behållaren för texten på datorn */
-.journey-text-wrapper {
-    flex: 0 0 50%; /* Tar upp 50% av bredden på datorn */
-    text-align: left;
-}
-
-.skewed-image-container {
+.journey-image-box {
+    max-width: 450px;
     width: 100%;
-    max-width: 400px;
-    padding: 20px; /* Ger luft så att spetsarna inte klipps */
 }
 
-.skewed-image {
+.plain-image {
     width: 100%;
     height: auto;
-    transform: rotate(-8deg); 
-    border-radius: 0 !important; 
-    box-shadow: none !important;
     display: block;
+    /* Tvingar bort alla hörn och skuggor */
+    border-radius: 0 !important;
+    box-shadow: none !important;
 }
 
-/* Mobil-fix: Centrera text och gör bilden mindre dominant */
+/* Mobil-justering för textavstånd */
 @media (max-width: 767px) {
-    .journey-image-wrapper, 
-    .journey-text-wrapper {
-        flex: 0 0 100%; /* Tar upp hela bredden på mobil */
-        text-align: center;
-    }
-    
-    .skewed-image-container {
-        max-width: 280px; /* Gör bilden lite mindre på mobil så den inte tar över hela skärmen */
-        margin-bottom: 20px;
-    }
-
-    .journey-text-wrapper {
-        margin-top: 40px !important;
+    .journey-section h2 {
+        margin-top: 20px;
     }
 }
