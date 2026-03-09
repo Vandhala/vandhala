@@ -400,3 +400,83 @@ html, body {
         max-width: 80vw;
     }
 }
+
+
+/* sektion med olika bilder */
+
+/* --- UTFORSKA-SEKTION (GRID) --- */
+.explore-section {
+    background-color: transparent !important;
+}
+
+.explore-grid {
+    display: grid;
+    /* Skapar 2 kolumner som är lika stora */
+    grid-template-columns: repeat(2, 1fr);
+    /* Skapar rader med fast höjd */
+    grid-auto-rows: 200px; 
+    gap: 15px; /* Avstånd mellan bilderna */
+}
+
+.explore-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.explore-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Hover-effekt på hela rutan */
+.explore-item:hover img {
+    transform: scale(1.1);
+}
+
+/* --- LOGIK FÖR PUSSEL-LAYOUTEN --- */
+.item-tall {
+    grid-row: span 2; /* Tar upp två rader i höjd */
+}
+
+.item-wide {
+    grid-column: span 2; /* Tar upp två kolumner i bredd */
+}
+
+/* --- BADGE (TEXTEN I HÖRNET) --- */
+.explore-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c272e;
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .explore-badge {
+    background: var(--nav-dark);
+    color: white;
+}
+
+.explore-item:hover .explore-badge {
+    background: var(--accent-brown);
+    color: white;
+}
+
+/* Justering för mobil (håller layouten stabil men gör den lite mindre hög) */
+@media (max-width: 576px) {
+    .explore-grid {
+        grid-auto-rows: 150px;
+        gap: 10px;
+    }
+}
