@@ -126,16 +126,39 @@ setInterval(updateDynamicGreeting, 1800000);
 // bil och pratbubbla
 
 const textTarget = document.getElementById("typing-text");
-const message = "nu startar din inre resa, vill du veta vem som sitter bredvid dig i passagerarsätet? läs mer om vandhala!";
-let i = 0;
+const fullText = "nu startar din inre resa, vill du veta vem som sitter bredvid dig i passagerarsätet? läs mer om vandhala!";
 
-function typeWriter() {
-    if (i < message.length) {
-        textTarget.innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeWriter, 50); // Justera hastighet här
+let isDeleting = false;
+let currentText = "";
+let speed = 60; // Skrivhastighet
+
+function typeLoop() {
+    // Om vi raderar, ta bort en bokstav. Annars lägg till.
+    if (isDeleting) {
+        currentText = fullText.substring(0, currentText.length - 1);
+        speed = 30; // Radera går snabbare
+    } else {
+        currentText = fullText.substring(0, currentText.length + 1);
+        speed = 60; 
     }
+
+    textTarget.innerHTML = currentText;
+
+    // Logik för att byta mellan skriva/radera
+    if (!isDeleting && currentText === fullText) {
+        // Pausa vid full mening innan vi börjar radera
+        speed = 3000; 
+        isDeleting = true;
+    } else if (isDeleting && currentText === "") {
+        isDeleting = false;
+        speed = 500; // Kort paus innan vi börjar skriva igen
+    }
+
+    setTimeout(typeLoop, speed);
 }
 
-// Starta animationen
-document.addEventListener("DOMContentLoaded", typeWriter);
+// Starta animationen (fungerar bättre på mobil än window.onload)
+document.addEventListener("DOMContentLoaded", () => {
+    // En liten fördröjning så sidan hinner "landa"
+    setTimeout(typeLoop, 1000);
+});
