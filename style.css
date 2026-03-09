@@ -55,6 +55,10 @@ html, body {
     z-index: 1000 !important; 
     /* Lägger till en skugga för att separera naven från innehållet vid skroll */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    position: fixed !important; 
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 [data-theme="dark"] .navbar {
