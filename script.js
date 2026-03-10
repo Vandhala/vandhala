@@ -94,7 +94,7 @@ setInterval(updateDynamicGreeting, 1800000);
 
 // --- 3. BIL OCH PRATBUBBLA (LOOPING) ---
 const textTarget = document.getElementById("typing-text");
-const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? Läs mer om vandhala!";
+const fullText = "nu startar din inre resa, vill du veta vem som sitter bredvid dig i passagerarsätet? läs mer om vandhala!";
 
 let isDeleting = false;
 let currentText = "";
