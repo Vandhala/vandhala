@@ -3,10 +3,6 @@ const HIT = document.querySelector('.toggle-scene__hit-spot');
 const DUMMY_CORD = document.querySelector('.toggle-scene__dummy-cord line');
 const ENDY = 380.5405;
 
-// Din API-nyckel och stad
-const apiKey = "36441c5d053784963f7d381aa8acd9a6";
-const city = "Eskilstuna";
-
 let lampIsOn = true; 
 
 // --- 1. DRAG-FUNKTION FÖR LAMPAN ---
@@ -38,19 +34,28 @@ Draggable.create(document.createElement('div'), {
   }
 });
 
-// --- 2. DYNAMISK HÄLSNING, VÄDER, BILD OCH MEDITATION ---
+// --- 2. DYNAMISK HÄLSNING, DAGLIG ÖVNING, BILD OCH MEDITATION ---
 
 async function updateDynamicGreeting() {
     const now = new Date();
     const hours = now.getHours();
-    const dayName = now.toLocaleDateString('sv-SE', { weekday: 'long' });
+    const dayName = now.toLocaleDateString('sv-SE', { weekday: 'long' }).toLowerCase();
     
-    // Element-referenser (Hero)
+    // Budskap för varje dag
+    const dailyExercises = {
+        "måndag": "Måndag är en bra dag för att sätta en intention. Vad vill du bjuda in i ditt liv under de kommande sju dagarna?",
+        "tisdag": "Tisdag handlar om riktning. Ta ett djupt andetag och låt din energi flöda mot det som faktiskt betyder något för dig.",
+        "onsdag": "Onsdag är veckans mittpunkt. Stanna upp en stund och känn efter: vad behöver du just nu för att hitta din inre jämvikt?",
+        "torsdag": "Torsdag är en dag för reflektion. Se dig omkring och nämn tre små saker som du är tacksam för i detta nu.",
+        "fredag": "Fredag är tiden för att rensa. Andas ut veckans stress och gör plats för den stillhet som väntar under helgen.",
+        "lördag": "Lördag är en dag för att bara vara. Tillåt dig själv att utforska din inre värld utan krav på prestation eller mål.",
+        "söndag": "Söndag, kom ihåg att varva ner helt. Låt själen hinna ikapp och ladda dina batterier inför en ny cykel."
+    };
+
+    // Element-referenser
     const greetingElement = document.getElementById('greeting-text');
     const heroImage = document.getElementById('hero-image');
     const heroTitle = document.getElementById('hero-title');
-
-    // Element-referenser (Meditation-sektion) - UPPDATERAT ID HÄR FÖR ATT MATCHA NYA LAYOUTEN
     const medTitle = document.getElementById('meditation-title-top');
     const medText = document.getElementById('meditation-text');
     const medLink = document.getElementById('meditation-link');
@@ -60,60 +65,32 @@ async function updateDynamicGreeting() {
     let imageUrl = "images/dag.jpg"; 
 
     if (hours >= 5 && hours < 10) {
-        // MORGON
         greeting = "God morgon";
         imageUrl = "images/morgon.jpg";
-        
         if(medTitle) medTitle.innerText = "Morgonmeditation";
         if(medText) medText.innerText = "Ge dig själv en bra start på dagen, det förtjänar du.";
         if(medLink) medLink.href = "morgon-meditation.html";
-
     } else if (hours >= 10 && hours < 18) {
-        // DAG
         greeting = "Hoppas du har en bra dag";
         imageUrl = "images/dag.jpg";
-
         if(medTitle) medTitle.innerText = "Meditation";
         if(medText) medText.innerText = "Ta en paus under dagen och meditera, det förtjänar du.";
         if(medLink) medLink.href = "dag-meditation.html";
-
     } else {
-        // KVÄLL/NATT
         greeting = (hours >= 18 && hours < 23) ? "God kväll" : "God natt";
         imageUrl = "images/kvall.jpg";
-
         if(medTitle) medTitle.innerText = "Kvällsmeditation";
         if(medText) medText.innerText = "Landa i dig själv och ge dig själv ett bra avslut på dagen, det förtjänar du.";
         if(medLink) medLink.href = "kvall-meditation.html";
     }
 
-    // Uppdatera Hero-bilden
-    if (heroImage) {
-        heroImage.src = imageUrl;
-    }
+    // Uppdatera rubrik och bild
+    if (heroImage) heroImage.src = imageUrl;
+    if (heroTitle) heroTitle.innerText = greeting + "!";
 
-    // 2. Hämta väder från OpenWeather
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=sv&appid=${apiKey}`);
-        
-        if (!response.ok) throw new Error("API-fel");
-        
-        const data = await response.json();
-        const temp = Math.round(data.main.temp);
-        const condition = data.weather[0].description; 
-
-        // 3. Bygg hela meningen för Hero-texten
-        const fullSentence = `Kul att du är här, Idag är en härlig ${dayName} att njuta av ${temp} grader och ${condition}!`;
-        
-        if (greetingElement) greetingElement.innerText = fullSentence;
-        if (heroTitle) heroTitle.innerText = greeting + "!";
-
-    } catch (error) {
-        // Fallback om vädret misslyckas
-        const fallback = `${greeting}, kul att du är här! Ha en fin ${dayName}!`;
-        if (greetingElement) greetingElement.innerText = fallback;
-        if (heroTitle) heroTitle.innerText = greeting + "!";
-        console.log("Väder kunde inte hämtas:", error);
+    // 2. Sätt det dagliga budskapet
+    if (greetingElement) {
+        greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
     }
 }
 
@@ -123,20 +100,21 @@ updateDynamicGreeting();
 // Uppdatera var 30:e minut
 setInterval(updateDynamicGreeting, 1800000);
 
-// bil och pratbubbla
+// --- 3. BIL OCH PRATBUBBLA ---
 
 const textTarget = document.getElementById("typing-text");
-const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? äs mer om vandhala!";
+const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? Läs mer om vandhala!";
 
 let isDeleting = false;
 let currentText = "";
-let speed = 60; // Skrivhastighet
+let speed = 60; 
 
 function typeLoop() {
-    // Om vi raderar, ta bort en bokstav. Annars lägg till.
+    if (!textTarget) return;
+
     if (isDeleting) {
         currentText = fullText.substring(0, currentText.length - 1);
-        speed = 30; // Radera går snabbare
+        speed = 30;
     } else {
         currentText = fullText.substring(0, currentText.length + 1);
         speed = 60; 
@@ -144,21 +122,17 @@ function typeLoop() {
 
     textTarget.innerHTML = currentText;
 
-    // Logik för att byta mellan skriva/radera
     if (!isDeleting && currentText === fullText) {
-        // Pausa vid full mening innan vi börjar radera
         speed = 3000; 
         isDeleting = true;
     } else if (isDeleting && currentText === "") {
         isDeleting = false;
-        speed = 500; // Kort paus innan vi börjar skriva igen
+        speed = 500;
     }
 
     setTimeout(typeLoop, speed);
 }
 
-// Starta animationen (fungerar bättre på mobil än window.onload)
 document.addEventListener("DOMContentLoaded", () => {
-    // En liten fördröjning så sidan hinner "landa"
     setTimeout(typeLoop, 1000);
 });
