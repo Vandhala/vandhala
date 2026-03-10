@@ -6,7 +6,33 @@ const ENDY = 380.5405;
 let lampIsOn = true; 
 
 // --- 1. DRAG-FUNKTION FÖR LAMPAN --
-
+Draggable.create(document.createElement('div'), {
+  trigger: HIT,
+  type: 'y',
+  onDrag: function() {
+    gsap.set(DUMMY_CORD, { attr: { y2: ENDY + this.y } });
+  },
+  onRelease: function() {
+    gsap.to(DUMMY_CORD, {
+      attr: { y2: ENDY },
+      duration: 0.3,
+      ease: "elastic.out(1, 0.3)",
+      onComplete: () => {
+        if (this.y > 30) {
+            lampIsOn = !lampIsOn;
+            document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
+            
+            const hint = document.getElementById('lamp-hint');
+            if (hint) {
+                hint.style.display = 'none';
+            }
+            
+            updateDynamicGreeting(); 
+        }
+      }
+    });
+  }
+}); 
 
 // 2. Själva drag-funktionen (som förut, men med "stäng tips" inbyggt)
 Draggable.create(document.createElement('div'), {
