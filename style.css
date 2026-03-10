@@ -161,7 +161,7 @@ html, body {
     z-index: 10; 
     color: white !important;
     text-align: center;
-    top: 60px; 
+    top: 84px; 
 }
 
 .hero-content h1 {
@@ -197,7 +197,7 @@ html, body {
     display: inline-block;
     transition: 0.3s;
     cursor: pointer;
-    margin-top: 180px; 
+    margin-top: 160px; 
 }
 
 [data-theme="dark"] .btn-custom {
