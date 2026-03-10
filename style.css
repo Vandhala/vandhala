@@ -6,10 +6,6 @@
     --accent-brown: #a65632; 
 }
 
-/* -- Rubriker --*/
-
-/* --- RETRO TYPOGRAFI (UTAN NEDLADDNING) --- */
-
 h1, h2, h3, .navbar-brand {
     font-family: 'Fraunces', serif !important;
     font-variation-settings: "soft" 100, "wonk" 1; 
@@ -17,11 +13,12 @@ h1, h2, h3, .navbar-brand {
     letter-spacing: -0.03em;
 }
 
+/* --- HERO TEXT --- */
 .hero-content h1 {
-    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     color: var(--accent-brown); 
-    line-height: 0.9;
-    margin-bottom: 30px !important;
+    line-height: 1.1;
+    margin-bottom: 20px !important;
     text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
 }
 
@@ -30,522 +27,114 @@ h1, h2, h3, .navbar-brand {
     text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
 }
 
-/* --- 1. GRUNDEN --- */
+#greeting-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem); 
+    font-weight: 450; 
+    line-height: 1.6;
+    max-width: 800px; /* Mer plats för budskapet */
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+    display: block;
+    white-space: normal !important; /* Tillåter radbrytning på alla skärmar */
+}
+
+.daily-message-container {
+    width: 100%;
+    margin: 20px auto 40px auto;
+}
+
+/* Resten av din bas-CSS */
 html, body {
     background-color: var(--bg-light);
-    margin: 0 !important;
-    padding: 0 !important;
-    /* Padding-top gör plats för den fixerade navbaren */
-   /* padding-top: -1px !important; */
+    margin: 0;
+    padding: 0;
     width: 100%;
     overflow-x: hidden;
     transition: background-color 0.4s ease;
 }
 
-[data-theme="dark"] body {
-    background-color: #000000 !important;
-}
+[data-theme="dark"] body { background-color: #000000 !important; }
 
-/* --- 2. NAVIGERING (FIXERAD) --- */
 .navbar {
     background-color: var(--nav-color) !important;
-    width: 100% !important;
+    width: 100%;
     min-height: 80px;
-    margin: 0 !important;
-    z-index: 1000 !important; 
-    /* Lägger till en skugga för att separera naven från innehållet vid skroll */
+    z-index: 1000; 
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
     position: fixed !important; 
     top: 0;
-    left: 0;
-    right: 0;
 }
 
-[data-theme="dark"] .navbar {
-    background-color: var(--nav-dark) !important;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.5);
-}
+/* Lamp-logik */
+.lamp-wrapper { width: 80px; height: 60px; position: relative; z-index: 9999; display: flex; justify-content: center; }
+.toggle-scene { position: absolute; top: -10px; width: 100%; overflow: visible !important; }
+.bulb__bulb { fill: #ffff00; filter: drop-shadow(0 0 15px yellow); transition: 0.3s; }
+[data-theme="dark"] .bulb__bulb { fill: #444; filter: none; }
 
-.navbar-brand, .nav-link {
-    color: #2c272e !important; 
-    font-weight: 700;
-}
-
-[data-theme="dark"] .navbar-brand, 
-[data-theme="dark"] .nav-link {
-    color: #ffffff !important;
-}
-
-/* --- 3. LAMPAN --- */
-.lamp-wrapper {
-    width: 80px;
-    height: 60px;
-    position: relative;
-    z-index: 99999 !important; 
-    display: flex !important;
-    justify-content: center;
-    overflow: visible !important;
-}
-
-.lamp-container {
-    width: 50px;
-    height: 100px;
-    position: relative;
-    overflow: visible !important;
-}
-
-.toggle-scene {
-    overflow: visible !important;
-    position: absolute;
-    top: -10px;
-    left: 0;
-    width: 100%;
-}
-
-.bulb__bulb {
-    fill: #ffff00 !important; 
-    filter: drop-shadow(0 0 15px yellow);
-    transition: 0.3s;
-}
-
-[data-theme="dark"] .bulb__bulb {
-    fill: #444444 !important; 
-    filter: none !important;
-}
-
-.lamp-hint {
-    position: absolute;
-    top: 90px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    z-index: 100000;
-    pointer-events: none;
-    animation: bounce 2s infinite;
-}
-
-/* --- 4. HERO-SEKTION --- */
+/* Hero Layout */
 .hero-section {
     position: relative;
     width: 100%;
-    /* Justerar höjden så att hela bilden syns trots fixerad nav */
-    height: calc(100vh - 80px); 
+    height: 100vh; 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0 !important; 
     z-index: 1; 
-    background-color: transparent !important;
 }
 
 .hero-image-bg {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     object-fit: cover;
     z-index: -1; 
 }
+[data-theme="dark"] .hero-image-bg { filter: brightness(0.3); }
 
-[data-theme="dark"] .hero-image-bg {
-    filter: brightness(0.3);
-}
+.hero-content { position: relative; z-index: 10; color: white; padding: 0 20px; }
 
-.hero-content {
-    position: relative;
-    z-index: 10; 
-    color: white !important;
-    text-align: center;
-    top: -40px; /* Centrerad nu när vi inte har margin-top-trix */
-}
-
-.hero-content h1 {
-    margin-bottom: 30px !important; 
-    font-size: clamp(3rem, 5vw, 4rem); 
-    line-height: 1.2;
-}
-
-.hero-content p {
-    margin-bottom: 40px !important; /* Minskat detta för att det ska funka med fixed nav */
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-}
-
-.hero-content .btn-custom {
-    display: inline-block;
-    margin-top: 60px; 
-}
-
-/* --- 5. KNAPPEN --- */
+/* Knappar */
 .btn-custom {
     background-color: var(--accent-brown) !important;
     color: white !important;
-    border: none;
-    padding: 18px 45px;
+    padding: 15px 40px;
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
     display: inline-block;
     transition: 0.3s;
-    cursor: pointer;
+    border: none;
 }
+[data-theme="dark"] .btn-custom { background-color: #333 !important; border: 1px solid white; }
 
-[data-theme="dark"] .btn-custom {
-    background-color: #000000 !important;
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
-/* --- 6. SIDOMENY --- */
-.offcanvas {
-    background-color: var(--nav-color) !important;
-    z-index: 10000 !important; 
-}
-
-[data-theme="dark"] .offcanvas {
-    background-color: var(--nav-dark) !important;
-}
-
-/* --- ÖVRIGT --- */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-5px); }
-}
-
-[data-theme="dark"] .btn-close {
-    filter: invert(1) grayscale(100%) brightness(200%) !important;
-}
-
-.navbar-toggler {
-    border: none !important; 
-    outline: none !important;
-}
-
-.navbar-toggler-icon {
-    filter: brightness(0) saturate(100%) invert(16%) sepia(13%) saturate(1065%) hue-rotate(224deg) brightness(93%) contrast(92%);
-}
-
-[data-theme="dark"] .navbar-toggler-icon {
-    filter: invert(1) brightness(2) !important;
-}
-
-.personal-greeting-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%; 
-    text-align: center;
-    pointer-events: none; 
-    z-index: 500;
-}
-
-#greeting-text, .hero-content p {
-    font-size: clamp(1rem, 2vw, 1.1rem); 
-    font-weight: 450; 
-    line-height: 1.6;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    color: #ffffff; 
-    text-shadow: 2px 2px 0px rgba(71, 52, 35, 0.4); 
-    transition: all 0.3s ease;
-}
-
-[data-theme="dark"] #greeting-text, [data-theme="dark"] .hero-content p {
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
-}
-
-@media (min-width: 992px) {
-    #greeting-text {
-        font-size: 1rem; 
-        white-space: nowrap; 
-    }
-}
-
-@media (max-width: 480px) {
-    #greeting-text {
-        font-size: 1rem; 
-    }
-}
-
-@media (max-width: 768px) {
-    .offcanvas, .offcanvas-start, .offcanvas.show {
-        width: 70vw !important; 
-        max-width: 70vw !important;
-        min-width: 70vw !important;
-        transform: none !important; 
-        left: 0 !important;
-        right: auto !important;
-        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
-    }
-    .offcanvas-backdrop.show {
-        width: 70vw !important;
-    }
-    .offcanvas-header .btn-close {
-        margin-right: 25px !important;
-    }
-}
-
-/* --- MEDITATION SEKTION --- */
-.meditation-section {
-    background-color: transparent !important; 
-    transition: background-color 0.4s ease;
-    padding: 60px 15px; /* Ökat padding för luftigare känsla */
-}
-
-.meditation-main-title {
-    font-family: 'Fraunces', serif !important;
-    color: var(--accent-brown); 
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    margin-bottom: 2rem;
-    font-weight: 900;
-    transition: color 0.4s ease;
-}
-
-.meditation-text-style {
-    font-size: clamp(0.85rem, 2vw, 1.2rem);
-    color: #473423; 
-    line-height: 1.4;
-    margin-bottom: 1.2rem;
-    transition: color 0.4s ease;
-}
-
-[data-theme="dark"] .meditation-section {
-    background-color: transparent !important; 
-}
-
-[data-theme="dark"] .meditation-main-title {
-    color: #ffffff !important; 
-}
-
-[data-theme="dark"] .meditation-text-style {
-    color: #ffffff !important; 
-}
-
-[data-theme="dark"] .meditation-image-wrapper img {
-    filter: brightness(0.8);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-@media (max-width: 767px) {
-    .meditation-section {
-        padding: 40px 10px;
-    }
-    .btn-meditation {
-        padding: 8px 15px !important;
-        font-size: 0.75rem !important;
-    }
-}
-
-
-/* --- ANDNINGS övning-SEKTION --- */
-.breathing-section {
-    background-color: transparent !important;
-    padding: 80px 0;
-}
-
-.blob-link {
-    display: inline-block;
-    text-decoration: none;
-    transition: transform 0.4s ease;
-}
-
-.breathing-blob-svg {
-    max-width: 400px; /* Anpassa storleken här */
-    width: 100%;
-    height: auto;
-    overflow: visible !important;
-}
-
-.blob-text-content {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 8px; /* Eftersom SVG-viewboxen är 200px */
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    fill: #473423; /* Mörkbrun i ljust läge */
-    transition: fill 0.4s ease;
-}
-
-/* Hover-effekt */
-.blob-link:hover {
-    transform: scale(1.05);
-}
-
-.blob-link:hover .blob-text-content {
-    fill: var(--accent-brown);
-}
-
-/* --- MÖRKERLÄGE ANPASSNING --- */
-[data-theme="dark"] .blob-text-content {
-    fill: #ffffff !important; /* Vit text i mörker */
-}
-
-[data-theme="dark"] .breathing-blob-svg image {
-    filter: brightness(0.7); /* Lite mörkare bild i mörkerläge */
-}
-
-/* Mobil-anpassning */
-@media (max-width: 768px) {
-    .breathing-blob-svg {
-        max-width: 80vw;
-    }
-}
-
-
-/* sektion med olika bilder */
-
-/* --- UTFORSKA-SEKTION (GRID) --- */
-.explore-section {
-    background-color: transparent !important;
-}
-
-.explore-grid {
-    display: grid;
-    /* Skapar 2 kolumner som är lika stora */
-    grid-template-columns: repeat(2, 1fr);
-    /* Skapar rader med fast höjd */
-    grid-auto-rows: 200px; 
-    gap: 15px; /* Avstånd mellan bilderna */
-}
-
-.explore-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    text-decoration: none;
-    display: block;
-}
-
-.explore-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-/* Hover-effekt på hela rutan */
-.explore-item:hover img {
-    transform: scale(1.1);
-}
-
-/* --- LOGIK FÖR PUSSEL-LAYOUTEN --- */
-.item-tall {
-    grid-row: span 2; /* Tar upp två rader i höjd */
-}
-
-.item-wide {
-    grid-column: span 2; /* Tar upp två kolumner i bredd */
-}
-
-/* --- BADGE (TEXTEN I HÖRNET) --- */
-.explore-badge {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #2c272e;
-    padding: 6px 15px;
-    border-radius: 30px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-[data-theme="dark"] .explore-badge {
-    background: var(--nav-dark);
-    color: white;
-}
-
-.explore-item:hover .explore-badge {
-    background: var(--accent-brown);
-    color: white;
-}
-
-/* Justering för mobil (håller layouten stabil men gör den lite mindre hög) */
-@media (max-width: 576px) {
-    .explore-grid {
-        grid-auto-rows: 150px;
-        gap: 10px;
-    }
-}
-
-/* --- RESA-SEKTION --- */
-/* --- RESA-SEKTION (FÖRENKLAD) --- */
-.journey-section {
-    background-color: transparent !important;
-    padding: 60px 0;
-}
-
-.journey-image-box {
-    max-width: 450px;
-    width: 100%;
-}
-
-.plain-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* Tvingar bort alla hörn och skuggor */
-    border-radius: 0 !important;
-    box-shadow: none !important;
-}
-
-/* Mobil-justering för textavstånd */
-@media (max-width: 767px) {
-    .journey-section h2 {
-        margin-top: 20px;
-    }
-}
-
-
-/** bil och pratbubbla  ***/
-.retro-bubble-wrapper {
-    position: relative;
-    margin-bottom: -20px;
-    z-index: 10;
-    width: 95%; /* Lite smalare på mobil för att få plats med skuggan */
-    max-width: 500px;
-}
-
+/* Retro Bubbla */
 .retro-bubble {
     background: white;
     border: 3px solid black;
-    padding: 20px;
-    box-shadow: 6px 6px 0px black; /* Något mindre skugga på mobil */
-    min-height: 140px; /* Ger plats åt 3-4 rader text utan att hoppa */
+    padding: 25px;
+    box-shadow: 8px 8px 0px black;
+    min-height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    position: relative;
 }
 
-@media (min-width: 768px) {
-    .retro-bubble {
-        padding: 30px;
-        box-shadow: 8px 8px 0px black;
-        min-height: 160px;
-    }
-    .retro-bubble-wrapper {
-        margin-bottom: -40px;
-    }
+.bubble-tail {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+    transform: translateX(-50%) rotate(45deg);
 }
 
-#typing-text {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
-    color: black;
-    line-height: 1.3;
+/* Media Queries för mobil */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.8rem; }
+    #greeting-text { font-size: 1.1rem; }
 }
