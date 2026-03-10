@@ -246,34 +246,60 @@ html, body {
     z-index: 500;
 }
 
+/* --- PERSONLIG HÄLSNING & DAGLIG ÖVNING --- */
+.personal-greeting-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* Lite bredare för att ge texten plats */
+    text-align: center;
+    pointer-events: none; 
+    z-index: 500;
+}
+
 #greeting-text, .hero-content p {
-    font-size: clamp(1rem, 2vw, 1.1rem); 
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem); /* Något större för bättre läsbarhet */
     font-weight: 450; 
     line-height: 1.6;
-    max-width: 600px;
+    max-width: 800px; /* Ökat från 600px för att rymma längre meningar */
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     color: #ffffff; 
-    text-shadow: 2px 2px 0px rgba(71, 52, 35, 0.4); 
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Kraftigare skugga så texten syns mot bilden */
     transition: all 0.3s ease;
+    white-space: normal !important; /* Säkerställer att texten hoppar ner på ny rad */
+    display: block;
 }
 
 [data-theme="dark"] #greeting-text, [data-theme="dark"] .hero-content p {
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); 
 }
 
+/* Responsiva justeringar */
 @media (min-width: 992px) {
     #greeting-text {
-        font-size: 1rem; 
-        white-space: nowrap; 
+        font-size: 1.3rem; 
+        white-space: normal !important; /* Dubbelkoll så att nowrap är borta */
+        max-width: 850px;
+    }
+}
+
+@media (max-width: 768px) {
+    .personal-greeting-container {
+        width: 95%;
+        top: 55%; /* Justera denna om texten hamnar för nära rubriken */
+    }
+    #greeting-text {
+        font-size: 1.1rem;
+        line-height: 1.4;
     }
 }
 
 @media (max-width: 480px) {
     #greeting-text {
-        font-size: 1rem; 
+        font-size: 1rem;
     }
 }
 
