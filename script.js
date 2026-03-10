@@ -5,7 +5,10 @@ const ENDY = 380.5405;
 
 let lampIsOn = true; 
 
-// --- 1. DRAG-FUNKTION FÖR LAMPAN ---
+// --- 1. DRAG-FUNKTION FÖR LAMPAN --
+
+
+// 2. Själva drag-funktionen (som förut, men med "stäng tips" inbyggt)
 Draggable.create(document.createElement('div'), {
   trigger: HIT,
   type: 'y',
@@ -22,9 +25,9 @@ Draggable.create(document.createElement('div'), {
             lampIsOn = !lampIsOn;
             document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
             
-            const hint = document.getElementById('lamp-hint');
-            if (hint) {
-                hint.style.display = 'none';
+            // DÖLJ TEXTEN DIREKT NÄR MAN DRAR I SNÖRET
+            if (lampHint) {
+                lampHint.style.display = 'none';
             }
             
             updateDynamicGreeting(); 
