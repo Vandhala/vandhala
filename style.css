@@ -162,7 +162,7 @@ html, body {
     color: white !important;
     text-align: center;
     top: -40px; /* Centrerad nu när vi inte har margin-top-trix */
-    margin-top: 60px; 
+    
 }
 
 .hero-content h1 {
@@ -178,6 +178,7 @@ html, body {
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
+    margin-top: 60px; 
 }
 
 .hero-content .btn-custom {
@@ -197,7 +198,7 @@ html, body {
     display: inline-block;
     transition: 0.3s;
     cursor: pointer;
-    margin-top: 20vh; 
+    margin-top: 40vh; 
 }
 
 [data-theme="dark"] .btn-custom {
