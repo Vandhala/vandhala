@@ -5,36 +5,23 @@ const ENDY = 380.5405;
 
 let lampIsOn = true; 
 
-// --- 1. DRAG-FUNKTION FÖR LAMPAN --
-Draggable.create(document.createElement('div'), {
-  trigger: HIT,
-  type: 'y',
-  onDrag: function() {
-    gsap.set(DUMMY_CORD, { attr: { y2: ENDY + this.y } });
-  },
-  onRelease: function() {
-    gsap.to(DUMMY_CORD, {
-      attr: { y2: ENDY },
-      duration: 0.3,
-      ease: "elastic.out(1, 0.3)",
-      onComplete: () => {
-        if (this.y > 30) {
-            lampIsOn = !lampIsOn;
-            document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
-            
-            const hint = document.getElementById('lamp-hint');
-            if (hint) {
-                hint.style.display = 'none';
-            }
-            
-            updateDynamicGreeting(); 
-        }
-      }
-    });
-  }
-}); 
+// --- 1. HITTA TEXTEN OCH SKAPA TIMERN ---
+const lampHint = document.getElementById('lamp-hint');
 
-// 2. Själva drag-funktionen (som förut, men med "stäng tips" inbyggt)
+// Starta 20-sekunders timern direkt
+if (lampHint) {
+    setTimeout(() => {
+        if (lampHint.style.display !== 'none') {
+            gsap.to(lampHint, { 
+                opacity: 0, 
+                duration: 1, 
+                onComplete: () => lampHint.style.display = 'none' 
+            });
+        }
+    }, 20000); 
+}
+
+// --- 2. DRAG-FUNKTION FÖR LAMPAN (Endast en version!) ---
 Draggable.create(document.createElement('div'), {
   trigger: HIT,
   type: 'y',
@@ -51,7 +38,7 @@ Draggable.create(document.createElement('div'), {
             lampIsOn = !lampIsOn;
             document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
             
-            // DÖLJ TEXTEN DIREKT NÄR MAN DRAR I SNÖRET
+            // Dölj hint-texten direkt vid klick/drag
             if (lampHint) {
                 lampHint.style.display = 'none';
             }
@@ -63,14 +50,12 @@ Draggable.create(document.createElement('div'), {
   }
 });
 
-// --- 2. DYNAMISK HÄLSNING, DAGLIG ÖVNING, BILD OCH MEDITATION ---
-
+// --- 3. DYNAMISK HÄLSNING & DAGLIG ÖVNING ---
 async function updateDynamicGreeting() {
     const now = new Date();
     const hours = now.getHours();
     const dayName = now.toLocaleDateString('sv-SE', { weekday: 'long' }).toLowerCase();
     
-    // Budskap för varje dag
     const dailyExercises = {
         "måndag": "Måndag är en bra dag för att sätta en intention. Vad vill du bjuda in i ditt liv under de kommande sju dagarna?",
         "tisdag": "Tisdag handlar om riktning. Ta ett djupt andetag och låt din energi flöda mot det som faktiskt betyder något för dig.",
@@ -81,7 +66,6 @@ async function updateDynamicGreeting() {
         "söndag": "Söndag, kom ihåg att varva ner helt. Låt själen hinna ikapp och ladda dina batterier inför en ny cykel."
     };
 
-    // Element-referenser
     const greetingElement = document.getElementById('greeting-text');
     const heroImage = document.getElementById('hero-image');
     const heroTitle = document.getElementById('hero-title');
@@ -89,7 +73,6 @@ async function updateDynamicGreeting() {
     const medText = document.getElementById('meditation-text');
     const medLink = document.getElementById('meditation-link');
 
-    // 1. Bestäm hälsning och bild baserat på tid
     let greeting = "Hej";
     let imageUrl = "images/dag.jpg"; 
 
@@ -113,24 +96,15 @@ async function updateDynamicGreeting() {
         if(medLink) medLink.href = "kvall-meditation.html";
     }
 
-    // Uppdatera rubrik och bild
     if (heroImage) heroImage.src = imageUrl;
     if (heroTitle) heroTitle.innerText = greeting + "!";
-
-    // 2. Sätt det dagliga budskapet
-    if (greetingElement) {
-        greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
-    }
+    if (greetingElement) greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
 }
 
-// Starta direkt vid laddning
 updateDynamicGreeting();
-
-// Uppdatera var 30:e minut
 setInterval(updateDynamicGreeting, 1800000);
 
-// --- 3. BIL OCH PRATBUBBLA ---
-
+// --- 4. BIL OCH PRATBUBBLA ---
 const textTarget = document.getElementById("typing-text");
 const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? Läs mer om vandhala!";
 
@@ -140,7 +114,6 @@ let speed = 60;
 
 function typeLoop() {
     if (!textTarget) return;
-
     if (isDeleting) {
         currentText = fullText.substring(0, currentText.length - 1);
         speed = 30;
@@ -148,9 +121,7 @@ function typeLoop() {
         currentText = fullText.substring(0, currentText.length + 1);
         speed = 60; 
     }
-
     textTarget.innerHTML = currentText;
-
     if (!isDeleting && currentText === fullText) {
         speed = 3000; 
         isDeleting = true;
@@ -158,7 +129,6 @@ function typeLoop() {
         isDeleting = false;
         speed = 500;
     }
-
     setTimeout(typeLoop, speed);
 }
 
