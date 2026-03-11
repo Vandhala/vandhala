@@ -1,6 +1,7 @@
 const { gsap } = window;
 
 // --- 0. HÄMTA SPARAT TEMA ---
+// Vi kollar om 'theme' finns sparat i localStorage. Om inte, utgår vi från 'light'.
 let savedTheme = localStorage.getItem('theme') || 'light';
 let lampIsOn = savedTheme === 'light';
 
@@ -54,17 +55,12 @@ function initializeLamp() {
 
     if (!HIT || !DUMMY_CORD) return;
 
-    // --- NYTT: Kolla om användaren redan har sett instruktionen ---
-    const hasUsedLamp = localStorage.getItem('hasUsedLamp') === 'true';
-    
-    if (hasUsedLamp && lampHint) {
-        lampHint.style.display = 'none';
-    } else if (lampHint) {
-        // Om de inte använt den förut, visa den men dölj efter 15 sekunder
-        lampHint.style.display = 'block';
+    if (lampHint) {
         setTimeout(() => {
-            gsap.to(lampHint, { opacity: 0, duration: 1, onComplete: () => lampHint.style.display = 'none' });
-        }, 15000);
+            if (lampHint.style.display !== 'none') {
+                gsap.to(lampHint, { opacity: 0, duration: 1, onComplete: () => lampHint.style.display = 'none' });
+            }
+        }, 20000);
     }
 
     Draggable.create(document.createElement('div'), {
@@ -83,15 +79,13 @@ function initializeLamp() {
                         lampIsOn = !lampIsOn;
                         const newTheme = lampIsOn ? 'light' : 'dark';
                         
+                        // Uppdatera HTML-attributet
                         document.documentElement.setAttribute('data-theme', newTheme);
+                        
+                        // SPARA valet i webbläsarens minne
                         localStorage.setItem('theme', newTheme);
                         
-                        // --- NYTT: Markera att de lärt sig lampan ---
-                        localStorage.setItem('hasUsedLamp', 'true');
-                        
-                        if (lampHint) {
-                            gsap.to(lampHint, { opacity: 0, duration: 0.5, onComplete: () => lampHint.style.display = 'none' });
-                        }
+                        if (lampHint) lampHint.style.display = 'none';
                         
                         updateDynamicGreeting(); 
                         updateMeditationHero();
@@ -207,6 +201,8 @@ function typeLoop() {
 
 // --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
+    // Vi behöver inte sätta temat här igen eftersom det görs längst upp i filen,
+    // men vi laddar in komponenterna som vanligt.
     loadComponent('nav-placeholder', 'nav-template.html');
     loadComponent('footer-placeholder', 'footer-template.html');
     
