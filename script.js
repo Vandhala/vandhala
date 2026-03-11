@@ -118,17 +118,20 @@ async function updateDynamicGreeting() {
 }
 
 // --- 4. DYNAMISK HERO (Meditationssidan) ---
+// --- 4. DYNAMISK HERO (Fungerar nu på både Startsida & Meditationssida) ---
 function updateMeditationHero() {
-    const heroCard = document.getElementById('dynamic-hero-card');
-    if (!heroCard) return; 
+    // Vi kollar efter båda sidornas ID:n med || (som betyder "eller")
+    const glassTitle = document.getElementById('dynamic-glass-title') || document.getElementById('meditation-title-top');
+    const glassText = document.getElementById('dynamic-glass-text') || document.getElementById('meditation-text');
+    const glassLink = document.getElementById('dynamic-glass-link') || document.getElementById('meditation-link');
+    
+    // Visuella element
+    const heroCard = document.getElementById('dynamic-hero-card'); // För meditationssidan
+    const sideImg = document.getElementById('meditation-side-img'); // För startsidan (kräver id i HTML)
 
     const now = new Date();
     const hours = now.getHours();
     
-    const glassTitle = document.getElementById('dynamic-glass-title');
-    const glassText = document.getElementById('dynamic-glass-text');
-    const glassLink = document.getElementById('dynamic-glass-link');
-
     let title, text, img, link;
 
     if (hours >= 5 && hours < 10) {
@@ -148,11 +151,20 @@ function updateMeditationHero() {
         link = "kvall-meditation.html";
     }
 
+    // Uppdatera texter om elementen finns på sidan
     if (glassTitle) glassTitle.innerText = title;
     if (glassText) glassText.innerText = text;
     if (glassLink) glassLink.href = link;
     
-    heroCard.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${img}')`;
+    // Uppdatera bakgrundsbild (Meditationssidan)
+    if (heroCard) {
+        heroCard.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${img}')`;
+    }
+
+    // Uppdatera bildkälla (Startsidan - kom ihåg att lägga till id="meditation-side-img" på din <img>)
+    if (sideImg) {
+        sideImg.src = img;
+    }
 }
 
 // --- 5. SLUMPVALT CITAT ---
