@@ -795,42 +795,79 @@ html, body {
 }
 .cat-item span { font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
 
-/* --- SIDOSKROLL --- */
+/* --- SIDOSKROLL (UPPDATERAD MED KLICKBARHET) --- */
 .horizontal-scroll-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 25px; /* Lite extra luft för skuggan vid hover */
     scrollbar-width: none; /* Dölj scroll i Firefox */
+    -ms-overflow-style: none; /* Dölj scroll i IE/Edge */
 }
-.horizontal-scroll-wrapper::-webkit-scrollbar { display: none; } /* Dölj i Chrome/Safari */
+
+.horizontal-scroll-wrapper::-webkit-scrollbar { 
+    display: none; /* Dölj i Chrome/Safari */
+}
 
 .med-card {
-    min-width: 250px;
-    height: 350px;
-    border-radius: 20px;
+    min-width: 260px;
+    height: 360px;
+    border-radius: 25px;
     background-size: cover;
+    background-position: center;
     position: relative;
     flex-shrink: 0;
+    text-decoration: none !important; /* Tar bort länk-understrykning */
+    display: block;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
+/* Effekt när man håller musen över kortet */
+.med-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
 .badge-time {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(0,0,0,0.4);
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px); /* Lyxig frostat glas-effekt på badgen */
+    -webkit-backdrop-filter: blur(5px);
     color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 2;
 }
+
 .card-overlay {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 20px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    border-radius: 0 0 20px 20px;
+    padding: 25px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    border-radius: 0 0 25px 25px;
     color: white;
+    z-index: 2;
+}
+
+.card-overlay h3 {
+    font-family: 'Fraunces', serif !important;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.card-overlay p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.3;
 }
 
 /* --- MÖRKERLÄGE ANPASSNING --- */
