@@ -17,6 +17,13 @@ async function loadComponent(elementId, fileName) {
         
         if (elementId === 'nav-placeholder') {
             initializeLamp(); 
+            
+            // --- FIX FÖR MOBILMENY ---
+            // Här initierar vi Bootstrap-komponenterna på nytt efter att de laddats in
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse && window.bootstrap) {
+                new bootstrap.Collapse(navbarCollapse, { toggle: false });
+            }
         }
         if (elementId === 'footer-placeholder') {
             updateFooterQuote(); 
