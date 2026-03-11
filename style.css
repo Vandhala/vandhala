@@ -6,7 +6,10 @@
     --accent-brown: #a65632; 
 }
 
-/* --- RETRO TYPOGRAFI --- */
+/* -- Rubriker --*/
+
+/* --- RETRO TYPOGRAFI (UTAN NEDLADDNING) --- */
+
 h1, h2, h3, .navbar-brand {
     font-family: 'Fraunces', serif !important;
     font-variation-settings: "soft" 100, "wonk" 1; 
@@ -32,6 +35,8 @@ html, body {
     background-color: var(--bg-light);
     margin: 0 !important;
     padding: 0 !important;
+    /* Padding-top gör plats för den fixerade navbaren */
+   /* padding-top: -1px !important; */
     width: 100%;
     overflow-x: hidden;
     transition: background-color 0.4s ease;
@@ -48,6 +53,7 @@ html, body {
     min-height: 80px;
     margin: 0 !important;
     z-index: 1000 !important; 
+    /* Lägger till en skugga för att separera naven från innehållet vid skroll */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
     position: fixed !important; 
     top: 0;
@@ -75,10 +81,10 @@ html, body {
     width: 80px;
     height: 60px;
     position: relative;
+    z-index: 99999 !important; 
     display: flex !important;
     justify-content: center;
     overflow: visible !important;
-    z-index: 1001 !important; /* Ligger mellan navbar och offcanvas */
 }
 
 .lamp-container {
@@ -122,16 +128,24 @@ html, body {
     animation: bounce 2s infinite;
 }
 
+#lamp-hint {
+    display: none; /* Dölj som standard, JS visar den om det behövs */
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
 /* --- 4. HERO-SEKTION --- */
 .hero-section {
     position: relative;
     width: 100%;
+    /* Justerar höjden så att hela bilden syns trots fixerad nav */
     height: calc(100vh - 80px); 
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 0 !important; 
     z-index: 1; 
+    background-color: transparent !important;
 }
 
 .hero-image-bg {
@@ -162,7 +176,22 @@ html, body {
     line-height: 1.2;
 }
 
-/* --- 5. KNAPPAR --- */
+.hero-content p {
+    margin-bottom: 40px !important; /* Minskat detta för att det ska funka med fixed nav */
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    
+}
+
+.hero-content .btn-custom {
+    display: inline-block;
+    margin-top: 160px;
+}
+
+/* --- 5. KNAPPEN --- */
 .btn-custom {
     background-color: var(--accent-brown) !important;
     color: white !important;
@@ -174,6 +203,7 @@ html, body {
     display: inline-block;
     transition: 0.3s;
     cursor: pointer;
+    
 }
 
 [data-theme="dark"] .btn-custom {
@@ -181,77 +211,39 @@ html, body {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* --- 6. SIDOMENY (OFFCANVAS) - UPPDATERAD --- */
+/* --- 6. SIDOMENY --- */
 .offcanvas {
-    background-color: #ffffff !important; 
-    color: #2c272e !important;
-    width: 280px !important; 
-    /* Högsta z-index för att täcka lampa och nav */
-    z-index: 2000 !important; 
-    box-shadow: 10px 0 30px rgba(0,0,0,0.2) !important;
-    border: none !important;
+    background-color: var(--nav-color) !important;
+    z-index: 10000 !important; 
 }
 
-.offcanvas-backdrop {
-    /* Backdroppen måste ligga precis under offcanvas */
-    z-index: 1999 !important; 
-}
-
-.offcanvas-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    color: var(--accent-brown);
-}
-
-.offcanvas .nav-link {
-    color: #2c272e !important;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    padding: 20px 25px !important;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    display: block !important;
-    transition: 0.3s;
-}
-
-.offcanvas .nav-link:hover {
-    background-color: rgba(0,0,0,0.03);
-    color: var(--accent-brown) !important;
-    padding-left: 35px !important;
-}
-
-/* --- MÖRKERLÄGE MENY --- */
 [data-theme="dark"] .offcanvas {
-    background-color: #1a1a1a !important;
-    color: #ffffff !important;
+    background-color: var(--nav-dark) !important;
 }
 
-[data-theme="dark"] .offcanvas .nav-link {
-    color: #ffffff !important;
-    background-color: #1a1a1a !important;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-[data-theme="dark"] .offcanvas-title {
-    color: #ffffff !important;
+/* --- ÖVRIGT --- */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-5px); }
 }
 
 [data-theme="dark"] .btn-close {
-    filter: invert(1) brightness(2) !important;
-    opacity: 1;
+    filter: invert(1) grayscale(100%) brightness(200%) !important;
 }
 
-/* --- 7. FIX FÖR NAV-TOGGLER --- */
 .navbar-toggler {
-    border: none !important;
-    padding: 10px !important;
-    z-index: 1002 !important;
+    border: none !important; 
+    outline: none !important;
+}
+
+.navbar-toggler-icon {
+    filter: brightness(0) saturate(100%) invert(16%) sepia(13%) saturate(1065%) hue-rotate(224deg) brightness(93%) contrast(92%);
 }
 
 [data-theme="dark"] .navbar-toggler-icon {
     filter: invert(1) brightness(2) !important;
 }
 
-/* --- 8. PERSONLIG HÄLSNING --- */
 .personal-greeting-container {
     position: absolute;
     left: 50%;
@@ -262,56 +254,165 @@ html, body {
     z-index: 500;
 }
 
+/* --- PERSONLIG HÄLSNING & DAGLIG ÖVNING 
+.personal-greeting-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; 
+    text-align: center;
+    pointer-events: none; 
+    z-index: 500;
+}
+--- */
 #greeting-text, .hero-content p {
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem); /* Något större för bättre läsbarhet */
     font-weight: 450; 
     line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 800px; /* Ökat från 600px för att rymma längre meningar */
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     color: #ffffff; 
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); 
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Kraftigare skugga så texten syns mot bilden */
+    transition: all 0.3s ease;
+    white-space: normal !important; /* Säkerställer att texten hoppar ner på ny rad */
     display: block;
 }
 
-/* --- 9. RESPONSIVITET (FIXAD) --- */
-@media (max-width: 768px) {
-    /* Viktigt: Vi tillåter Bootstrap sköta animationerna här */
-    .offcanvas {
-        width: 75vw !important;
+[data-theme="dark"] #greeting-text, [data-theme="dark"] .hero-content p {
+    color: #ffffff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); 
+}
+
+/* Responsiva justeringar */
+@media (min-width: 992px) {
+    #greeting-text {
+        font-size: 1.3rem; 
+        white-space: normal !important; /* Dubbelkoll så att nowrap är borta */
+        max-width: 750px;
     }
-    
+}
+
+@media (max-width: 768px) {
     .personal-greeting-container {
         width: 95%;
-        top: 120px;
+        top: 120px; /* Justera denna om texten hamnar för nära rubriken */
+    }
+    #greeting-text {
+        font-size: 1.1rem;
+        line-height: 1.4;
     }
 }
 
+@media (max-width: 480px) {
+    #greeting-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .offcanvas, .offcanvas-start, .offcanvas.show {
+        width: 70vw !important; 
+        max-width: 70vw !important;
+        min-width: 70vw !important;
+        transform: none !important; 
+        left: 0 !important;
+        right: auto !important;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+    .offcanvas-backdrop.show {
+        width: 70vw !important;
+    }
+    .offcanvas-header .btn-close {
+        margin-right: 25px !important;
+    }
+}
+
+/* --- tillagd test ny--- */
+
+/* Detta påverkar alla sektioner som har klassen .container */
 @media (min-width: 1200px) {
     .container {
-        max-width: 724px !important;
-        margin: 0 auto !important;
+        max-width: 724px !important; /* Här styr du exakt hur smal sidan ska vara */
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 
-/* --- 10. ÖVRIGA SEKTIONER --- */
+/* Se till att bilderna i sektionerna inte blir för stora nu när det är smalare */
+.meditation-image-wrapper img, .plain-image, .explore-grid {
+    width: 100%;
+    height: auto;
+}
+/* --- till hit --- */
+
+/* --- MEDITATION SEKTION --- */
 .meditation-section {
-    padding: 60px 15px;
+    background-color: transparent !important; 
+    transition: background-color 0.4s ease;
+    padding: 60px 15px; /* Ökat padding för luftigare känsla */
 }
 
 .meditation-main-title {
+    font-family: 'Fraunces', serif !important;
     color: var(--accent-brown); 
     font-size: clamp(1.8rem, 5vw, 3.5rem);
     margin-bottom: 2rem;
+    font-weight: 900;
+    transition: color 0.4s ease;
+}
+
+.meditation-text-style {
+    font-size: clamp(0.85rem, 2vw, 1.2rem);
+    color: #473423; 
+    line-height: 1.4;
+    margin-bottom: 1.2rem;
+    transition: color 0.4s ease;
+}
+
+[data-theme="dark"] .meditation-section {
+    background-color: transparent !important; 
 }
 
 [data-theme="dark"] .meditation-main-title {
-    color: #ffffff !important;
+    color: #ffffff !important; 
 }
 
-/* --- ANDNINGS-BLOBB --- */
+[data-theme="dark"] .meditation-text-style {
+    color: #ffffff !important; 
+}
+
+[data-theme="dark"] .meditation-image-wrapper img {
+    filter: brightness(0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+@media (max-width: 767px) {
+    .meditation-section {
+        padding: 40px 10px;
+    }
+    .btn-meditation {
+        padding: 8px 15px !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+
+/* --- ANDNINGS övning-SEKTION --- */
+.breathing-section {
+    background-color: transparent !important;
+    padding: 80px 0;
+}
+
+.blob-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.4s ease;
+}
+
 .breathing-blob-svg {
-    max-width: 400px;
+    max-width: 400px; /* Anpassa storleken här */
     width: 100%;
     height: auto;
     overflow: visible !important;
@@ -320,66 +421,649 @@ html, body {
 .blob-text-content {
     font-family: 'Fraunces', serif;
     font-weight: 700;
-    font-size: 8px;
-    fill: #473423;
+    font-size: 8px; /* Eftersom SVG-viewboxen är 200px */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    fill: #473423; /* Mörkbrun i ljust läge */
+    transition: fill 0.4s ease;
 }
 
+/* Hover-effekt */
+.blob-link:hover {
+    transform: scale(1.05);
+}
+
+.blob-link:hover .blob-text-content {
+    fill: var(--accent-brown);
+}
+
+/* --- MÖRKERLÄGE ANPASSNING --- */
 [data-theme="dark"] .blob-text-content {
-    fill: #ffffff !important;
+    fill: #ffffff !important; /* Vit text i mörker */
 }
 
-/* --- GRID LAYOUT --- */
+[data-theme="dark"] .breathing-blob-svg image {
+    filter: brightness(0.7); /* Lite mörkare bild i mörkerläge */
+}
+
+/* Mobil-anpassning */
+@media (max-width: 768px) {
+    .breathing-blob-svg {
+        max-width: 80vw;
+    }
+}
+
+
+/* sektion med olika bilder */
+
+/* --- UTFORSKA-SEKTION (GRID) --- */
+.explore-section {
+    background-color: transparent !important;
+}
+
 .explore-grid {
     display: grid;
+    /* Skapar 2 kolumner som är lika stora */
     grid-template-columns: repeat(2, 1fr);
+    /* Skapar rader med fast höjd */
     grid-auto-rows: 200px; 
-    gap: 15px;
+    gap: 15px; /* Avstånd mellan bilderna */
 }
-
-.item-tall { grid-row: span 2; }
-.item-wide { grid-column: span 2; }
 
 .explore-item {
     position: relative;
     overflow: hidden;
     border-radius: 20px;
+    text-decoration: none;
+    display: block;
 }
 
 .explore-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: 0.5s;
+    transition: transform 0.5s ease;
 }
 
-.explore-item:hover img { transform: scale(1.1); }
+/* Hover-effekt på hela rutan */
+.explore-item:hover img {
+    transform: scale(1.1);
+}
 
-/* --- PRATBUBBLA --- */
+/* --- LOGIK FÖR PUSSEL-LAYOUTEN --- */
+.item-tall {
+    grid-row: span 2; /* Tar upp två rader i höjd */
+}
+
+.item-wide {
+    grid-column: span 2; /* Tar upp två kolumner i bredd */
+}
+
+/* --- BADGE (TEXTEN I HÖRNET) --- */
+.explore-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c272e;
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .explore-badge {
+    background: var(--nav-dark);
+    color: white;
+}
+
+.explore-item:hover .explore-badge {
+    background: var(--accent-brown);
+    color: white;
+}
+
+/* Justering för mobil (håller layouten stabil men gör den lite mindre hög) */
+@media (max-width: 576px) {
+    .explore-grid {
+        grid-auto-rows: 150px;
+        gap: 10px;
+    }
+}
+
+/* --- RESA-SEKTION --- */
+/* --- RESA-SEKTION (FÖRENKLAD) --- */
+.journey-section {
+    background-color: transparent !important;
+    padding: 60px 0;
+}
+
+.journey-image-box {
+    max-width: 450px;
+    width: 100%;
+}
+
+.plain-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Tvingar bort alla hörn och skuggor */
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Mobil-justering för textavstånd */
+@media (max-width: 767px) {
+    .journey-section h2 {
+        margin-top: 20px;
+    }
+}
+
+
+/** bil och pratbubbla  ***/
+.retro-bubble-wrapper {
+    position: relative;
+    margin-bottom: -20px;
+    z-index: 10;
+    width: 95%; /* Lite smalare på mobil för att få plats med skuggan */
+    max-width: 500px;
+}
+
 .retro-bubble {
     background: white;
     border: 3px solid black;
     padding: 20px;
-    box-shadow: 8px 8px 0px black;
-    min-height: 140px;
+    box-shadow: 6px 6px 0px black; /* Något mindre skugga på mobil */
+    min-height: 140px; /* Ger plats åt 3-4 rader text utan att hoppa */
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
-/* --- FOOTER --- */
+@media (min-width: 768px) {
+    .retro-bubble {
+        padding: 30px;
+        box-shadow: 8px 8px 0px black;
+        min-height: 160px;
+    }
+    .retro-bubble-wrapper {
+        margin-bottom: -40px;
+    }
+}
+
+#typing-text {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    color: black;
+    line-height: 1.3;
+}
+
+/*** Footer ****/
+
+/* --- FOOTER GRUNDSTIL --- */
 .site-footer {
-    background-color: var(--nav-color);
+    background-color: var(--nav-color); /* Samma gröna som navbaren i ljust läge */
     color: #2c272e;
-    padding: 40px 0;
+    transition: all 0.4s ease;
+    border-top: 1px solid rgba(0,0,0,0.05);
 }
 
+/* --- MÖRKERLÄGE (Lampan släckt) --- */
 [data-theme="dark"] .site-footer {
-    background-color: #111111 !important;
+    background-color: #111111 !important; /* Mörkare än navbaren för kontrast */
     color: #ffffff;
 }
 
-/* --- ANIMATIONER --- */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-5px); }
+.footer-logo {
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.footer-heading {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.footer-nav li {
+    margin-bottom: 8px;
+}
+
+.footer-nav a, .footer-link {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.footer-nav a:hover, .footer-link:hover {
+    opacity: 1;
+    color: var(--accent-brown) !important;
+}
+
+.social-link {
+    color: inherit;
+    opacity: 0.7;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-link:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+    color: var(--accent-brown);
+}
+
+.footer-divider {
+    opacity: 0.1;
+}
+
+[data-theme="dark"] .footer-divider {
+    border-color: white;
+}
+
+.copyright-text {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.footer-quote {
+    font-size: 0.95rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+
+/***************** MEDITATION SIDA***************************/
+/* --- SÖKFÄLT --- */
+.search-bar {
+    background: #e9e5d8;
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+}
+.search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+    color: #555;
+}
+
+/* --- HERO CARD --- */
+.hero-meditation {
+    height: 400px;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+}
+.hero-content { text-align: center; z-index: 2; }
+
+
+
+.hero-meditation {
+    position: relative;
+    height: 450px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrerar innehållet vertikalt */
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-header-top {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+}
+
+/* Centrerad Glas-ruta */
+.glass-widget-centered {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 85%;
+    max-width: 400px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.glass-content h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.glass-content p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* Glas-knappen */
+.btn-glass-play {
+    display: inline-block;
+    background: white;
+    color: #4a5d4e;
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-glass-play:hover {
+    transform: scale(1.05);
+    background: #f8f8f8;
+    color: #4a5d4e;
+}
+
+
+
+
+/* --- KATEGORIER --- */
+.category-row {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.cat-circle {
+    width: 70px;
+    height: 70px;
+    background: #e9e5d8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+}
+.cat-item span { font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
+
+/* --- SIDOSKROLL (FIXAD MED BILDER) --- */
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 25px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar { 
+    display: none; 
+}
+
+.med-card {
+    min-width: 260px;
+    height: 360px;
+    border-radius: 25px;
+    /* Dessa rader ser till att bilderna syns: */
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    
+    position: relative;
+    flex-shrink: 0;
+    text-decoration: none !important;
+    display: block; /* Viktigt för att länken ska få en storlek */
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.med-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* --- BADGE & TEXT --- */
+.badge-time {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: white !important;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 5;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    border-radius: 0 0 25px 25px;
+    color: white !important;
+    z-index: 5;
+}
+
+.card-overlay h3 {
+    font-family: 'Fraunces', serif !important;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: white !important;
+}
+
+.card-overlay p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.85;
+    color: white !important;
+}
+/* --- MÖRKERLÄGE ANPASSNING --- */
+[data-theme="dark"] .search-bar, 
+[data-theme="dark"] .cat-circle {
+    background: #222;
+    color: white;
+}
+
+/* --- MEDITATIONER PAGE STYLES --- */
+/* --- MEDITATIONER PAGE - GRUND --- */
+.meditation-page {
+    background-color: transparent;
+}
+
+/* --- HERO & CENTRERAT GLAS --- */
+.hero-meditation {
+    position: relative;
+    height: 480px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrerar rutan vertikalt */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    background-color: #4a5d4e;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hero-header-top {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+    z-index: 5;
+}
+
+.glass-widget-centered {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 35px 25px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    color: white;
+    z-index: 10;
+}
+
+.glass-content h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.7rem;
+    margin-bottom: 8px;
+    text-shadow: none;
+}
+
+.glass-content p {
+    font-size: 0.95rem;
+    opacity: 0.95;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.btn-glass-play {
+    display: inline-block;
+    background: #ffffff !important;
+    color: #4a5d4e !important;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-glass-play:hover {
+    transform: scale(1.05);
+    background: #f8f8f8 !important;
+}
+
+/* --- SÖKFÄLT --- */
+.search-bar {
+    background: #e9e5d8;
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] .search-bar {
+    background: #1a1a1a;
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+    color: inherit;
+}
+
+/* --- KATEGORIER --- */
+.category-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.cat-item {
+    text-decoration: none !important;
+    color: #4a5d4e;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+[data-theme="dark"] .cat-item {
+    color: #e9e5d8;
+}
+
+.cat-circle {
+    width: 65px;
+    height: 65px;
+    background: #e9e5d8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin: 0 auto 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] .cat-circle {
+    background: #222;
+}
+
+.cat-item span {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+/* --- SIDOSKROLL CARDS --- */
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 20px;
+    scrollbar-width: none;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+.med-card {
+    min-width: 240px;
+    height: 320px;
+    border-radius: 25px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.badge-time {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    border-radius: 0 0 25px 25px;
+    color: white;
 }
