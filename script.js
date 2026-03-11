@@ -18,11 +18,23 @@ async function loadComponent(elementId, fileName) {
         if (elementId === 'nav-placeholder') {
             initializeLamp(); 
             
-            // --- FIX FÖR MOBILMENY ---
-            // Här initierar vi Bootstrap-komponenterna på nytt efter att de laddats in
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            if (navbarCollapse && window.bootstrap) {
-                new bootstrap.Collapse(navbarCollapse, { toggle: false });
+            // --- MANUELL FIX FÖR MOBILMENY ---
+            const toggler = document.querySelector('.navbar-toggler');
+            const collapseTarget = document.querySelector('.navbar-collapse');
+            
+            if (toggler && collapseTarget) {
+                toggler.addEventListener('click', function() {
+                    // Vi kollar om menyn redan är öppen
+                    const isOpen = collapseTarget.classList.contains('show');
+                    
+                    if (isOpen) {
+                        collapseTarget.classList.remove('show');
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        collapseTarget.classList.add('show');
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                });
             }
         }
         if (elementId === 'footer-placeholder') {
