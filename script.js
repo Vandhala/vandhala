@@ -8,6 +8,7 @@ let lampIsOn = savedTheme === 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
 // --- 1. KOMPONENT-LADDARE ---
+// --- 1. KOMPONENT-LADDARE (Uppdaterad med Aktiv-Länk-logik) ---
 async function loadComponent(elementId, fileName) {
     try {
         const response = await fetch(fileName);
@@ -17,7 +18,26 @@ async function loadComponent(elementId, fileName) {
         
         if (elementId === 'nav-placeholder') {
             initializeLamp(); 
+            
+            // --- NYTT: LOGIK FÖR AKTIV LÄNK ---
+            // Hämtar filnamnet på sidan vi är på (t.ex. "meditationer.html")
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                // Vi kollar om länkens href-attribut matchar sidan vi är på
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // --- FIX FÖR OFFCANVAS (Som vi pratade om tidigare) ---
+            const offcanvasElement = document.getElementById('offcanvasNavbar');
+            if (offcanvasElement && window.bootstrap) {
+                new bootstrap.Offcanvas(offcanvasElement);
+            }
         }
+
         if (elementId === 'footer-placeholder') {
             updateFooterQuote(); 
         }
