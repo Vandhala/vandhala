@@ -1,5 +1,12 @@
 const { gsap } = window;
-let lampIsOn = true; 
+
+// --- 0. HÄMTA SPARAT TEMA ---
+// Vi kollar om 'theme' finns sparat i localStorage. Om inte, utgår vi från 'light'.
+let savedTheme = localStorage.getItem('theme') || 'light';
+let lampIsOn = savedTheme === 'light';
+
+// Applicera temat direkt på <html> så att sidan laddas med rätt färger direkt
+document.documentElement.setAttribute('data-theme', savedTheme);
 
 // --- 1. KOMPONENT-LADDARE ---
 async function loadComponent(elementId, fileName) {
@@ -51,10 +58,16 @@ function initializeLamp() {
                 onComplete: () => {
                     if (this.y > 30) {
                         lampIsOn = !lampIsOn;
-                        document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
+                        const newTheme = lampIsOn ? 'light' : 'dark';
+                        
+                        // Uppdatera HTML-attributet
+                        document.documentElement.setAttribute('data-theme', newTheme);
+                        
+                        // SPARA valet i webbläsarens minne
+                        localStorage.setItem('theme', newTheme);
+                        
                         if (lampHint) lampHint.style.display = 'none';
                         
-                        // Uppdaterar innehållet på den sida man befinner sig på
                         updateDynamicGreeting(); 
                         updateMeditationHero();
                     }
@@ -69,7 +82,6 @@ async function updateDynamicGreeting() {
     const greetingElement = document.getElementById('greeting-text');
     const heroImage = document.getElementById('hero-image');
     
-    // Om dessa inte finns är vi inte på startsidan, så vi avbryter
     if (!greetingElement && !heroImage) return; 
 
     const now = new Date();
@@ -99,10 +111,9 @@ async function updateDynamicGreeting() {
     if (greetingElement) greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
 }
 
-// --- 4. DYNAMISK HERO (Meditationssidan - NYA GLASRUTAN) ---
+// --- 4. DYNAMISK HERO (Meditationssidan) ---
 function updateMeditationHero() {
     const heroCard = document.getElementById('dynamic-hero-card');
-    // Om denna inte finns är vi inte på meditationssidan
     if (!heroCard) return; 
 
     const now = new Date();
@@ -135,7 +146,6 @@ function updateMeditationHero() {
     if (glassText) glassText.innerText = text;
     if (glassLink) glassLink.href = link;
     
-    // Uppdaterar bakgrundsbilden på meditations-hero
     heroCard.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${img}')`;
 }
 
@@ -172,6 +182,8 @@ function typeLoop() {
 
 // --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
+    // Vi behöver inte sätta temat här igen eftersom det görs längst upp i filen,
+    // men vi laddar in komponenterna som vanligt.
     loadComponent('nav-placeholder', 'nav-template.html');
     loadComponent('footer-placeholder', 'footer-template.html');
     
@@ -180,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(typeLoop, 1000);
 });
 
-// Uppdatera var 30:e minut för att hålla klockslagen synkade
 setInterval(() => {
     updateDynamicGreeting();
     updateMeditationHero();
