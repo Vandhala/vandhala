@@ -161,7 +161,7 @@ html, body {
     z-index: 10; 
     color: white !important;
     text-align: center;
-    top: 60px; 
+    top: 67px; 
 }
 
 .hero-content h1 {
@@ -291,7 +291,7 @@ html, body {
 @media (max-width: 768px) {
     .personal-greeting-container {
         width: 95%;
-        top: 84px; /* Justera denna om texten hamnar för nära rubriken */
+        top: 120px; /* Justera denna om texten hamnar för nära rubriken */
     }
     #greeting-text {
         font-size: 1.1rem;
