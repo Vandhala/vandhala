@@ -86,9 +86,9 @@ html, body {
 .nav-link.active::after {
     content: '';
     position: absolute;
-    bottom: 5px;
-    left: 10%;
-    width: 80%;
+    bottom: 14px;
+    left: 2%;
+    width: 40%;
     height: 2px;
     background-color: var(--accent-brown); /* Strecket under navbar-länken */
     border-radius: 2px;
