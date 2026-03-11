@@ -323,6 +323,24 @@ html, body {
     }
 }
 
+/* --- tillagd test ny--- */
+
+/* Detta påverkar alla sektioner som har klassen .container */
+@media (min-width: 992px) {
+    .container {
+        max-width: 1000px !important; /* Här styr du exakt hur smal sidan ska vara */
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+/* Se till att bilderna i sektionerna inte blir för stora nu när det är smalare */
+.meditation-image-wrapper img, .plain-image, .explore-grid {
+    width: 100%;
+    height: auto;
+}
+/* --- till hit --- */
+
 /* --- MEDITATION SEKTION --- */
 .meditation-section {
     background-color: transparent !important; 
