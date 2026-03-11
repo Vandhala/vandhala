@@ -916,3 +916,24 @@ html, body {
 }
 .card-overlay h3 { font-size: 1.1rem; margin-bottom: 2px; }
 .card-overlay p { font-size: 0.8rem; opacity: 0.8; }
+
+/* Ta bort blå länkfärg på kategorierna */
+.cat-item {
+    text-decoration: none;
+    color: #4a5d4e; /* Din mörkgröna färg eller använd inherit */
+}
+
+.cat-item:hover {
+    color: #4a5d4e;
+    opacity: 0.8;
+}
+
+/* Om ikonerna fortfarande är blå, tvinga dem till din färg */
+.cat-circle i {
+    color: #4a5d4e;
+}
+
+[data-theme="dark"] .cat-item,
+[data-theme="dark"] .cat-circle i {
+    color: #e9e5d8; /* Ljus färg i mörkerläge */
+}

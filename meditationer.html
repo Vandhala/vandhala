@@ -18,17 +18,10 @@
 
     <main class="meditation-page container py-5 mt-5">
         
-        <div class="search-section mb-5">
-            <div class="search-bar">
-                <span class="flower-icon">✿</span>
-                <input type="text" placeholder="Hitta ditt lugn...">
-            </div>
-        </div>
-
-        <div class="hero-meditation mb-5">
+        <div id="dynamic-hero-card" class="hero-meditation mb-5">
             <div class="hero-content">
                 <em class="d-block mb-1">Dagens Flow</em>
-                <h1 class="display-4 fw-bold mb-4">NATURE AWAITS</h1>
+                <h1 id="dynamic-hero-title" class="display-4 fw-bold mb-4">NATURE AWAITS</h1>
                 <div class="play-button-main">
                     <div class="play-circle">
                         <span class="flower-symbol">✿</span>
@@ -36,11 +29,18 @@
                 </div>
             </div>
             <div class="glass-widget">
-                <small>Tid kvar: 10 min</small>
+                <small id="dynamic-hero-time">Tid kvar: 10 min</small>
                 <div class="progress-bar-mini">
-                    <div class="progress-fill" style="width: 65%;"></div>
+                    <div class="progress-fill" style="width: 45%;"></div>
                 </div>
                 <div class="controls-icons">⏮ &nbsp; ⏸ &nbsp; ⏭</div>
+            </div>
+        </div>
+
+        <div class="search-section mb-5">
+            <div class="search-bar">
+                <span class="flower-icon">✿</span>
+                <input type="text" placeholder="Hitta ditt lugn...">
             </div>
         </div>
 
@@ -67,27 +67,27 @@
             <h2 class="section-title mb-4">Utvalda meditationer</h2>
             <div class="horizontal-scroll-wrapper">
                 
-                <div class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('images/med1.jpg');">
-                    <span class="badge-time">12 min</span>
+                <div class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('images/morgon.jpg');">
+                    <span class="badge-time">10 min</span>
                     <div class="card-overlay">
-                        <h3>Hitta ditt lugn</h3>
-                        <p>Tiden försvinner, som en dröm...</p>
+                        <h3>Morgonstund</h3>
+                        <p>Vakna mjukt med andningen...</p>
                     </div>
                 </div>
 
-                <div class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('images/med2.jpg');">
-                    <span class="badge-time">8 min</span>
+                <div class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('images/dag.jpg');">
+                    <span class="badge-time">5 min</span>
                     <div class="card-overlay">
-                        <h3>Vandra i skogen</h3>
-                        <p>Landskapet förändras långsamt...</p>
+                        <h3>Stressa ner</h3>
+                        <p>En snabb paus i vardagen...</p>
                     </div>
                 </div>
 
-                <div class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('images/med3.jpg');">
-                    <span class="badge-time">15 min</span>
+                <div class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('images/kvall.jpg');">
+                    <span class="badge-time">20 min</span>
                     <div class="card-overlay">
-                        <h3>Månskens-meditation</h3>
-                        <p>Hitta din inre nattliga ro...</p>
+                        <h3>Kvällsro</h3>
+                        <p>Förbered kroppen för sömn...</p>
                     </div>
                 </div>
 

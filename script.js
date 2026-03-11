@@ -55,7 +55,10 @@ function initializeLamp() {
                         lampIsOn = !lampIsOn;
                         document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
                         if (lampHint) lampHint.style.display = 'none';
+                        
+                        // Uppdatera båda sidornas logik vid behov
                         updateDynamicGreeting(); 
+                        updateMeditationHero();
                     }
                 }
             });
@@ -63,8 +66,11 @@ function initializeLamp() {
     });
 }
 
-// --- 3. DYNAMISK HÄLSNING ---
+// --- 3. DYNAMISK HÄLSNING (Startsidan) ---
 async function updateDynamicGreeting() {
+    const greetingElement = document.getElementById('greeting-text');
+    if (!greetingElement) return; // Kör bara om vi är på startsidan
+
     const now = new Date();
     const hours = now.getHours();
     const dayName = now.toLocaleDateString('sv-SE', { weekday: 'long' }).toLowerCase();
@@ -79,12 +85,9 @@ async function updateDynamicGreeting() {
         "söndag": "Söndag, kom ihåg att varva ner helt. Låt själen hinna ikapp och ladda dina batterier inför en ny cykel."
     };
 
-    const greetingElement = document.getElementById('greeting-text');
     const heroImage = document.getElementById('hero-image');
     const heroTitle = document.getElementById('hero-title');
     
-    // Här kan du lägga till dina meditation-referenser igen om de behövs
-
     let greeting = "Hej";
     let imageUrl = "images/dag.jpg"; 
 
@@ -94,10 +97,43 @@ async function updateDynamicGreeting() {
 
     if (heroImage) heroImage.src = imageUrl;
     if (heroTitle) heroTitle.innerText = greeting + "!";
-    if (greetingElement) greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
+    greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
 }
 
-// --- 4. SLUMPVALT CITAT I FOOTER ---
+// --- 4. DYNAMISK HERO (Meditationssidan) ---
+function updateMeditationHero() {
+    const heroCard = document.getElementById('dynamic-hero-card');
+    if (!heroCard) return; // Kör bara om vi är på meditationssidan
+
+    const now = new Date();
+    const hours = now.getHours();
+    const heroTitle = document.getElementById('dynamic-hero-title');
+    const heroTime = document.getElementById('dynamic-hero-time');
+
+    let title = "DAGENS FLOW";
+    let img = "images/dag.jpg";
+    let time = "10 min";
+
+    if (hours >= 5 && hours < 10) {
+        title = "MORGON-FLOW";
+        img = "images/morgon.jpg";
+        time = "10 min";
+    } else if (hours >= 10 && hours < 18) {
+        title = "MINSKA STRESS";
+        img = "images/dag.jpg";
+        time = "5 min";
+    } else {
+        title = "KVÄLLSRO";
+        img = "images/kvall.jpg";
+        time = "20 min";
+    }
+
+    if (heroTitle) heroTitle.innerText = title;
+    if (heroTime) heroTime.innerText = `Tid kvar: ${time}`;
+    heroCard.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('${img}')`;
+}
+
+// --- 5. SLUMPVALT CITAT I FOOTER ---
 function updateFooterQuote() {
     const quotes = [
         "Stillhet är inte frånvaro av ljud, utan närvaro av harmoni.",
@@ -112,7 +148,7 @@ function updateFooterQuote() {
     }
 }
 
-// --- 5. BIL OCH PRATBUBBLA ---
+// --- 6. BIL OCH PRATBUBBLA ---
 const textTarget = document.getElementById("typing-text");
 const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? Läs mer om vandhala!";
 let isDeleting = false;
@@ -130,9 +166,18 @@ function typeLoop() {
 
 // --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
+    // Ladda templates
     loadComponent('nav-placeholder', 'nav-template.html');
     loadComponent('footer-placeholder', 'footer-template.html');
+    
+    // Kör logik
     updateDynamicGreeting();
+    updateMeditationHero();
     setTimeout(typeLoop, 1000);
 });
-setInterval(updateDynamicGreeting, 1800000);
+
+// Uppdatera var 30:e minut
+setInterval(() => {
+    updateDynamicGreeting();
+    updateMeditationHero();
+}, 1800000);
