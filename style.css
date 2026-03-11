@@ -183,7 +183,7 @@ html, body {
 
 .hero-content .btn-custom {
     display: inline-block;
-    
+    margin-top: 160px;
 }
 
 /* --- 5. KNAPPEN --- */
@@ -198,7 +198,7 @@ html, body {
     display: inline-block;
     transition: 0.3s;
     cursor: pointer;
-    margin-top: 160px; 
+    
 }
 
 [data-theme="dark"] .btn-custom {
