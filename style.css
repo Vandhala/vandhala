@@ -326,9 +326,9 @@ html, body {
 /* --- tillagd test ny--- */
 
 /* Detta påverkar alla sektioner som har klassen .container */
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
     .container {
-        max-width: 1000px !important; /* Här styr du exakt hur smal sidan ska vara */
+        max-width: 724px !important; /* Här styr du exakt hur smal sidan ska vara */
         margin-left: auto !important;
         margin-right: auto !important;
     }
