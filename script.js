@@ -1,7 +1,7 @@
 const { gsap } = window;
 let lampIsOn = true; 
 
-// --- 1. KOMPONENT-LADDARE (Hämtar Nav & Footer) ---
+// --- 1. KOMPONENT-LADDARE ---
 async function loadComponent(elementId, fileName) {
     try {
         const response = await fetch(fileName);
@@ -9,7 +9,6 @@ async function loadComponent(elementId, fileName) {
         const data = await response.text();
         document.getElementById(elementId).innerHTML = data;
         
-        // Starta funktioner som beror på den laddade HTML-koden
         if (elementId === 'nav-placeholder') {
             initializeLamp(); 
         }
@@ -21,7 +20,7 @@ async function loadComponent(elementId, fileName) {
     }
 }
 
-// --- 2. LAMP-LOGIK (Körs först när naven har landat) ---
+// --- 2. LAMP-LOGIK ---
 function initializeLamp() {
     const HIT = document.querySelector('.toggle-scene__hit-spot');
     const DUMMY_CORD = document.querySelector('.toggle-scene__dummy-cord line');
@@ -30,7 +29,6 @@ function initializeLamp() {
 
     if (!HIT || !DUMMY_CORD) return;
 
-    // Timer för hint-texten
     if (lampHint) {
         setTimeout(() => {
             if (lampHint.style.display !== 'none') {
@@ -56,7 +54,7 @@ function initializeLamp() {
                         document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
                         if (lampHint) lampHint.style.display = 'none';
                         
-                        // Uppdatera båda sidornas logik vid behov
+                        // Uppdaterar innehållet på den sida man befinner sig på
                         updateDynamicGreeting(); 
                         updateMeditationHero();
                     }
@@ -69,7 +67,10 @@ function initializeLamp() {
 // --- 3. DYNAMISK HÄLSNING (Startsidan) ---
 async function updateDynamicGreeting() {
     const greetingElement = document.getElementById('greeting-text');
-    if (!greetingElement) return; // Kör bara om vi är på startsidan
+    const heroImage = document.getElementById('hero-image');
+    
+    // Om dessa inte finns är vi inte på startsidan, så vi avbryter
+    if (!greetingElement && !heroImage) return; 
 
     const now = new Date();
     const hours = now.getHours();
@@ -85,9 +86,7 @@ async function updateDynamicGreeting() {
         "söndag": "Söndag, kom ihåg att varva ner helt. Låt själen hinna ikapp och ladda dina batterier inför en ny cykel."
     };
 
-    const heroImage = document.getElementById('hero-image');
     const heroTitle = document.getElementById('hero-title');
-    
     let greeting = "Hej";
     let imageUrl = "images/dag.jpg"; 
 
@@ -97,43 +96,50 @@ async function updateDynamicGreeting() {
 
     if (heroImage) heroImage.src = imageUrl;
     if (heroTitle) heroTitle.innerText = greeting + "!";
-    greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
+    if (greetingElement) greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
 }
 
-// --- 4. DYNAMISK HERO (Meditationssidan) ---
+// --- 4. DYNAMISK HERO (Meditationssidan - NYA GLASRUTAN) ---
 function updateMeditationHero() {
     const heroCard = document.getElementById('dynamic-hero-card');
-    if (!heroCard) return; // Kör bara om vi är på meditationssidan
+    // Om denna inte finns är vi inte på meditationssidan
+    if (!heroCard) return; 
 
     const now = new Date();
     const hours = now.getHours();
-    const heroTitle = document.getElementById('dynamic-hero-title');
-    const heroTime = document.getElementById('dynamic-hero-time');
+    
+    const glassTitle = document.getElementById('dynamic-glass-title');
+    const glassText = document.getElementById('dynamic-glass-text');
+    const glassLink = document.getElementById('dynamic-glass-link');
 
-    let title = "DAGENS FLOW";
-    let img = "images/dag.jpg";
-    let time = "10 min";
+    let title, text, img, link;
 
     if (hours >= 5 && hours < 10) {
-        title = "MORGON-FLOW";
+        title = "Morgonmeditation";
+        text = "Starta dagen med harmoni, det förtjänar du";
         img = "images/morgon.jpg";
-        time = "10 min";
+        link = "morgon-meditation.html";
     } else if (hours >= 10 && hours < 18) {
-        title = "MINSKA STRESS";
+        title = "Dagsmeditation";
+        text = "Hitta fokus mitt i vardagen, det förtjänar du";
         img = "images/dag.jpg";
-        time = "5 min";
+        link = "dag-meditation.html";
     } else {
-        title = "KVÄLLSRO";
+        title = "Kvällsmeditation";
+        text = "Landa i stillhet inför natten, det förtjänar du";
         img = "images/kvall.jpg";
-        time = "20 min";
+        link = "kvall-meditation.html";
     }
 
-    if (heroTitle) heroTitle.innerText = title;
-    if (heroTime) heroTime.innerText = `Tid kvar: ${time}`;
-    heroCard.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('${img}')`;
+    if (glassTitle) glassTitle.innerText = title;
+    if (glassText) glassText.innerText = text;
+    if (glassLink) glassLink.href = link;
+    
+    // Uppdaterar bakgrundsbilden på meditations-hero
+    heroCard.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${img}')`;
 }
 
-// --- 5. SLUMPVALT CITAT I FOOTER ---
+// --- 5. SLUMPVALT CITAT ---
 function updateFooterQuote() {
     const quotes = [
         "Stillhet är inte frånvaro av ljud, utan närvaro av harmoni.",
@@ -166,17 +172,15 @@ function typeLoop() {
 
 // --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
-    // Ladda templates
     loadComponent('nav-placeholder', 'nav-template.html');
     loadComponent('footer-placeholder', 'footer-template.html');
     
-    // Kör logik
     updateDynamicGreeting();
     updateMeditationHero();
     setTimeout(typeLoop, 1000);
 });
 
-// Uppdatera var 30:e minut
+// Uppdatera var 30:e minut för att hålla klockslagen synkade
 setInterval(() => {
     updateDynamicGreeting();
     updateMeditationHero();
