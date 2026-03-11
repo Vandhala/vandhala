@@ -595,3 +595,77 @@ html, body {
     color: black;
     line-height: 1.3;
 }
+
+/*** Footer ****/
+
+/* --- FOOTER GRUNDSTIL --- */
+.site-footer {
+    background-color: var(--nav-color); /* Samma gröna som navbaren i ljust läge */
+    color: #2c272e;
+    transition: all 0.4s ease;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* --- MÖRKERLÄGE (Lampan släckt) --- */
+[data-theme="dark"] .site-footer {
+    background-color: #111111 !important; /* Mörkare än navbaren för kontrast */
+    color: #ffffff;
+}
+
+.footer-logo {
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.footer-heading {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.footer-nav li {
+    margin-bottom: 8px;
+}
+
+.footer-nav a, .footer-link {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.footer-nav a:hover, .footer-link:hover {
+    opacity: 1;
+    color: var(--accent-brown) !important;
+}
+
+.social-link {
+    color: inherit;
+    opacity: 0.7;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-link:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+    color: var(--accent-brown);
+}
+
+.footer-divider {
+    opacity: 0.1;
+}
+
+[data-theme="dark"] .footer-divider {
+    border-color: white;
+}
+
+.copyright-text {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.footer-quote {
+    font-size: 0.95rem;
+    font-style: italic;
+    opacity: 0.8;
+}
