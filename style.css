@@ -85,6 +85,7 @@ html, body {
     display: flex !important;
     justify-content: center;
     overflow: visible !important;
+    z-index: 1001 !important; /* Högre än nav, men lägre än offcanvas (999999) */
 }
 
 .lamp-container {
@@ -217,10 +218,11 @@ html, body {
     background-color: #ffffff !important; 
     color: #2c272e !important;
     width: 280px !important; 
-    /* Högre än navbarens 1000 för att täcka den helt */
-    z-index: 2000 !important; 
+    height: 100vh !important; /* Tvingar menyn att vara hela skärmens höjd */
+    z-index: 999999 !important; /* Extremt högt värde för att ligga över lampan */
     border-right: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.2) !important;
+    visibility: visible !important;
 }
 
 /* Fixa rubriken i menyn */
@@ -241,11 +243,10 @@ html, body {
     color: #2c272e !important;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    padding: 15px 20px !important;
+    padding: 20px 25px !important; /* Mer luft mellan länkarna */
     border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: 0.3s;
+    display: block !important;
 }
-
 /* --- MÖRKERLÄGE ANPASSNING FÖR MENY --- */
 [data-theme="dark"] .offcanvas {
     background-color: #1a1a1a !important;
@@ -255,6 +256,7 @@ html, body {
 
 [data-theme="dark"] .offcanvas .nav-link {
     color: #ffffff !important;
+    background-color: #1a1a1a !important;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -282,6 +284,7 @@ html, body {
 .navbar-toggler {
     border: none !important;
     padding: 10px !important;
+    z-index: 1000 !important;
 }
 
 /* Se till att ikonen syns ordentligt */
