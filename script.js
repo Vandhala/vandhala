@@ -1,56 +1,69 @@
 const { gsap } = window;
-const HIT = document.querySelector('.toggle-scene__hit-spot');
-const DUMMY_CORD = document.querySelector('.toggle-scene__dummy-cord line');
-const ENDY = 380.5405;
-
 let lampIsOn = true; 
 
-// --- 1. HITTA TEXTEN OCH SKAPA TIMERN ---
-const lampHint = document.getElementById('lamp-hint');
-
-// Starta 20-sekunders timern direkt
-if (lampHint) {
-    setTimeout(() => {
-        if (lampHint.style.display !== 'none') {
-            gsap.to(lampHint, { 
-                opacity: 0, 
-                duration: 1, 
-                onComplete: () => lampHint.style.display = 'none' 
-            });
+// --- 1. KOMPONENT-LADDARE (Hämtar Nav & Footer) ---
+async function loadComponent(elementId, fileName) {
+    try {
+        const response = await fetch(fileName);
+        if (!response.ok) throw new Error('Kunde inte hitta filen');
+        const data = await response.text();
+        document.getElementById(elementId).innerHTML = data;
+        
+        // Starta funktioner som beror på den laddade HTML-koden
+        if (elementId === 'nav-placeholder') {
+            initializeLamp(); 
         }
-    }, 20000); 
+        if (elementId === 'footer-placeholder') {
+            updateFooterQuote(); 
+        }
+    } catch (error) {
+        console.warn("Kunde inte ladda komponenten:", error);
+    }
 }
 
-// --- 2. DRAG-FUNKTION FÖR LAMPAN (Endast en version!) ---
-Draggable.create(document.createElement('div'), {
-  trigger: HIT,
-  type: 'y',
-  onDrag: function() {
-    gsap.set(DUMMY_CORD, { attr: { y2: ENDY + this.y } });
-  },
-  onRelease: function() {
-    gsap.to(DUMMY_CORD, {
-      attr: { y2: ENDY },
-      duration: 0.3,
-      ease: "elastic.out(1, 0.3)",
-      onComplete: () => {
-        if (this.y > 30) {
-            lampIsOn = !lampIsOn;
-            document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
-            
-            // Dölj hint-texten direkt vid klick/drag
-            if (lampHint) {
-                lampHint.style.display = 'none';
-            }
-            
-            updateDynamicGreeting(); 
-        }
-      }
-    });
-  }
-});
+// --- 2. LAMP-LOGIK (Körs först när naven har landat) ---
+function initializeLamp() {
+    const HIT = document.querySelector('.toggle-scene__hit-spot');
+    const DUMMY_CORD = document.querySelector('.toggle-scene__dummy-cord line');
+    const ENDY = 380.5405;
+    const lampHint = document.getElementById('lamp-hint');
 
-// --- 3. DYNAMISK HÄLSNING & DAGLIG ÖVNING ---
+    if (!HIT || !DUMMY_CORD) return;
+
+    // Timer för hint-texten
+    if (lampHint) {
+        setTimeout(() => {
+            if (lampHint.style.display !== 'none') {
+                gsap.to(lampHint, { opacity: 0, duration: 1, onComplete: () => lampHint.style.display = 'none' });
+            }
+        }, 20000);
+    }
+
+    Draggable.create(document.createElement('div'), {
+        trigger: HIT,
+        type: 'y',
+        onDrag: function() {
+            gsap.set(DUMMY_CORD, { attr: { y2: ENDY + this.y } });
+        },
+        onRelease: function() {
+            gsap.to(DUMMY_CORD, {
+                attr: { y2: ENDY },
+                duration: 0.3,
+                ease: "elastic.out(1, 0.3)",
+                onComplete: () => {
+                    if (this.y > 30) {
+                        lampIsOn = !lampIsOn;
+                        document.documentElement.setAttribute('data-theme', lampIsOn ? 'light' : 'dark');
+                        if (lampHint) lampHint.style.display = 'none';
+                        updateDynamicGreeting(); 
+                    }
+                }
+            });
+        }
+    });
+}
+
+// --- 3. DYNAMISK HÄLSNING ---
 async function updateDynamicGreeting() {
     const now = new Date();
     const hours = now.getHours();
@@ -69,69 +82,57 @@ async function updateDynamicGreeting() {
     const greetingElement = document.getElementById('greeting-text');
     const heroImage = document.getElementById('hero-image');
     const heroTitle = document.getElementById('hero-title');
-    const medTitle = document.getElementById('meditation-title-top');
-    const medText = document.getElementById('meditation-text');
-    const medLink = document.getElementById('meditation-link');
+    
+    // Här kan du lägga till dina meditation-referenser igen om de behövs
 
     let greeting = "Hej";
     let imageUrl = "images/dag.jpg"; 
 
-    if (hours >= 5 && hours < 10) {
-        greeting = "God morgon";
-        imageUrl = "images/morgon.jpg";
-        if(medTitle) medTitle.innerText = "Morgonmeditation";
-        if(medText) medText.innerText = "Ge dig själv en bra start på dagen, det förtjänar du.";
-        if(medLink) medLink.href = "morgon-meditation.html";
-    } else if (hours >= 10 && hours < 18) {
-        greeting = "Hoppas du har en bra dag";
-        imageUrl = "images/dag.jpg";
-        if(medTitle) medTitle.innerText = "Meditation";
-        if(medText) medText.innerText = "Ta en paus under dagen och meditera, det förtjänar du.";
-        if(medLink) medLink.href = "dag-meditation.html";
-    } else {
-        greeting = (hours >= 18 && hours < 23) ? "God kväll" : "God natt";
-        imageUrl = "images/kvall.jpg";
-        if(medTitle) medTitle.innerText = "Kvällsmeditation";
-        if(medText) medText.innerText = "Landa i dig själv och ge dig själv ett bra avslut på dagen, det förtjänar du.";
-        if(medLink) medLink.href = "kvall-meditation.html";
-    }
+    if (hours >= 5 && hours < 10) { greeting = "God morgon"; imageUrl = "images/morgon.jpg"; }
+    else if (hours >= 10 && hours < 18) { greeting = "Hoppas du har en bra dag"; imageUrl = "images/dag.jpg"; }
+    else { greeting = (hours >= 18 && hours < 23) ? "God kväll" : "God natt"; imageUrl = "images/kvall.jpg"; }
 
     if (heroImage) heroImage.src = imageUrl;
     if (heroTitle) heroTitle.innerText = greeting + "!";
     if (greetingElement) greetingElement.innerText = dailyExercises[dayName] || `Ha en fin ${dayName}!`;
 }
 
-updateDynamicGreeting();
-setInterval(updateDynamicGreeting, 1800000);
+// --- 4. SLUMPVALT CITAT I FOOTER ---
+function updateFooterQuote() {
+    const quotes = [
+        "Stillhet är inte frånvaro av ljud, utan närvaro av harmoni.",
+        "Andetaget är bron som förenar din kropp med din själ.",
+        "Varje ögonblick är en ny möjlighet att landa i dig själv.",
+        "Ditt lugn är din superkraft."
+    ];
+    const quoteElement = document.getElementById('footer-quote');
+    if (quoteElement) {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteElement.innerText = `"${quotes[randomIndex]}"`;
+    }
+}
 
-// --- 4. BIL OCH PRATBUBBLA ---
+// --- 5. BIL OCH PRATBUBBLA ---
 const textTarget = document.getElementById("typing-text");
 const fullText = "Nu startar din inre resa, vill du veta mer vem som sitter bredvid dig i passagerarsätet? Läs mer om vandhala!";
-
 let isDeleting = false;
 let currentText = "";
 let speed = 60; 
 
 function typeLoop() {
     if (!textTarget) return;
-    if (isDeleting) {
-        currentText = fullText.substring(0, currentText.length - 1);
-        speed = 30;
-    } else {
-        currentText = fullText.substring(0, currentText.length + 1);
-        speed = 60; 
-    }
+    currentText = isDeleting ? fullText.substring(0, currentText.length - 1) : fullText.substring(0, currentText.length + 1);
     textTarget.innerHTML = currentText;
-    if (!isDeleting && currentText === fullText) {
-        speed = 3000; 
-        isDeleting = true;
-    } else if (isDeleting && currentText === "") {
-        isDeleting = false;
-        speed = 500;
-    }
-    setTimeout(typeLoop, speed);
+    if (!isDeleting && currentText === fullText) { speed = 3000; isDeleting = true; }
+    else if (isDeleting && currentText === "") { isDeleting = false; speed = 500; }
+    setTimeout(typeLoop, isDeleting ? 30 : 60);
 }
 
+// --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
+    loadComponent('nav-placeholder', 'nav-template.html');
+    loadComponent('footer-placeholder', 'footer-template.html');
+    updateDynamicGreeting();
     setTimeout(typeLoop, 1000);
 });
+setInterval(updateDynamicGreeting, 1800000);
