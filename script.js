@@ -7,7 +7,7 @@ let lampIsOn = savedTheme === 'light';
 // Applicera temat direkt på <html> så att sidan laddas med rätt färger direkt
 document.documentElement.setAttribute('data-theme', savedTheme);
 
-// --- 1. KOMPONENT-LADDARE ---
+// --- 1. KOMPONENT-LADDARE (Uppdaterad för Offcanvas-meny) ---
 async function loadComponent(elementId, fileName) {
     try {
         const response = await fetch(fileName);
@@ -18,23 +18,23 @@ async function loadComponent(elementId, fileName) {
         if (elementId === 'nav-placeholder') {
             initializeLamp(); 
             
-            // --- MANUELL FIX FÖR MOBILMENY ---
+            // --- FIX FÖR OFFCANVAS MENY ---
+            const offcanvasElement = document.getElementById('offcanvasNavbar');
             const toggler = document.querySelector('.navbar-toggler');
-            const collapseTarget = document.querySelector('.navbar-collapse');
             
-            if (toggler && collapseTarget) {
-                toggler.addEventListener('click', function() {
-                    // Vi kollar om menyn redan är öppen
-                    const isOpen = collapseTarget.classList.contains('show');
-                    
-                    if (isOpen) {
-                        collapseTarget.classList.remove('show');
-                        this.setAttribute('aria-expanded', 'false');
-                    } else {
-                        collapseTarget.classList.add('show');
-                        this.setAttribute('aria-expanded', 'true');
-                    }
-                });
+            // Vi kollar om både menyn och Bootstrap finns laddat
+            if (offcanvasElement && window.bootstrap) {
+                // Skapa en ny Bootstrap Offcanvas-instans för den dynamiska menyn
+                const bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+                
+                // Om vi hittar hamburgarknappen, koppla ihop den med menyn
+                if (toggler) {
+                    toggler.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation(); // Hindrar klicket från att "bubbla"
+                        bsOffcanvas.show();
+                    });
+                }
             }
         }
         if (elementId === 'footer-placeholder') {
