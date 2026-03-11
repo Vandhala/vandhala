@@ -128,6 +128,12 @@ html, body {
     animation: bounce 2s infinite;
 }
 
+#lamp-hint {
+    display: none; /* Dölj som standard, JS visar den om det behövs */
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
 /* --- 4. HERO-SEKTION --- */
 .hero-section {
     position: relative;
