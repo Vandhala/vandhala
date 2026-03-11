@@ -161,7 +161,7 @@ html, body {
     z-index: 10; 
     color: white !important;
     text-align: center;
-    top: 84px; 
+    top: 60px; 
 }
 
 .hero-content h1 {
@@ -248,17 +248,17 @@ html, body {
     z-index: 500;
 }
 
-/* --- PERSONLIG HÄLSNING & DAGLIG ÖVNING --- */
+/* --- PERSONLIG HÄLSNING & DAGLIG ÖVNING 
 .personal-greeting-container {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%; /* Lite bredare för att ge texten plats */
+    width: 90%; 
     text-align: center;
     pointer-events: none; 
     z-index: 500;
 }
-
+--- */
 #greeting-text, .hero-content p {
     font-size: clamp(1.1rem, 2.5vw, 1.4rem); /* Något större för bättre läsbarhet */
     font-weight: 450; 
