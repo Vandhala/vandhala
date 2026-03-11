@@ -80,7 +80,7 @@ html, body {
 /* --- AKTIV LÄNK I NAVBAR (Skrivbord) --- */
 .nav-link.active {
     position: relative;
-    color: var(--accent-brown) !important; /* Ändra färg på texten när den är aktiv */
+    color: #000000 !important;
 }
 
 .nav-link.active::after {
@@ -117,7 +117,6 @@ html, body {
 .offcanvas .nav-link.active {
     font-weight: 900;
     background-color: rgba(115, 125, 90, 0.05); /* Mycket subtil bakgrundston */
-    border-left: 4px solid var(--accent-brown); /* Ett vertikalt streck istället för under, ser proffsigt ut i sidomenyer */
 }
 
 
