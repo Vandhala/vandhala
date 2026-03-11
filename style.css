@@ -795,81 +795,84 @@ html, body {
 }
 .cat-item span { font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
 
-/* --- SIDOSKROLL (UPPDATERAD MED KLICKBARHET) --- */
+/* --- SIDOSKROLL (FIXAD MED BILDER) --- */
 .horizontal-scroll-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding-bottom: 25px; /* Lite extra luft för skuggan vid hover */
-    scrollbar-width: none; /* Dölj scroll i Firefox */
-    -ms-overflow-style: none; /* Dölj scroll i IE/Edge */
+    padding-bottom: 25px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .horizontal-scroll-wrapper::-webkit-scrollbar { 
-    display: none; /* Dölj i Chrome/Safari */
+    display: none; 
 }
 
 .med-card {
     min-width: 260px;
     height: 360px;
     border-radius: 25px;
-    background-size: cover;
-    background-position: center;
+    /* Dessa rader ser till att bilderna syns: */
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    
     position: relative;
     flex-shrink: 0;
-    text-decoration: none !important; /* Tar bort länk-understrykning */
-    display: block;
+    text-decoration: none !important;
+    display: block; /* Viktigt för att länken ska få en storlek */
     overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* Effekt när man håller musen över kortet */
 .med-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
+/* --- BADGE & TEXT --- */
 .badge-time {
     position: absolute;
     top: 20px;
     left: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px); /* Lyxig frostat glas-effekt på badgen */
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    color: white;
+    color: white !important;
     padding: 6px 14px;
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 600;
-    z-index: 2;
+    z-index: 5;
 }
 
 .card-overlay {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     padding: 25px 20px;
     background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
     border-radius: 0 0 25px 25px;
-    color: white;
-    z-index: 2;
+    color: white !important;
+    z-index: 5;
 }
 
 .card-overlay h3 {
     font-family: 'Fraunces', serif !important;
     font-size: 1.4rem;
     margin-bottom: 5px;
-    color: white;
+    color: white !important;
 }
 
 .card-overlay p {
     font-size: 0.9rem;
     margin: 0;
     opacity: 0.85;
-    line-height: 1.3;
+    color: white !important;
 }
-
 /* --- MÖRKERLÄGE ANPASSNING --- */
 [data-theme="dark"] .search-bar, 
 [data-theme="dark"] .cat-circle {
