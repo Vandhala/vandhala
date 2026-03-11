@@ -669,3 +669,115 @@ html, body {
     font-style: italic;
     opacity: 0.8;
 }
+
+
+/***************** MEDITATION SIDA***************************/
+/* --- SÖKFÄLT --- */
+.search-bar {
+    background: #e9e5d8;
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+}
+.search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+    color: #555;
+}
+
+/* --- HERO CARD --- */
+.hero-meditation {
+    height: 400px;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+}
+.hero-content { text-align: center; z-index: 2; }
+
+/* Flytande Glassmorphism-box */
+.glass-widget {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* --- KATEGORIER --- */
+.category-row {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.cat-circle {
+    width: 70px;
+    height: 70px;
+    background: #e9e5d8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+}
+.cat-item span { font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
+
+/* --- SIDOSKROLL --- */
+.horizontal-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 20px;
+    scrollbar-width: none; /* Dölj scroll i Firefox */
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar { display: none; } /* Dölj i Chrome/Safari */
+
+.med-card {
+    min-width: 250px;
+    height: 350px;
+    border-radius: 20px;
+    background-size: cover;
+    position: relative;
+    flex-shrink: 0;
+}
+.badge-time {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    border-radius: 0 0 20px 20px;
+    color: white;
+}
+
+/* --- MÖRKERLÄGE ANPASSNING --- */
+[data-theme="dark"] .search-bar, 
+[data-theme="dark"] .cat-circle {
+    background: #222;
+    color: white;
+}
