@@ -38,6 +38,7 @@ html, body {
     /* Padding-top gör plats för den fixerade navbaren */
    /* padding-top: -1px !important; */
     width: 100%;
+    max-width: 1400px; /* Här styr du hur bred sidan ska vara som mest */
     overflow-x: hidden;
     transition: background-color 0.4s ease;
 }
