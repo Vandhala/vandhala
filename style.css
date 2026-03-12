@@ -63,26 +63,25 @@ html, body {
 
 /****.  navbar undermeny     ****/
 
-/* Styling för undersidor i menyn */
+/* 1. GRUNDSTYLING (Ljust läge) */
+
 .sub-nav-link {
-    font-size: 0.9rem !important; /* Lite mindre text */
-    opacity: 0.8; /* Lite diskretare */
-    border-bottom: none !important; /* Ta bort det tjocka strecket vi skapade tidigare för vanliga länkar */
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+    font-size: 0.9rem !important;
+    opacity: 0.8;
 }
 
-.sub-nav-link:hover {
-    opacity: 1;
-    color: var(--accent-brown) !important;
-}
-
-/* Om undersidan är aktiv, gör den lite tydligare */
 .sub-nav-link.active {
     opacity: 1;
     font-weight: 600;
+    /* Här kan du lägga till ett litet streck även för undersidan om du vill */
 }
 
+/* 2. MÖRKERLÄGE (Fixar så texten syns när lampan är släckt) */
+[data-theme="dark"] .sub-nav-link {
+    color: #cccccc !important; /* Ljusgrå undersidor i mörkerläge */
+}
+
+/***slut**/
 
 
 [data-theme="dark"] .navbar {
