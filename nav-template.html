@@ -50,35 +50,51 @@
 
     -->
 
+   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Meny</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
     <div class="offcanvas-body">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-    <a class="nav-link d-flex justify-content-between align-items-center" 
-       data-bs-toggle="collapse" 
-       href="#meditationSubmenu" 
-       role="button" 
-       aria-expanded="false">
-        Meditationer
-        <i class="bi bi-chevron-down small"></i> </a>
-    
-    <div class="collapse" id="meditationSubmenu">
-        <ul class="navbar-nav ps-3" style="border-left: 1px solid rgba(0,0,0,0.1); margin-left: 10px;">
+        <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link sub-nav-link" href="meditationer.html">Alla meditationer</a>
+                <a class="nav-link" href="index.html">Hem</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-between align-items-center" 
+                   data-bs-toggle="collapse" 
+                   href="#meditationSubmenu" 
+                   role="button">
+                    Meditationer
+                    <i class="bi bi-chevron-down" style="font-size: 0.8rem;"></i>
+                </a>
+                
+                <div class="collapse" id="meditationSubmenu">
+                    <ul class="navbar-nav ps-3">
+                        <li class="nav-item">
+                            <a class="nav-link sub-nav-link" href="meditationer.html">Alla meditationer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link sub-nav-link" href="meditations-bibliotek/morgon/morgonmeditation.html">Morgonmeditation</a>
+                        </li>
+                        </ul>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link sub-nav-link" href="meditations-bibliotek/morgon/morgonmeditation.html">Morgonmeditation</a>
+                <a class="nav-link" href="index.html">Hem</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link sub-nav-link" href="#">Kommande sida 2</a>
+                <a class="nav-link" href="#">Tjänster</a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link sub-nav-link" href="#">Kommande sida 3</a>
+                <a class="nav-link" href="#">Kontakt</a>
             </li>
+
+             
         </ul>
     </div>
-</li>
-    </ul>
 </div>
         
 
