@@ -67,13 +67,22 @@ html, body {
 
 .sub-nav-link {
     font-size: 0.9rem !important;
+    font-weight: 400 !important;
     opacity: 0.8;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 }
 
 .sub-nav-link.active {
     opacity: 1;
     font-weight: 600;
     /* Här kan du lägga till ett litet streck även för undersidan om du vill */
+}
+
+/* Denna gör att pilen roterar när man öppnar menyn */
+[aria-expanded="true"] .bi-chevron-down {
+    transform: rotate(180deg);
+    transition: 0.3s;
 }
 
 /* 2. MÖRKERLÄGE (Fixar så texten syns när lampan är släckt) */
