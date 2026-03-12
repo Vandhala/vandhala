@@ -110,7 +110,7 @@ html, body {
     #meditationSubmenu {
         position: absolute;
         /* Glas-effekten */
-        background: rgba(255, 255, 255, 0.7); /* Halvgenomskinlig vit */
+        background: rgba(255, 255, 255, 0.1); /* Halvgenomskinlig vit */
         backdrop-filter: blur(10px); /* Detta gör bakgrunden suddig och läsbar */
         -webkit-backdrop-filter: blur(10px); 
         
