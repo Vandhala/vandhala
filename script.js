@@ -218,6 +218,61 @@ function typeLoop() {
     setTimeout(typeLoop, isDeleting ? 30 : 60);
 }
 
+// sökfunktion
+
+// Data för dina meditationer
+const meditations = [
+    { title: "Morgonstund", tags: ["morgon", "energi", "vakna"], url: "morgonstund.html", img: "images/morgon.jpg", time: "10 min" },
+    { title: "Stressa ner", tags: ["stress", "lugn", "paus", "oro"], url: "stressa-ner.html", img: "images/dag.jpg", time: "5 min" },
+    { title: "Kvällsro", tags: ["sömn", "kväll", "vila", "trött"], url: "kvallsro.html", img: "images/kvall.jpg", time: "20 min" },
+    { title: "Kreativt Flow", tags: ["skapa", "fokus", "ideer"], url: "kreativt-flode.html", img: "images/dag.jpg", time: "15 min" }
+];
+
+const searchInput = document.getElementById('meditation-search');
+const resultsContainer = document.getElementById('search-results');
+
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        
+        if (query.length > 1) {
+            // Filtrera meditationer baserat på titel eller taggar
+            const filtered = meditations.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.tags.some(tag => tag.includes(query))
+            );
+
+            displayResults(filtered);
+        } else {
+            resultsContainer.style.display = 'none';
+        }
+    });
+}
+
+function displayResults(list) {
+    resultsContainer.innerHTML = '';
+    if (list.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-muted p-3">Hittade inget som matchar din sökning...</p>';
+    } else {
+        list.forEach(m => {
+            const item = document.createElement('a');
+            item.href = m.url;
+            item.className = 'search-result-item';
+            item.innerHTML = `
+                <img src="${m.img}" alt="${m.title}">
+                <div>
+                    <strong>${m.title}</strong><br>
+                    <small>${m.time} • ${m.tags.join(', ')}</small>
+                </div>
+            `;
+            resultsContainer.appendChild(item);
+        });
+    }
+    resultsContainer.style.display = 'block';
+}
+
+
+
 // --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
     loadComponent('nav-placeholder', 'nav-template.html');
