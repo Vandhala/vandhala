@@ -107,6 +107,12 @@ html, body {
         margin-top: 10px; /* Avstånd från huvudlänken */
     }
 
+    /* DETTA ÄR NYCKELN: Tvinga listan att bli en kolumn */
+    #meditationSubmenu .navbar-nav {
+        flex-direction: column !important; 
+        align-items: flex-start !important;
+    }
+
     /* Mörkerläge för den svävande boxen */
     [data-theme="dark"] #meditationSubmenu {
         background-color: #2c2c2c;
