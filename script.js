@@ -8,30 +8,47 @@ let lampIsOn = savedTheme === 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
 // --- 1. KOMPONENT-LADDARE ---
-// --- 1. KOMPONENT-LADDARE (Uppdaterad med Aktiv-Länk-logik) ---
+//-ny testkod-//
+// --- UPPDATERAD KOMPONENT-LADDARE ---
 async function loadComponent(elementId, fileName) {
     try {
-        const response = await fetch(fileName);
-        if (!response.ok) throw new Error('Kunde inte hitta filen');
+        // Fixar sökvägen så den fungerar både lokalt och på GitHub Pages
+        const isGitHub = window.location.hostname.includes('github.io');
+        const repoName = '/vandhala/';
+        
+        let fetchPath = fileName;
+        
+        // Om vi skickar in en sökväg som börjar med ../ så behåller vi den, 
+        // annars fixar vi bas-sökvägen
+        if (!fileName.startsWith('..')) {
+            fetchPath = isGitHub ? repoName + fileName : '/' + fileName;
+        }
+
+        const response = await fetch(fetchPath);
+        if (!response.ok) throw new Error(`Kunde inte hitta: ${fetchPath}`);
+        
         const data = await response.text();
         document.getElementById(elementId).innerHTML = data;
         
+        // När naven är laddad, kör vi alla funktioner som berör menyn
         if (elementId === 'nav-placeholder') {
-            initializeLamp(); 
+            // Starta lampan (Se till att din funktion heter initializeLamp i script.js)
+            if (typeof initializeLamp === 'function') {
+                initializeLamp(); 
+            }
             
-            // --- NYTT: LOGIK FÖR AKTIV LÄNK ---
-            // Hämtar filnamnet på sidan vi är på (t.ex. "meditationer.html")
-            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            // Fixa aktiv länk i menyn
+            const currentPath = window.location.pathname;
             const navLinks = document.querySelectorAll('.nav-link');
 
             navLinks.forEach(link => {
-                // Vi kollar om länkens href-attribut matchar sidan vi är på
-                if (link.getAttribute('href') === currentPath) {
+                const linkHref = link.getAttribute('href');
+                if (linkHref && currentPath.includes(linkHref.replace('.html', ''))) {
                     link.classList.add('active');
                 }
             });
 
-            // --- FIX FÖR OFFCANVAS (Som vi pratade om tidigare) ---
+            // Starta Bootstrap-menyn (offcanvas)
             const offcanvasElement = document.getElementById('offcanvasNavbar');
             if (offcanvasElement && window.bootstrap) {
                 new bootstrap.Offcanvas(offcanvasElement);
@@ -39,10 +56,12 @@ async function loadComponent(elementId, fileName) {
         }
 
         if (elementId === 'footer-placeholder') {
-            updateFooterQuote(); 
+            if (typeof updateFooterQuote === 'function') {
+                updateFooterQuote(); 
+            }
         }
     } catch (error) {
-        console.warn("Kunde inte ladda komponenten:", error);
+        console.warn("Laddningsfel:", error);
     }
 }
 

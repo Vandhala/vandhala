@@ -127,6 +127,7 @@
 
     // 3. Starta laddningen när sidan öppnas
     window.addEventListener('DOMContentLoaded', () => {
+        // Vi backar ut ett steg (../) för att hitta templaten i huvudmappen
         loadComponent('nav-placeholder', '../nav-template.html');
         loadComponent('footer-placeholder', '../footer-template.html');
     });
