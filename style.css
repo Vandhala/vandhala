@@ -96,15 +96,32 @@ html, body {
 /* --- DROPDOWN FÖR DATOR (Skärmar bredare än 992px) --- */
 @media (min-width: 992px) {
     /* Gör så att undermenyn inte "skjuter ner" resten av länkarna */
-    #meditationSubmenu {
-        position: absolute; /* Gör att den svävar */
-        background-color: white; /* Boxens färg i ljust läge */
+    /*#meditationSubmenu {
+        position: absolute; 
+        background-color: white; 
         min-width: 200px;
         border-radius: 8px;
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         padding: 10px 0;
         z-index: 1000;
-        margin-top: 10px; /* Avstånd från huvudlänken */
+        margin-top: 10px;  
+    }*/
+
+    #meditationSubmenu {
+        position: absolute;
+        /* Glas-effekten */
+        background: rgba(255, 255, 255, 0.7); /* Halvgenomskinlig vit */
+        backdrop-filter: blur(10px); /* Detta gör bakgrunden suddig och läsbar */
+        -webkit-backdrop-filter: blur(10px); 
+        
+        border: 1px solid rgba(255, 255, 255, 0.3); /* Tunn ljus kant */
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        
+        min-width: 220px;
+        padding: 10px 0;
+        z-index: 1000;
+        margin-top: 10px;
     }
 
     /* DETTA ÄR NYCKELN: Tvinga listan att bli en kolumn */
@@ -113,11 +130,17 @@ html, body {
         align-items: flex-start !important;
     }
 
-    /* Mörkerläge för den svävande boxen */
+    /* Mörkerläge för den svävande boxen 
     [data-theme="dark"] #meditationSubmenu {
         background-color: #2c2c2c;
         border: 1px solid #444;
         box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }*/
+
+    [data-theme="dark"] #meditationSubmenu {
+        background: rgba(44, 44, 44, 0.8); /* Mörkare glas */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
     }
 
     /* Ta bort indragningen på datorn så texten ligger rakt */
