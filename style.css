@@ -746,7 +746,7 @@ html, body {
     color: #555;
 }
 
-/*--förr sökfunkjtion--*/
+/*--förr själva sökfunktionen--*/
 .search-results-container {
     background: white;
     border-radius: 20px;
@@ -1126,7 +1126,7 @@ html, body {
     justify-content: center;
     font-size: 1.4rem;
     margin: 0 auto 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 8px rgba(24,28,20,1.08);
 }
 
 [data-theme="dark"] .cat-circle {
