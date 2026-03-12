@@ -64,6 +64,7 @@ async function loadComponent(elementId, fileName) {
         console.warn("Laddningsfel:", error);
     }
 }
+//---kanske nyt tillbaka till hit - kod finns i anteckning
 
 // --- 2. LAMP-LOGIK ---
 function initializeLamp() {
