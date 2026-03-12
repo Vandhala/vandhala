@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
     
+    
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -39,35 +40,39 @@
             <h2 class="section-title">meditatier</h2>
         </div>
         
-        <div class="row g-4 justify-content-center mb-5">
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="#" class="med-card w-100" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('../images/morgon.jpg'); height: 250px;">
-                    <span class="badge-time">12 min</span>
-                    <div class="card-overlay">
-                        <h3>Hitta ditt lugn</h3>
-                        <p>Tiden försvinner...</p>
-                    </div>
-                </a>
+       <!---meditationskort-->
+
+       <section class="meditation-scroll-section">
+    <h2 class="section-title mb-4">Morgonmeditationer</h2> <div class="horizontal-scroll-wrapper">
+        
+        <a href="#" class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('../../images/morgon.jpg');">
+            <span class="badge-time">12 min</span>
+            <div class="card-overlay">
+                <h3>Hitta ditt lugn</h3>
+                <p>Tiden försvinner...</p>
             </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="#" class="med-card w-100" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('../images/dag.jpg'); height: 250px;">
-                    <span class="badge-time">8 min</span>
-                    <div class="card-overlay">
-                        <h3>Vandra i skogen</h3>
-                        <p>Landskapet förändras...</p>
-                    </div>
-                </a>
+        </a>
+
+        <a href="#" class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('../../images/skog.jpg');">
+            <span class="badge-time">8 min</span>
+            <div class="card-overlay">
+                <h3>Vandra i skogen</h3>
+                <p>Landskapet förändras...</p>
             </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="#" class="med-card w-100" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('../images/kvall.jpg'); height: 250px;">
-                    <span class="badge-time">15 min</span>
-                    <div class="card-overlay">
-                        <h3>Månskens-meditation</h3>
-                        <p>Landa i natten...</p>
-                    </div>
-                </a>
+        </a>
+
+        <a href="#" class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('../../images/manen.jpg');">
+            <span class="badge-time">15 min</span>
+            <div class="card-overlay">
+                <h3>Månskens-meditation</h3>
+                <p>Landa i natten...</p>
             </div>
-        </div>
+        </a>
+
+    </div>
+</section>
+
+       <!---slut-->
 
         <div class="text-center mb-5">
             <h2 class="section-title display-4">övning</h2>
