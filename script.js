@@ -67,61 +67,79 @@ async function loadComponent(elementId, fileName) {
 //---kanske nyt tillbaka till hit - kod finns i anteckning
 
 // --- 2. LAMP-LOGIK ---
+//--- lamptest
+// --- 2. LAMP-LOGIK (Den avancerade versionen med Draggable) ---
 function initializeLamp() {
     const HIT = document.querySelector('.toggle-scene__hit-spot');
     const DUMMY_CORD = document.querySelector('.toggle-scene__dummy-cord line');
-    const ENDY = 380.5405;
     const lampHint = document.getElementById('lamp-hint');
+    const ENDY = 380.5405;
 
+    // 1. Säkerhetskoll - avbryt om delarna inte finns än
     if (!HIT || !DUMMY_CORD) return;
 
-    // --- NYTT: Kolla om användaren redan har sett instruktionen ---
+    // 2. Kolla instruktions-bubblan
     const hasUsedLamp = localStorage.getItem('hasUsedLamp') === 'true';
-    
     if (hasUsedLamp && lampHint) {
         lampHint.style.display = 'none';
     } else if (lampHint) {
-        // Om de inte använt den förut, visa den men dölj efter 15 sekunder
         lampHint.style.display = 'block';
-        setTimeout(() => {
-            gsap.to(lampHint, { opacity: 0, duration: 1, onComplete: () => lampHint.style.display = 'none' });
-        }, 15000);
+        if (window.gsap) {
+            setTimeout(() => {
+                gsap.to(lampHint, { opacity: 0, duration: 1, onComplete: () => lampHint.style.display = 'none' });
+            }, 15000);
+        }
     }
 
-    Draggable.create(document.createElement('div'), {
-        trigger: HIT,
-        type: 'y',
-        onDrag: function() {
-            gsap.set(DUMMY_CORD, { attr: { y2: ENDY + this.y } });
-        },
-        onRelease: function() {
-            gsap.to(DUMMY_CORD, {
-                attr: { y2: ENDY },
-                duration: 0.3,
-                ease: "elastic.out(1, 0.3)",
-                onComplete: () => {
-                    if (this.y > 30) {
-                        lampIsOn = !lampIsOn;
-                        const newTheme = lampIsOn ? 'light' : 'dark';
-                        
-                        document.documentElement.setAttribute('data-theme', newTheme);
-                        localStorage.setItem('theme', newTheme);
-                        
-                        // --- NYTT: Markera att de lärt sig lampan ---
-                        localStorage.setItem('hasUsedLamp', 'true');
-                        
-                        if (lampHint) {
-                            gsap.to(lampHint, { opacity: 0, duration: 0.5, onComplete: () => lampHint.style.display = 'none' });
+    // 3. Skapa Draggable-funktionen (själva drag-känslan)
+    if (window.Draggable) {
+        Draggable.create(document.createElement('div'), {
+            trigger: HIT,
+            type: 'y',
+            onDrag: function() {
+                gsap.set(DUMMY_CORD, { attr: { y2: ENDY + this.y } });
+            },
+            onRelease: function() {
+                const self = this; // Sparar referensen
+                gsap.to(DUMMY_CORD, {
+                    attr: { y2: ENDY },
+                    duration: 0.3,
+                    ease: "elastic.out(1, 0.3)",
+                    onComplete: () => {
+                        // Om man dragit ner mer än 30px, byt tema
+                        if (self.y > 30) {
+                            const currentTheme = document.documentElement.getAttribute('data-theme');
+                            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                            
+                            document.documentElement.setAttribute('data-theme', newTheme);
+                            localStorage.setItem('theme', newTheme);
+                            localStorage.setItem('hasUsedLamp', 'true');
+                            
+                            if (lampHint) {
+                                gsap.to(lampHint, { opacity: 0, duration: 0.5, onComplete: () => lampHint.style.display = 'none' });
+                            }
+                            
+                            // Kör extrafunktioner om de finns
+                            if (typeof updateDynamicGreeting === 'function') updateDynamicGreeting();
+                            if (typeof updateMeditationHero === 'function') updateMeditationHero();
                         }
-                        
-                        updateDynamicGreeting(); 
-                        updateMeditationHero();
                     }
-                }
-            });
-        }
-    });
+                });
+            }
+        });
+    } else {
+        // Om Draggable inte är laddat (t.ex. i en undermapp), kör vi en enkel klick-backup
+        HIT.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
 }
+
+//-- lamptest slut
+
 
 // --- 3. DYNAMISK HÄLSNING (Startsidan) ---
 async function updateDynamicGreeting() {
