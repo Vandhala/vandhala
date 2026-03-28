@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spela Meditation - Vandhala</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <main class="container py-5 mt-5">
+        
+        <div class="hero-meditation player-hero mb-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/morgon.jpg');">
+            <div class="glass-widget-player text-center">
+                <div class="glass-content">
+                    <span class="badge-time mb-2">12 min</span>
+                    <h1 class="display-5 fw-bold text-white mb-3">Hitta ditt lugn</h1>
+                    <p class="lead text-white-50 mb-4">En morgonmeditation för en harmonisk start.</p>
+                    
+                    <div class="audio-player-container bg-white p-3 rounded-pill shadow-sm">
+                        <audio controls class="w-100 Custom-audio-player">
+                            <source src="../audio/morgonmeditation.mp3" type="audio/mpeg">
+                            Din webbläsare stödjer inte ljudspelaren.
+                        </audio>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+            <div class="col-md-7">
+                <h2 class="section-title mb-4">Fördelar med denna meditation</h2>
+                <ul class="list-unstyled lead text-muted benefit-list">
+                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Minskar morgonstress och oro</li>
+                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Ökar fokus och mental klarhet för dagen</li>
+                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Skapar en känsla av inre lugn och balans</li>
+                </ul>
+            </div>
+            
+            <div class="col-md-5">
+                <div class="reflection-box p-4 bg-light rounded shadow-sm border-start border-4 border-primary">
+                    <h3 class="h5 mb-3"><i class="bi bi-journal-text me-2"></i>Reflektion</h3>
+                    <p class="text-muted">Efter meditationen, ta en stund och fundera: "Vilken känsla vill jag bära med mig in i dagen?"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-section mb-5 p-5 rounded text-center" style="background-color: var(--primary-color); color: white;">
+            <h2 class="section-title text-white mb-4">Dagens Övning: Medveten Andning</h2>
+            <p class="lead mb-0">Under 5 minuter idag, fokusera enbart på din andning. Känn hur luften går in och ut. Om dina tankar vandrar, för dem mjukt tillbaka till andetaget.</p>
+        </div>
+
+        <section class="meditation-scroll-section mb-5">
+            <h2 class="section-title mb-4">Upptäck fler meditationer</h2>
+            <div class="horizontal-scroll-wrapper">
+                
+                <a href="spela-meditation.html" class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('../images/kvall.jpg');">
+                    <span class="badge-time">8 min</span>
+                    <div class="card-overlay">
+                        <h3>Vandra i skogen</h3>
+                        <p>Fokus & Lugn</p>
+                    </div>
+                </a>
+
+                <a href="spela-meditation.html" class="med-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('../images/dag.jpg');">
+                    <span class="badge-time">15 min</span>
+                    <div class="card-overlay">
+                        <h3>Månskens-meditation</h3>
+                        <p>Sömn-resa</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <div class="category-row justify-content-center pt-5 border-top">
+            <a href="#" class="cat-item">
+                <div class="cat-circle"><i class="bi bi-brightness-high"></i></div>
+                <span>MORGON-FLOW</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-circle"><i class="bi bi-cloud-moon"></i></div>
+                <span>SÖMN-RESA</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-circle"><i class="bi bi-heart"></i></div>
+                <span>FOKUS-LUGN</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-circle"><i class="bi bi-tsunami"></i></div>
+                <span>KREATIVT FLÖDE</span>
+            </a>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../script.js"></script>
+
+    <script>
+        // Laddar in nav/footer från huvudmappen
+        window.addEventListener('DOMContentLoaded', () => {
+            loadComponent('nav-placeholder', '../nav-template.html');
+            loadComponent('footer-placeholder', '../footer-template.html');
+        });
+    </script>
+</body>
+</html>
