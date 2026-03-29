@@ -122,13 +122,18 @@
     
     <script src="../script.js"></script>
 
-    <script>
-        // Laddar in nav/footer från huvudmappen
-        window.addEventListener('DOMContentLoaded', () => {
-            loadComponent('nav-placeholder', '../nav-template.html');
-            loadComponent('footer-placeholder', '../footer-template.html');
-        });
-    </script>
+   <script>
+    // Laddar in nav/footer OCH radion
+    window.addEventListener('DOMContentLoaded', () => {
+        loadComponent('nav-placeholder', '../nav-template.html');
+        loadComponent('footer-placeholder', '../footer-template.html');
+        
+        // HÄR LÄGGER VI TILL ANROPET FÖR RADION:
+        if (typeof initRadio === 'function') {
+            initRadio();
+        }
+    });
+</script>
 </body>
 </html>
 
