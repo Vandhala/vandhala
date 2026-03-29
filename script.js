@@ -300,7 +300,7 @@ function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
-    fetch('../radio-template.html')
+    fetch('../components/radio-template.html')
         .then(res => res.text())
         .then(html => {
             placeholder.innerHTML = html;
