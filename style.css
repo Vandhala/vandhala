@@ -1331,6 +1331,9 @@ audio.custom-audio-player::-webkit-media-controls-mute-button {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 30px; /* Rundade kanter på hela spelaren */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* Ger djup åt hela rutan */
+    aspect-ratio: 4 / 5; /* Gör den högformat som din snygga bild */
 }
 
 .full-bg {
@@ -1349,6 +1352,8 @@ audio.custom-audio-player::-webkit-media-controls-mute-button {
 .boombox-body {
     width: 100%;
     height: auto;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6)); /* Skapar en skugga under radion ner i gräset */
+
 }
 
 /* Här positionerar vi kassetten inuti radion */
