@@ -1321,3 +1321,62 @@ audio.custom-audio-player::-webkit-media-controls-mute-button {
     border-radius: 50%;
     color: white;
 }
+
+/******* Boombox ********/
+.radio-player-widget {
+    position: relative;
+    width: 100%;
+    height: 600px; /* Eller vad som passar din design */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.boombox-container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.boombox-body {
+    width: 100%;
+    height: auto;
+}
+
+/* Här positionerar vi kassetten inuti radion */
+.cassette-slot {
+    position: absolute;
+    top: 52%; /* JUSTERA DENNA */
+    left: 50%; /* JUSTERA DENNA */
+    transform: translate(-50%, -50%);
+    width: 180px; /* JUSTERA DENNA */
+    z-index: 3;
+}
+
+.cassette-tape {
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.radio-interface {
+    position: absolute;
+    top: 30%; /* Där displayen på radion sitter */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 4;
+}
+
+.radio-text {
+    color: #00ff00; /* Klassisk grön radiotext? */
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+}

@@ -294,7 +294,31 @@ function displayResults(list) {
     resultsContainer.style.display = 'block';
 }
 
+//---- boombox ----
 
+function initRadio() {
+    const placeholder = document.getElementById('radio-placeholder');
+    if (!placeholder) return;
+
+    fetch('../components/radio-template.html')
+        .then(res => res.text())
+        .then(html => {
+            placeholder.innerHTML = html;
+
+            // Hämta data från attributen
+            const bg = placeholder.getAttribute('data-bg');
+            const cassette = placeholder.getAttribute('data-cassette');
+            const title = placeholder.getAttribute('data-title');
+
+            // Applicera bilderna
+            document.getElementById('radio-bg-img').src = bg;
+            document.getElementById('active-cassette').src = cassette;
+            document.getElementById('radio-title').innerText = title;
+            
+            // Här kan du lägga till din GSAP-animation senare!
+        });
+}
+//----bombox slut ---
 
 // --- STARTA ALLT ---
 document.addEventListener("DOMContentLoaded", () => {
