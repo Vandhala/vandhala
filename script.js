@@ -295,28 +295,37 @@ function displayResults(list) {
 }
 
 //---- boombox ----
-
 function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
+    // 1. Hämta datan FRÅN placeholder-diven FÖRST
+    const bgData = placeholder.getAttribute('data-bg');
+    const cassetteData = placeholder.getAttribute('data-cassette');
+    const titleData = placeholder.getAttribute('data-title');
+
+    // 2. Hämta själva mallen
     fetch('../components/radio-template.html')
-        .then(res => res.text())
+        .then(res => {
+            if (!res.ok) throw new Error("Kunde inte hitta radio-template.html");
+            return res.text();
+        })
         .then(html => {
+            // 3. Tryck in mallen i diven
             placeholder.innerHTML = html;
 
-            // Hämta data från attributen
-            const bg = placeholder.getAttribute('data-bg');
-            const cassette = placeholder.getAttribute('data-cassette');
-            const title = placeholder.getAttribute('data-title');
+            // 4. Applicera datan på de nya elementen inuti mallen
+            const bgImg = document.getElementById('radio-bg-img');
+            const cassetteImg = document.getElementById('active-cassette');
+            const radioTitle = document.getElementById('radio-title');
 
-            // Applicera bilderna
-            document.getElementById('radio-bg-img').src = bg;
-            document.getElementById('active-cassette').src = cassette;
-            document.getElementById('radio-title').innerText = title;
+            if (bgImg) bgImg.src = bgData;
+            if (cassetteImg) cassetteImg.src = cassetteData;
+            if (radioTitle) radioTitle.innerText = titleData;
             
-            // Här kan du lägga till din GSAP-animation senare!
-        });
+            console.log("Radio laddad med titeln:", titleData);
+        })
+        .catch(err => console.error("Radio-fel:", err));
 }
 //----bombox slut ---
 
