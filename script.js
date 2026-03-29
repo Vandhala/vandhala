@@ -299,33 +299,69 @@ function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
-    // 1. Hämta datan FRÅN placeholder-diven FÖRST
+    // 1. Hämta all data från HTML-diven
     const bgData = placeholder.getAttribute('data-bg');
     const cassetteData = placeholder.getAttribute('data-cassette');
     const titleData = placeholder.getAttribute('data-title');
+    const audioSrc = placeholder.getAttribute('data-audio'); // ../audio/morgonmeditation.mp3
 
-    // 2. Hämta själva mallen
     fetch('../components/radio-template.html')
-        .then(res => {
-            if (!res.ok) throw new Error("Kunde inte hitta radio-template.html");
-            return res.text();
-        })
+        .then(res => res.text())
         .then(html => {
-            // 3. Tryck in mallen i diven
             placeholder.innerHTML = html;
 
-            // 4. Applicera datan på de nya elementen inuti mallen
+            // 2. Koppla elementen från mallen
             const bgImg = document.getElementById('radio-bg-img');
             const cassetteImg = document.getElementById('active-cassette');
             const radioTitle = document.getElementById('radio-title');
-
-            if (bgImg) bgImg.src = bgData;
-            if (cassetteImg) cassetteImg.src = cassetteData;
-            if (radioTitle) radioTitle.innerText = titleData;
+            const playBtn = document.getElementById('radio-play-btn');
             
-            console.log("Radio laddad med titeln:", titleData);
+            // Skapa ett dolt ljud-element
+            const audio = new Audio(audioSrc);
+
+            // 3. Sätt startläget (Kassetten börjar lite utanför/ovanför för animation)
+            if (bgImg) bgImg.src = bgData;
+            if (cassetteImg) {
+                cassetteImg.src = cassetteData;
+                // Startposition för animation: gömd och lite högre upp
+                gsap.set(cassetteImg, { y: -50, opacity: 0 });
+            }
+            if (radioTitle) radioTitle.innerText = titleData;
+
+            // 4. ANIMATION: Kassetten åker ner i luckan när mallen laddats
+            gsap.to(cassetteImg, {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power2.out",
+                delay: 0.5
+            });
+
+            // 5. LOGIK FÖR PLAY-KNAPPEN
+            let isPlaying = false;
+
+            playBtn.addEventListener('click', () => {
+                if (!isPlaying) {
+                    audio.play();
+                    playBtn.innerText = "PAUSE";
+                    // En liten extra animation: kassetten "skakar" lite när den spelar
+                    gsap.to(cassetteImg, { 
+                        scale: 1.02, 
+                        repeat: -1, 
+                        yoyo: true, 
+                        duration: 0.5, 
+                        ease: "sine.inOut" 
+                    });
+                } else {
+                    audio.pause();
+                    playBtn.innerText = "PLAY";
+                    gsap.killTweensOf(cassetteImg); // Stoppa skaket
+                    gsap.to(cassetteImg, { scale: 1, duration: 0.3 });
+                }
+                isPlaying = !isPlaying;
+            });
         })
-        .catch(err => console.error("Radio-fel:", err));
+        .catch(err => console.error("Fel vid start av radio:", err));
 }
 //----bombox slut ---
 
