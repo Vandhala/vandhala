@@ -107,5 +107,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
 
 <script src="script.js"></script>
+
+<script src="script.js"></script>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Laddar filer som ligger fritt (enligt din bild)
+            loadComponent('nav-placeholder', 'nav-template.html');
+            loadComponent('footer-placeholder', 'footer-template.html');
+            
+            // Startar funktioner
+            updateDynamicGreeting();
+            typeLoop();
+            
+            // Startar radio om den finns
+            if (document.getElementById('radio-placeholder')) {
+                initRadio();
+            }
+        });
+    </script>
 </body>
 </html>
