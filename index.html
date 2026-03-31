@@ -174,23 +174,25 @@
 
     <script src="js/script.js"></script> 
 
+    <script src="js/script.js"></script> 
+    
     <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        // Om filerna ligger i samma mapp som index.html, ta bort "components/"
-        loadComponent('nav-placeholder', 'nav-template.html');
-        loadComponent('footer-placeholder', 'footer-template.html');
-        
-        // Starta hälsningen
-        if (typeof startWelcomeText === 'function') {
-            startWelcomeText();
-        }
-
-        // Kör radion BARA om den finns på sidan
-        if (document.getElementById('radio-placeholder')) {
-            initRadio();
-        }
-    });
-</script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Ladda Nav & Footer (Eftersom de ligger fritt brevid index.html)
+            loadComponent('nav-placeholder', 'nav-template.html');
+            loadComponent('footer-placeholder', 'footer-template.html');
+            
+            // 2. Starta funktionerna för startsidan
+            updateDynamicGreeting(); // Hälsningen (God morgon etc)
+            updateMeditationHero();  // Uppdatera texterna i meditations-boxen
+            typeLoop();              // Typewriter vid bilen
+            
+            // 3. Starta radion (om den finns på sidan)
+            if (document.getElementById('radio-placeholder')) {
+                initRadio();
+            }
+        });
+    </script>
 
 </body>
 </html>
