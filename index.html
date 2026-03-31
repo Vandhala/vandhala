@@ -177,18 +177,17 @@
     
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            // På index.html laddar vi direkt från mappen
+            // Inga ../ här på startsidan!
             loadComponent('nav-placeholder', 'components/nav-template.html');
             loadComponent('footer-placeholder', 'components/footer-template.html');
             
-            // Starta hälsningen
+            // Kör radion och hälsningen
+            initRadio();
             if (typeof startWelcomeText === 'function') {
                 startWelcomeText();
             }
-            
-            // Starta radion (om den finns på index)
-            initRadio();
         });
     </script>
+
 </body>
 </html>
