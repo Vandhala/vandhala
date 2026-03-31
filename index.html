@@ -179,9 +179,10 @@
         loadComponent('nav-placeholder', 'components/nav-template.html');
         loadComponent('footer-placeholder', 'components/footer-template.html');
         
-        // Om du har en vinylspelare på startsidan också:
-        if (typeof initRadio === 'function') {
-            initRadio();
+
+        // Starta text-animationen på startsidan om den finns
+        if (typeof startTypewriter === 'function') {
+            startTypewriter();
         }
     });
 </script>
