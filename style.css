@@ -1301,27 +1301,6 @@ html, body {
 
 /****** Spela morgonmedetation sida ******/
 
-/* --- Custom styling för ljudspelaren --- */
-.audio-player-container {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-audio.custom-audio-player {
-    height: 35px; /* Gör den mer minimalistisk */
-}
-
-/* Anpassar färgerna (detta fungerar i vissa webbläsare, t.ex. Chrome) */
-audio.custom-audio-player::-webkit-media-controls-panel {
-    background-color: white;
-}
-audio.custom-audio-player::-webkit-media-controls-play-button,
-audio.custom-audio-player::-webkit-media-controls-mute-button {
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    color: white;
-}
-
 /******* Radio ********/
 /* Retro displayen ovanpå träet */
 .retro-display {
