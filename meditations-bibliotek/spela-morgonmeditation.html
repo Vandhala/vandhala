@@ -120,18 +120,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
     
-    <script src="../script.js"></script>
+    
 
-   <script>
-    // Laddar in nav/footer OCH radion
+   <script src="../script.js"></script> <script>
     window.addEventListener('DOMContentLoaded', () => {
+        // Gå ut ett steg för att hitta nav och footer som ligger löst i huvudmappen
         loadComponent('nav-placeholder', '../nav-template.html');
         loadComponent('footer-placeholder', '../footer-template.html');
         
-        // HÄR LÄGGER VI TILL ANROPET FÖR RADION:
-        if (typeof initRadio === 'function') {
-            initRadio();
-        }
+        // Starta radion
+        initRadio();
     });
 </script>
 </body>

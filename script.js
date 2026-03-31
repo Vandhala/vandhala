@@ -158,45 +158,73 @@ function typeLoop() {
 }
 
 // --- 7. MODERN RADIO ---
+// ---- Radio (Rättad efter din mappbild) ----
 function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
-    const audio = new Audio(placeholder.getAttribute('data-audio'));
+    const audioPath = placeholder.getAttribute('data-audio');
     const title = placeholder.getAttribute('data-title');
+    const audio = new Audio(audioPath);
     
-    // Kollar om vi ska gå bakåt eller inte för att hitta mallen
-    const isSubPage = window.location.pathname.includes('/sidor/') || window.location.pathname.split('/').length > 2;
-    const templatePath = isSubPage ? '../radio-template.html' : 'radio-template.html';
+    // Kollar om vi är i mappen 'meditations-bibliotek'
+    const isSubPage = window.location.pathname.includes('meditations-bibliotek');
+    
+    // Om vi är i en undermapp: gå ut ett steg (../) sen in i components/
+    // Om vi är på index: gå direkt in i components/
+    const templatePath = isSubPage 
+        ? '../components/radio-template.html' 
+        : 'components/radio-template.html';
 
     fetch(templatePath)
-        .then(res => res.text())
+        .then(res => {
+            if (!res.ok) throw new Error("Hittade inte mallen på: " + templatePath);
+            return res.text();
+        })
         .then(html => {
             placeholder.innerHTML = html;
+            
             const btn = document.getElementById('button');
             const arm = document.getElementById('arm-group');
             const disk = document.getElementById('disk');
             const icon = document.getElementById('play-icon');
 
+            if (!btn) return;
+
             btn.onclick = () => {
                 if (audio.paused) {
-                    arm.style.transform = "rotate(22deg)";
+                    // Starta spelaren
+                    if(arm) arm.style.transform = "rotate(22deg)";
                     setTimeout(() => {
                         audio.play();
-                        disk.style.animationPlayState = "running";
+                        if(disk) disk.style.animationPlayState = "running";
                         if(icon) icon.className = "bi bi-pause-fill";
+                        const displayTitle = document.getElementById('display-title');
+                        if(displayTitle) displayTitle.innerText = title.toUpperCase();
                     }, 1000);
                 } else {
+                    // Pausa spelaren
                     audio.pause();
-                    disk.style.animationPlayState = "paused";
-                    arm.style.transform = "rotate(0deg)";
+                    if(disk) disk.style.animationPlayState = "paused";
+                    if(arm) arm.style.transform = "rotate(0deg)";
                     if(icon) icon.className = "bi bi-play-fill";
                 }
             };
-        });
-}
 
-function formatTime(secs) {
-    let m = Math.floor(secs / 60), s = Math.floor(secs % 60);
-    return (m < 10 ? "0"+m : m) + ":" + (s < 10 ? "0"+s : s);
+            // Uppdatera tid och slider (om de finns)
+            audio.ontimeupdate = () => {
+                const curTimeText = document.getElementById('current-time');
+                const slider = document.getElementById('seek-slider');
+                if(slider) slider.value = audio.currentTime;
+                if(curTimeText) curTimeText.innerText = formatTime(audio.currentTime);
+            };
+            
+            audio.onloadedmetadata = () => {
+                const slider = document.getElementById('seek-slider');
+                const durTimeText = document.getElementById('total-duration');
+                if(slider) slider.max = audio.duration;
+                if(durTimeText) durTimeText.innerText = formatTime(audio.duration);
+            };
+        })
+        .catch(err => console.error("Radio-fel:", err));
 }
