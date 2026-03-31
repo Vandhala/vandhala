@@ -1,7 +1,14 @@
 <div id="turntable-container">
   <div class="retro-display">
     <div id="display-title">VÄNTAR...</div>
-    <div id="display-time">00:00</div>
+    
+    <div class="player-controls">
+        <input type="range" id="seek-slider" value="0" step="1">
+        <div class="time-info">
+            <span id="current-time">00:00</span>
+            <span id="total-duration">00:00</span>
+        </div>
+    </div>
   </div>
 
   <div id="turntable">
@@ -10,7 +17,9 @@
     <div id="wood2"><div id="grain7"></div><div id="grain8"></div><div id="grain9"></div><div id="grain10"></div><div id="grain11"></div></div>
     <div id="table"></div>
     
-    <div id="button"></div>
+    <div id="button">
+        <i id="play-icon" class="bi bi-play-fill"></i>
+    </div>
     
     <div id="disk">
       <div id="label"></div>
