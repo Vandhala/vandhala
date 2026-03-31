@@ -299,10 +299,9 @@ function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
-    // Hämta data från HTML-diven (som vi gjorde förut)
+    const audioPath = placeholder.getAttribute('data-audio');
     const title = placeholder.getAttribute('data-title');
-    const audioSrc = placeholder.getAttribute('data-audio');
-    const audio = new Audio(audioSrc);
+    const audio = new Audio(audioPath);
 
     fetch('../components/radio-template.html')
         .then(res => res.text())
@@ -310,45 +309,51 @@ function initRadio() {
             placeholder.innerHTML = html;
 
             const btn = document.getElementById('button');
+            const icon = document.getElementById('play-icon');
             const arm = document.getElementById('arm-group');
-            const label = document.getElementById('label');
-            const dispTitle = document.getElementById('display-title');
-            const dispTime = document.getElementById('display-time');
+            const disk = document.getElementById('disk');
+            const slider = document.getElementById('seek-slider');
+            const curTime = document.getElementById('current-time');
+            const durTime = document.getElementById('total-duration');
 
-            let isPlaying = false;
+            // Ladda metadata
+            audio.onloadedmetadata = () => {
+                slider.max = Math.floor(audio.duration);
+                durTime.innerText = formatTime(audio.duration);
+            };
 
-            btn.onclick = function() {
-                if (!isPlaying) {
-                    // STARTA
-                    isPlaying = true;
+            // Uppdatera tid
+            audio.ontimeupdate = () => {
+                slider.value = Math.floor(audio.currentTime);
+                curTime.innerText = formatTime(audio.currentTime);
+            };
+
+            // Spola
+            slider.oninput = () => { audio.currentTime = slider.value; };
+
+            // Play/Pause logik
+            btn.onclick = () => {
+                if (audio.paused) {
                     arm.style.transform = "rotate(25deg)"; // Armen åker på
                     
                     setTimeout(() => {
-                        label.style.animationPlayState = "running";
                         audio.play();
-                        dispTitle.innerText = title;
-                        startTimer(audio, dispTime);
-                    }, 1000); // Vänta på armen innan start
+                        disk.style.animationPlayState = "running";
+                        icon.className = "bi bi-pause-fill"; // Byt till paus-ikon
+                        document.getElementById('display-title').innerText = title.toUpperCase();
+                    }, 1000);
                 } else {
-                    // STOPPA
-                    isPlaying = false;
-                    arm.style.transform = "rotate(0deg)"; // Armen åker tillbaka
-                    label.style.animationPlayState = "paused";
                     audio.pause();
-                    dispTitle.innerText = "PAUSAD";
+                    disk.style.animationPlayState = "paused";
+                    arm.style.transform = "rotate(0deg)"; // Armen åker av
+                    icon.className = "bi bi-play-fill"; // Byt till play-ikon
                 }
             };
         });
 }
 
-function startTimer(audio, display) {
-    setInterval(() => {
-        if (!audio.paused) {
-            let mins = Math.floor(audio.currentTime / 60);
-            let secs = Math.floor(audio.currentTime % 60);
-            display.innerText = 
-                (mins < 10 ? "0" + mins : mins) + ":" + 
-                (secs < 10 ? "0" + secs : secs);
-        }
-    }, 1000);
+function formatTime(seconds) {
+    let m = Math.floor(seconds / 60);
+    let s = Math.floor(seconds % 60);
+    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
 }
