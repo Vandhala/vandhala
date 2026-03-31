@@ -1301,38 +1301,170 @@ html, body {
 
 /****** Spela morgonmedetation sida ******/
 
-/******* Radio ********/
-/* Retro displayen ovanpå träet */
+/******* Radio / Vinyl-spelare *******/
+
+/* Behållare för hela klabbet */
+#turntable-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background: transparent;
+}
+
+/* RETRO DISPLAY */
 .retro-display {
     background: #222;
     border: 4px solid #b38674;
-    padding: 10px;
+    padding: 15px;
     font-family: 'Courier New', Courier, monospace;
     color: #00ff00;
     text-shadow: 0 0 5px #00ff00;
-    width: 300px;
-    margin-bottom: 20px;
+    width: 350px;
+    margin-bottom: 30px;
     border-radius: 10px;
-    box-shadow: inset 0 0 10px #000;
+    box-shadow: inset 0 0 15px #000, 0 10px 20px rgba(0,0,0,0.3);
+    text-align: center;
+    z-index: 20;
 }
 
-#display-title { font-size: 1.2rem; font-weight: bold; overflow: hidden; white-space: nowrap; }
-#display-time { font-size: 1.5rem; letter-spacing: 2px; }
+#display-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+#display-time { font-size: 1.6rem; letter-spacing: 3px; }
 
-/* Gruppera armen så den kan rotera runt sin bas */
+/* SJÄLVA SPELAREN */
+#turntable {
+  position: relative;
+  width: 660px;
+  height: 400px;
+  background: transparent;
+}
+
+#disk {
+  position: absolute;
+  top: -60px;
+  left: 128px;
+  width: 300px;
+  height: 300px;
+  background: #1a1a1a;
+  border-radius: 150px;
+  box-shadow: 0px 8px #b8c6db;
+  transform: rotateX(50deg) rotateY(-3deg);
+  z-index: 5;
+  animation: spin 5s linear infinite;
+  animation-play-state: paused;
+}
+
+#disk:before {
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  width: 300px;
+  height: 300px;
+  background: #383838;
+  border-radius: 150px;
+  box-shadow: 0px 3px #252525;
+  content: '';
+}
+
+#label {
+  position: absolute;
+  top: 75px;
+  left: 95px;
+  width: 110px;
+  height: 110px;
+  border-radius: 150px;
+  background: #ac5151;
+  border: 5px solid #9dbc96;
+}
+
+/* TRÄ-BASEN */
+#wood {
+  position: absolute;
+  top: 219px;
+  left: 43px;
+  width: 440px;
+  height: 26px;
+  background: #b38674;
+  border-radius: 0 0 15px 8px;
+  transform: rotateZ(10deg) skewX(10deg);
+  overflow: hidden;
+  z-index: 1;
+}
+
+#wood2 {
+  position: absolute;
+  top: 52px;
+  left: 524px;
+  width: 25px;
+  height: 240px;
+  background: #b38674;
+  border-radius: 0 2px 25px 0;
+  transform: rotateZ(50deg) skewX(15deg) skewY(48deg);
+  overflow: hidden;
+}
+
+/* ARM-GRUPPEN (Ny logik för rotation) */
 #arm-group {
     position: absolute;
-    top: 55px;
-    left: 490px;
-    width: 60px;
-    height: 60px;
-    z-index: 10;
-    transform-origin: 30px 30px; /* Rotera runt basen */
+    top: 35px;
+    left: 485px;
+    width: 100px;
+    height: 100px;
+    z-index: 15;
+    transform-origin: 50% 50%;
     transition: transform 1.5s ease-in-out;
     transform: rotate(0deg);
 }
 
-/* Pausa animationen som standard */
-#label, #disk {
-    animation-play-state: paused !important;
+#arm {
+  position: absolute;
+  top: 50px;
+  left: -100px;
+  width: 150px;
+  height: 8px;
+  background: #464646;
+  border-bottom: 3px solid #1a1a1a;
+  border-radius: 45px;
+  transform: rotateZ(-55deg);
 }
+
+#base {
+  position: absolute;
+  top: 55px;
+  left: 490px;
+  width: 58px;
+  height: 58px;
+  background: #1a1a1a;
+  border-radius: 55px;
+  transform: rotateZ(30deg) skewX(-26deg);
+  z-index: 4;
+}
+
+/* KNAPPEN */
+#button {
+  position: absolute;
+  top: 155px;
+  left: 64px;
+  width: 25px;
+  height: 25px;
+  background: #464646;
+  border-radius: 50%;
+  box-shadow: 2px 2px #1a1a1a;
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+#button:active {
+  transform: translateY(2px);
+  box-shadow: 0px 0px #1a1a1a;
+}
+
+/* ANIMATIONER */
+@keyframes spin {
+  from { transform: rotateX(50deg) rotateY(-3deg) rotateZ(0deg); }
+  to { transform: rotateX(50deg) rotateY(-3deg) rotateZ(360deg); }
+}
+
+/* ... (Här kan du lägga till alla #grain1, #grain2 osv om du vill ha trämönstret, 
+men ovanstående räcker för att få fram huvuddelarna!) ... */
