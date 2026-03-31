@@ -294,88 +294,61 @@ function displayResults(list) {
     resultsContainer.style.display = 'block';
 }
 
-//---- boombox ----
+//---- Radio ----
 function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
-    // 1. Hämta all data från HTML-diven
-    const bgData = placeholder.getAttribute('data-bg');
-    const cassetteData = placeholder.getAttribute('data-cassette');
-    const titleData = placeholder.getAttribute('data-title');
-    const audioSrc = placeholder.getAttribute('data-audio'); // ../audio/morgonmeditation.mp3
+    // Hämta data från HTML-diven (som vi gjorde förut)
+    const title = placeholder.getAttribute('data-title');
+    const audioSrc = placeholder.getAttribute('data-audio');
+    const audio = new Audio(audioSrc);
 
     fetch('../components/radio-template.html')
         .then(res => res.text())
         .then(html => {
             placeholder.innerHTML = html;
 
-            // 2. Koppla elementen från mallen
-            const bgImg = document.getElementById('radio-bg-img');
-            const cassetteImg = document.getElementById('active-cassette');
-            const radioTitle = document.getElementById('radio-title');
-            const playBtn = document.getElementById('radio-play-btn');
-            
-            // Skapa ett dolt ljud-element
-            const audio = new Audio(audioSrc);
+            const btn = document.getElementById('button');
+            const arm = document.getElementById('arm-group');
+            const label = document.getElementById('label');
+            const dispTitle = document.getElementById('display-title');
+            const dispTime = document.getElementById('display-time');
 
-            // 3. Sätt startläget (Kassetten börjar lite utanför/ovanför för animation)
-            if (bgImg) bgImg.src = bgData;
-            if (cassetteImg) {
-                cassetteImg.src = cassetteData;
-                // Startposition för animation: gömd och lite högre upp
-                gsap.set(cassetteImg, { y: -50, opacity: 0 });
-            }
-            if (radioTitle) radioTitle.innerText = titleData;
-
-            // 4. ANIMATION: Kassetten åker ner i luckan när mallen laddats
-            gsap.to(cassetteImg, {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power2.out",
-                delay: 0.5
-            });
-
-            // 5. LOGIK FÖR PLAY-KNAPPEN
             let isPlaying = false;
 
-            playBtn.addEventListener('click', () => {
+            btn.onclick = function() {
                 if (!isPlaying) {
-                    audio.play();
-                    playBtn.innerText = "PAUSE";
-                    // En liten extra animation: kassetten "skakar" lite när den spelar
-                    gsap.to(cassetteImg, { 
-                        scale: 1.02, 
-                        repeat: -1, 
-                        yoyo: true, 
-                        duration: 0.5, 
-                        ease: "sine.inOut" 
-                    });
+                    // STARTA
+                    isPlaying = true;
+                    arm.style.transform = "rotate(25deg)"; // Armen åker på
+                    
+                    setTimeout(() => {
+                        label.style.animationPlayState = "running";
+                        audio.play();
+                        dispTitle.innerText = title;
+                        startTimer(audio, dispTime);
+                    }, 1000); // Vänta på armen innan start
                 } else {
+                    // STOPPA
+                    isPlaying = false;
+                    arm.style.transform = "rotate(0deg)"; // Armen åker tillbaka
+                    label.style.animationPlayState = "paused";
                     audio.pause();
-                    playBtn.innerText = "PLAY";
-                    gsap.killTweensOf(cassetteImg); // Stoppa skaket
-                    gsap.to(cassetteImg, { scale: 1, duration: 0.3 });
+                    dispTitle.innerText = "PAUSAD";
                 }
-                isPlaying = !isPlaying;
-            });
-        })
-        .catch(err => console.error("Fel vid start av radio:", err));
+            };
+        });
 }
-//----bombox slut ---
 
-// --- STARTA ALLT ---
-document.addEventListener("DOMContentLoaded", () => {
-    loadComponent('nav-placeholder', 'nav-template.html');
-    loadComponent('footer-placeholder', 'footer-template.html');
-    
-    updateDynamicGreeting();
-    updateMeditationHero();
-    setTimeout(typeLoop, 1000);
-});
-
-setInterval(() => {
-    updateDynamicGreeting();
-    updateMeditationHero();
-}, 1800000);
+function startTimer(audio, display) {
+    setInterval(() => {
+        if (!audio.paused) {
+            let mins = Math.floor(audio.currentTime / 60);
+            let secs = Math.floor(audio.currentTime % 60);
+            display.innerText = 
+                (mins < 10 ? "0" + mins : mins) + ":" + 
+                (secs < 10 ? "0" + secs : secs);
+        }
+    }, 1000);
+}
