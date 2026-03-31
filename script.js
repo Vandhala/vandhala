@@ -295,15 +295,24 @@ function displayResults(list) {
 }
 
 //---- Radio ----
+//---- Radio ----
 function initRadio() {
     const placeholder = document.getElementById('radio-placeholder');
     if (!placeholder) return;
 
-    const audio = new Audio(placeholder.getAttribute('data-audio'));
+    const audioPath = placeholder.getAttribute('data-audio');
     const title = placeholder.getAttribute('data-title');
+    const audio = new Audio(audioPath);
 
-    fetch('../components/radio-template.html')
-        .then(res => res.text())
+    // Smart sökning: Kollar om vi är på index.html eller en undersida
+    const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
+    const templatePath = isIndex ? 'components/radio-template.html' : '../components/radio-template.html';
+
+    fetch(templatePath)
+        .then(res => {
+            if (!res.ok) throw new Error("Kunde inte hitta radio-template");
+            return res.text();
+        })
         .then(html => {
             placeholder.innerHTML = html;
 
@@ -312,6 +321,8 @@ function initRadio() {
             const arm = document.getElementById('arm-group');
             const disk = document.getElementById('disk');
             const slider = document.getElementById('seek-slider');
+            const curTimeText = document.getElementById('current-time');
+            const durTimeText = document.getElementById('total-duration');
 
             btn.onclick = () => {
                 if (audio.paused) {
@@ -319,29 +330,33 @@ function initRadio() {
                     setTimeout(() => {
                         audio.play();
                         disk.style.animationPlayState = "running"; // Skivan snurrar
-                        icon.className = "bi bi-pause-fill";
-                        document.getElementById('display-title').innerText = title.toUpperCase();
+                        if(icon) icon.className = "bi bi-pause-fill";
+                        const displayTitle = document.getElementById('display-title');
+                        if(displayTitle) displayTitle.innerText = title.toUpperCase();
                     }, 1000);
                 } else {
                     audio.pause();
                     disk.style.animationPlayState = "paused"; // Skivan stannar
                     arm.style.transform = "rotate(0deg)"; // Armen går tillbaka
-                    icon.className = "bi bi-play-fill";
+                    if(icon) icon.className = "bi bi-play-fill";
                 }
             };
 
             audio.ontimeupdate = () => {
-                slider.value = audio.currentTime;
-                document.getElementById('current-time').innerText = formatTime(audio.currentTime);
+                if(slider) slider.value = audio.currentTime;
+                if(curTimeText) curTimeText.innerText = formatTime(audio.currentTime);
             };
             
             audio.onloadedmetadata = () => {
-                slider.max = audio.duration;
-                document.getElementById('total-duration').innerText = formatTime(audio.duration);
+                if(slider) slider.max = audio.duration;
+                if(durTimeText) durTimeText.innerText = formatTime(audio.duration);
             };
 
-            slider.oninput = () => { audio.currentTime = slider.value; };
-        });
+            if(slider) {
+                slider.oninput = () => { audio.currentTime = slider.value; };
+            }
+        })
+        .catch(err => console.error("Radio-fel:", err));
 }
 
 function formatTime(secs) {
