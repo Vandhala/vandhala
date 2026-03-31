@@ -175,23 +175,22 @@
     <script src="js/script.js"></script> 
 
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            // Laddar komponenter
-            loadComponent('nav-placeholder', '/nav-template.html');
-            loadComponent('footer-placeholder', '/footer-template.html');
-            
-            // Startar välkomsttexten (hälsningen)
-            // Dubbelkolla i din script.js om funktionen heter 'startWelcomeText' eller något annat
-            if (typeof startWelcomeText === 'function') {
-                startWelcomeText();
-            }
+    window.addEventListener('DOMContentLoaded', () => {
+        // Om filerna ligger i samma mapp som index.html, ta bort "components/"
+        loadComponent('nav-placeholder', 'nav-template.html');
+        loadComponent('footer-placeholder', 'footer-template.html');
+        
+        // Starta hälsningen
+        if (typeof startWelcomeText === 'function') {
+            startWelcomeText();
+        }
 
-            // Initiera radio BARA om placeholder finns på sidan
-            if (document.getElementById('radio-placeholder')) {
-                initRadio();
-            }
-        });
-    </script>
+        // Kör radion BARA om den finns på sidan
+        if (document.getElementById('radio-placeholder')) {
+            initRadio();
+        }
+    });
+</script>
 
 </body>
 </html>
