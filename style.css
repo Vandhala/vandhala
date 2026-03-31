@@ -1303,152 +1303,95 @@ html, body {
 
 /******* Radio / Vinyl-spelare *******/
 
-/******* VINYLSPELARE - KOMPLETT DESIGN *******/
-
-#turntable-placement-container {
-    display: flex;
-    justify-content: center; /* Centrerar den snyggt i sin behållare */
-    padding: 20px;
-    width: 100%;
-}
+/******* NY MODERN VINYLSPELARE *******/
 
 #turntable-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: scale(0.75); /* Gör den 25% mindre så den inte täcker allt */
-    transform-origin: top center;
+    width: 100%;
+    max-width: 450px; /* Perfekt storlek för både desktop och mobil */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* RETRO DISPLAY */
+/* Displayen */
 .retro-display {
     background: #1a1a1a;
-    border: 4px solid #8d6251;
-    padding: 20px;
-    font-family: 'Courier New', monospace;
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
-    width: 400px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: inset 0 0 15px #000, 0 10px 25px rgba(0,0,0,0.4);
-}
-
-#display-title { font-size: 1.2rem; margin-bottom: 10px; font-weight: bold; }
-
-/* REGALGE */
-.player-controls { width: 100%; }
-#seek-slider {
+    border: 3px solid #bfa38a;
+    padding: 15px;
     width: 100%;
-    accent-color: #ac5151;
-    cursor: pointer;
-}
-.time-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.1rem;
-    margin-top: 5px;
+    border-radius: 10px;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 10px #000;
 }
 
-/* SJÄLVA SPELAREN */
-#turntable {
+#seek-slider { width: 100%; accent-color: #ac5151; cursor: pointer; }
+.time-info { display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 5px; }
+
+/* Själva spelaren */
+.turntable-plinth {
     position: relative;
-    width: 660px;
-    height: 400px;
-    background: #b38674; /* Träfärg */
-    border: 12px solid #8d6251; /* Ram */
-    border-radius: 20px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    width: 100%;
+    aspect-ratio: 450 / 320; /* Håller formen på alla skärmar */
 }
 
-/* SKIVAN */
-#disk {
+.wood-base {
     position: absolute;
-    top: -60px;
-    left: 128px;
-    width: 300px;
-    height: 300px;
-    background: #1a1a1a;
-    border-radius: 50%;
-    transform: rotateX(50deg) rotateY(-3deg);
-    z-index: 5;
+    bottom: 0; width: 100%; height: 20%;
+    background: #bfa38a; border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.white-top {
+    position: absolute;
+    top: 0; width: 100%; height: 85%;
+    background: #ffffff; border-radius: 8px;
+    z-index: 2;
+}
+
+/* Skivan */
+.vinyl-record {
+    position: absolute;
+    top: 10%; left: 8%; width: 55%; height: 80%;
+    background: #1a1a1a; border-radius: 50%;
     animation: spin 5s linear infinite;
     animation-play-state: paused;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
 }
 
-#label {
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.record-label {
     position: absolute;
-    top: 95px;
-    left: 95px;
-    width: 110px;
-    height: 110px;
-    background: #ac5151;
-    border-radius: 50%;
-    border: 4px solid #333;
+    top: 35%; left: 35%; width: 30%; height: 30%;
+    background: #5c755e; border-radius: 50%;
+    border: 2px solid #a84a4a; overflow: hidden;
 }
 
-/* ARM & BAS */
-#arm-group {
-    position: absolute;
-    top: 60px;
-    left: 490px;
-    width: 60px;
-    height: 60px;
-    z-index: 10;
-    transition: transform 1.2s ease-in-out;
-    transform-origin: center center;
-}
+.label-split { width: 50%; height: 100%; background: #a84a4a; }
 
-#arm {
-    position: absolute;
-    top: 0;
-    left: -120px;
-    width: 160px;
-    height: 10px;
-    background: #444;
-    border-radius: 10px;
-    transform: rotate(-55deg);
-}
-
-#base {
-    position: absolute;
-    top: 55px;
-    left: 490px;
-    width: 60px;
-    height: 60px;
-    background: #222;
-    border-radius: 50%;
-    z-index: 4;
-}
-
-/* PLAY-KNAPP */
+/* Play-knappen */
 #button {
     position: absolute;
-    top: 300px;
-    left: 50px;
-    width: 50px;
-    height: 50px;
-    background: #333;
-    border: 3px solid #555;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 20;
-    box-shadow: 0 4px 0 #111;
+    bottom: 15%; left: 10%; width: 35px; height: 35px;
+    background: #333; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; cursor: pointer; z-index: 10;
 }
 
-#button:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #111;
+/* Tonarmen */
+#arm-group {
+    position: absolute;
+    top: 12%; right: 12%; width: 15%; height: 65%;
+    transition: transform 1.2s ease-in-out;
+    transform-origin: top center; z-index: 5;
 }
 
-/* ANIMATION */
-@keyframes spin {
-    from { transform: rotateX(50deg) rotateY(-3deg) rotateZ(0deg); }
-    to { transform: rotateX(50deg) rotateY(-3deg) rotateZ(360deg); }
-}
+.tonearm-tube { width: 6px; height: 100%; background: #333; margin: 0 auto; border-radius: 3px; }
+
+/* Fötterna */
+.feet { position: absolute; bottom: -8px; width: 30px; height: 10px; background: #333; border-radius: 3px; }
+.feet.left { left: 15%; } .feet.right { right: 15%; }

@@ -1,39 +1,40 @@
 <div id="turntable-container">
-  <div class="retro-display">
-    <div id="display-title">REDO...</div>
-    
-    <div class="player-controls">
-        <input type="range" id="seek-slider" value="0" step="1">
-        <div class="time-info">
-            <span id="current-time">00:00</span>
-            <span id="total-duration">00:00</span>
+    <div class="retro-display">
+        <div id="display-title">VÄNTAR...</div>
+        <div class="player-controls">
+            <input type="range" id="seek-slider" value="0" step="1">
+            <div class="time-info">
+                <span id="current-time">00:00</span>
+                <span id="total-duration">00:00</span>
+            </div>
         </div>
     </div>
-  </div>
 
-  <div id="turntable">
-    <div id="table-shadow"></div>
-    <div id="wood">
-        <div id="grain1"></div><div id="grain2"></div><div id="grain3"></div>
+    <div class="turntable-plinth">
+        <div class="wood-base">
+            <div class="feet left"></div>
+            <div class="feet right"></div>
+        </div>
+
+        <div class="white-top">
+            <div id="button" class="power-button">
+                <i id="play-icon" class="bi bi-play-fill"></i>
+            </div>
+
+            <div id="disk" class="vinyl-record">
+                <div class="record-label">
+                    <div class="label-split"></div>
+                    <div class="center-hole"></div>
+                </div>
+            </div>
+
+            <div id="arm-group" class="tonearm-assembly">
+                <div class="arm-base-hub"></div>
+                <div class="tonearm-tube">
+                    <div class="counterweight"></div>
+                    <div class="headshell"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="wood2"></div>
-    <div id="table"></div>
-    
-    <div id="button">
-        <i id="play-icon" class="bi bi-play-fill"></i>
-    </div>
-    
-    <div id="disk">
-      <div id="label"></div>
-    </div>
-    
-    <div id="axis"></div>
-    <div id="base"></div>
-    
-    <div id="arm-group">
-        <div id="arm"></div>
-        <div id="weight"></div>
-        <div id="head"></div>
-    </div>
-  </div>
 </div>
